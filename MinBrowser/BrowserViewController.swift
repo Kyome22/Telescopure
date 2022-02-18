@@ -16,8 +16,6 @@ class BrowserViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
-    @IBOutlet weak var reloadButton: UIBarButtonItem!
-    @IBOutlet weak var stopLoadButton: UIBarButtonItem!
     
     var initialURLString: String? = nil
     private var cancellables = Set<AnyCancellable>()
@@ -27,7 +25,10 @@ class BrowserViewController: UIViewController {
         searchBar.autocapitalizationType = .none
         searchBar.delegate = self
         webView.uiDelegate = self
-        webView.allowsBackForwardNavigationGestures = true
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        webView.scrollView.refreshControl = refreshControl
         binding()
         openURL(urlString: initialURLString ?? "https://www.google.com")
     }
@@ -41,11 +42,9 @@ class BrowserViewController: UIViewController {
             })
             .store(in: &cancellables)
         
-        stopLoadButton.isEnabled = false
         progressView.isHidden = true
         webView.publisher(for: \.isLoading, options: .new)
             .sink(receiveValue: { [weak self] isLoading in
-                self?.stopLoadButton.isEnabled = isLoading
                 self?.progressView.isHidden = !isLoading
                 self?.progressView.setProgress(isLoading ? 0.1 : 0.0, animated: isLoading)
             })
@@ -83,12 +82,9 @@ class BrowserViewController: UIViewController {
         }
     }
     
-    @IBAction func reload(_ sender: Any) {
+    @objc func refresh(_ sender: UIRefreshControl) {
         webView.reload()
-    }
-    
-    @IBAction func stopLoad(_ sender: Any) {
-        webView.stopLoading()
+        sender.endRefreshing()
     }
     
     func openURL(urlString: String) {
