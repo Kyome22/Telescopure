@@ -7,18 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1CB2FDA927BE1D37009D69F6 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB2FDA827BE1D37009D69F6 /* ShareViewController.swift */; };
+		1CB2FDAC27BE1D37009D69F6 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CB2FDAA27BE1D37009D69F6 /* MainInterface.storyboard */; };
+		1CB2FDB027BE1D37009D69F6 /* MinBrowserShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1CB2FDA627BE1D37009D69F6 /* MinBrowserShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1CC0C73427BB655400694B5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C73327BB655400694B5F /* AppDelegate.swift */; };
 		1CC0C73627BB655400694B5F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C73527BB655400694B5F /* SceneDelegate.swift */; };
-		1CC0C73827BB655400694B5F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C73727BB655400694B5F /* ViewController.swift */; };
 		1CC0C73B27BB655400694B5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC0C73927BB655400694B5F /* Main.storyboard */; };
 		1CC0C73D27BB655500694B5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CC0C73C27BB655500694B5F /* Assets.xcassets */; };
 		1CC0C74027BB655500694B5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC0C73E27BB655500694B5F /* LaunchScreen.storyboard */; };
 		1CC0C74B27BB655500694B5F /* MinBrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C74A27BB655500694B5F /* MinBrowserTests.swift */; };
 		1CC0C75527BB655500694B5F /* MinBrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C75427BB655500694B5F /* MinBrowserUITests.swift */; };
 		1CC0C75727BB655500694B5F /* MinBrowserUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C75627BB655500694B5F /* MinBrowserUITestsLaunchTests.swift */; };
+		1CC0C76427BDF11E00694B5F /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C76327BDF11E00694B5F /* BrowserViewController.swift */; };
+		1CC0C76627BDF1AC00694B5F /* WKWebView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C76527BDF1AC00694B5F /* WKWebView+Extension.swift */; };
+		1CC0C76827BDF32300694B5F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC0C76727BDF32300694B5F /* String+Extension.swift */; };
+		1CC0C76B27BDF40E00694B5F /* BrowserView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CC0C76A27BDF40E00694B5F /* BrowserView.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1CB2FDAE27BE1D37009D69F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1CC0C72827BB655300694B5F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1CB2FDA527BE1D37009D69F6;
+			remoteInfo = MinBrowserShare;
+		};
 		1CC0C74727BB655500694B5F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1CC0C72827BB655300694B5F /* Project object */;
@@ -35,11 +48,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		1CB2FDB427BE1D37009D69F6 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1CB2FDB027BE1D37009D69F6 /* MinBrowserShare.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		1CB2FDA627BE1D37009D69F6 /* MinBrowserShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MinBrowserShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1CB2FDA827BE1D37009D69F6 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		1CB2FDAB27BE1D37009D69F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		1CB2FDAD27BE1D37009D69F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1CC0C73027BB655400694B5F /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC0C73327BB655400694B5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CC0C73527BB655400694B5F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1CC0C73727BB655400694B5F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1CC0C73A27BB655400694B5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1CC0C73C27BB655500694B5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1CC0C73F27BB655500694B5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,9 +79,20 @@
 		1CC0C75027BB655500694B5F /* MinBrowserUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MinBrowserUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC0C75427BB655500694B5F /* MinBrowserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserUITests.swift; sourceTree = "<group>"; };
 		1CC0C75627BB655500694B5F /* MinBrowserUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1CC0C76327BDF11E00694B5F /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		1CC0C76527BDF1AC00694B5F /* WKWebView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WKWebView+Extension.swift"; sourceTree = "<group>"; };
+		1CC0C76727BDF32300694B5F /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		1CC0C76A27BDF40E00694B5F /* BrowserView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BrowserView.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1CB2FDA327BE1D37009D69F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CC0C72D27BB655400694B5F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -76,12 +117,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1CB2FDA727BE1D37009D69F6 /* MinBrowserShare */ = {
+			isa = PBXGroup;
+			children = (
+				1CB2FDA827BE1D37009D69F6 /* ShareViewController.swift */,
+				1CB2FDAA27BE1D37009D69F6 /* MainInterface.storyboard */,
+				1CB2FDAD27BE1D37009D69F6 /* Info.plist */,
+			);
+			path = MinBrowserShare;
+			sourceTree = "<group>";
+		};
 		1CC0C72727BB655300694B5F = {
 			isa = PBXGroup;
 			children = (
 				1CC0C73227BB655400694B5F /* MinBrowser */,
 				1CC0C74927BB655500694B5F /* MinBrowserTests */,
 				1CC0C75327BB655500694B5F /* MinBrowserUITests */,
+				1CB2FDA727BE1D37009D69F6 /* MinBrowserShare */,
 				1CC0C73127BB655400694B5F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -92,6 +144,7 @@
 				1CC0C73027BB655400694B5F /* MinBrowser.app */,
 				1CC0C74627BB655500694B5F /* MinBrowserTests.xctest */,
 				1CC0C75027BB655500694B5F /* MinBrowserUITests.xctest */,
+				1CB2FDA627BE1D37009D69F6 /* MinBrowserShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,9 +152,11 @@
 		1CC0C73227BB655400694B5F /* MinBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				1CC0C76927BDF32A00694B5F /* Extensions */,
 				1CC0C73327BB655400694B5F /* AppDelegate.swift */,
 				1CC0C73527BB655400694B5F /* SceneDelegate.swift */,
-				1CC0C73727BB655400694B5F /* ViewController.swift */,
+				1CC0C76327BDF11E00694B5F /* BrowserViewController.swift */,
+				1CC0C76A27BDF40E00694B5F /* BrowserView.storyboard */,
 				1CC0C73927BB655400694B5F /* Main.storyboard */,
 				1CC0C73C27BB655500694B5F /* Assets.xcassets */,
 				1CC0C73E27BB655500694B5F /* LaunchScreen.storyboard */,
@@ -127,9 +182,35 @@
 			path = MinBrowserUITests;
 			sourceTree = "<group>";
 		};
+		1CC0C76927BDF32A00694B5F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1CC0C76527BDF1AC00694B5F /* WKWebView+Extension.swift */,
+				1CC0C76727BDF32300694B5F /* String+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1CB2FDA527BE1D37009D69F6 /* MinBrowserShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CB2FDB127BE1D37009D69F6 /* Build configuration list for PBXNativeTarget "MinBrowserShare" */;
+			buildPhases = (
+				1CB2FDA227BE1D37009D69F6 /* Sources */,
+				1CB2FDA327BE1D37009D69F6 /* Frameworks */,
+				1CB2FDA427BE1D37009D69F6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MinBrowserShare;
+			productName = MinBrowserShare;
+			productReference = 1CB2FDA627BE1D37009D69F6 /* MinBrowserShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1CC0C72F27BB655400694B5F /* MinBrowser */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1CC0C75A27BB655500694B5F /* Build configuration list for PBXNativeTarget "MinBrowser" */;
@@ -137,10 +218,12 @@
 				1CC0C72C27BB655400694B5F /* Sources */,
 				1CC0C72D27BB655400694B5F /* Frameworks */,
 				1CC0C72E27BB655400694B5F /* Resources */,
+				1CB2FDB427BE1D37009D69F6 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1CB2FDAF27BE1D37009D69F6 /* PBXTargetDependency */,
 			);
 			name = MinBrowser;
 			productName = MinBrowser;
@@ -193,6 +276,9 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					1CB2FDA527BE1D37009D69F6 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
 					1CC0C72F27BB655400694B5F = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -222,15 +308,25 @@
 				1CC0C72F27BB655400694B5F /* MinBrowser */,
 				1CC0C74527BB655500694B5F /* MinBrowserTests */,
 				1CC0C74F27BB655500694B5F /* MinBrowserUITests */,
+				1CB2FDA527BE1D37009D69F6 /* MinBrowserShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1CB2FDA427BE1D37009D69F6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB2FDAC27BE1D37009D69F6 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CC0C72E27BB655400694B5F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC0C76B27BDF40E00694B5F /* BrowserView.storyboard in Resources */,
 				1CC0C74027BB655500694B5F /* LaunchScreen.storyboard in Resources */,
 				1CC0C73D27BB655500694B5F /* Assets.xcassets in Resources */,
 				1CC0C73B27BB655400694B5F /* Main.storyboard in Resources */,
@@ -254,12 +350,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1CB2FDA227BE1D37009D69F6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CB2FDA927BE1D37009D69F6 /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1CC0C72C27BB655400694B5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1CC0C73827BB655400694B5F /* ViewController.swift in Sources */,
+				1CC0C76427BDF11E00694B5F /* BrowserViewController.swift in Sources */,
 				1CC0C73427BB655400694B5F /* AppDelegate.swift in Sources */,
+				1CC0C76627BDF1AC00694B5F /* WKWebView+Extension.swift in Sources */,
+				1CC0C76827BDF32300694B5F /* String+Extension.swift in Sources */,
 				1CC0C73627BB655400694B5F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,6 +390,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1CB2FDAF27BE1D37009D69F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1CB2FDA527BE1D37009D69F6 /* MinBrowserShare */;
+			targetProxy = 1CB2FDAE27BE1D37009D69F6 /* PBXContainerItemProxy */;
+		};
 		1CC0C74827BB655500694B5F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1CC0C72F27BB655400694B5F /* MinBrowser */;
@@ -297,6 +408,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1CB2FDAA27BE1D37009D69F6 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1CB2FDAB27BE1D37009D69F6 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		1CC0C73927BB655400694B5F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -316,6 +435,58 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1CB2FDB227BE1D37009D69F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJ5N2X84K8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MinBrowserShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MinBrowserShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.MinBrowser.MinBrowserShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1CB2FDB327BE1D37009D69F6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VJ5N2X84K8;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MinBrowserShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MinBrowserShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.MinBrowser.MinBrowserShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		1CC0C75827BB655500694B5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -367,7 +538,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -422,7 +593,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -435,6 +606,7 @@
 		1CC0C75B27BB655500694B5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -442,11 +614,14 @@
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MinBrowser/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use Microphone";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = BrowserView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -463,6 +638,7 @@
 		1CC0C75C27BB655500694B5F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -470,11 +646,14 @@
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MinBrowser/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Use Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "Use Microphone";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = BrowserView;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -567,6 +746,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1CB2FDB127BE1D37009D69F6 /* Build configuration list for PBXNativeTarget "MinBrowserShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CB2FDB227BE1D37009D69F6 /* Debug */,
+				1CB2FDB327BE1D37009D69F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1CC0C72B27BB655300694B5F /* Build configuration list for PBXProject "MinBrowser" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
