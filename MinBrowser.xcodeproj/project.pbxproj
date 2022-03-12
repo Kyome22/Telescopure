@@ -219,7 +219,6 @@
 				1CC0C72D27BB655400694B5F /* Frameworks */,
 				1CC0C72E27BB655400694B5F /* Resources */,
 				1CB2FDB427BE1D37009D69F6 /* Embed App Extensions */,
-				1C711F4A27DC50220087E27D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -305,7 +304,6 @@
 			);
 			mainGroup = 1CC0C72727BB655300694B5F;
 			packageReferences = (
-				1C42E24227DC691100A8C313 /* XCRemoteSwiftPackageReference "LineCounter" */,
 			);
 			productRefGroup = 1CC0C73127BB655400694B5F /* Products */;
 			projectDirPath = "";
@@ -354,27 +352,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		1C711F4A27DC50220087E27D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "xcrun --sdk macosx swift run \\\n--package-path ${BUILD_DIR%Build/*}SourcePackages/checkouts/LineCounter \\\nlc -p ./${PRODUCT_NAME} -e swift --no-warnings\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1CB2FDA227BE1D37009D69F6 /* Sources */ = {
@@ -819,17 +796,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		1C42E24227DC691100A8C313 /* XCRemoteSwiftPackageReference "LineCounter" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Kyome22/LineCounter.git";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 1CC0C72827BB655300694B5F /* Project object */;
 }
