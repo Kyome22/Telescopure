@@ -2,7 +2,7 @@
 //  MinBrowserUITests.swift
 //  MinBrowserUITests
 //
-//  Created by Takuto Nakamura on 2022/02/15.
+//  Created by Takuto Nakamura on 2022/04/02.
 //
 
 import XCTest
@@ -27,7 +27,6 @@ class MinBrowserUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 

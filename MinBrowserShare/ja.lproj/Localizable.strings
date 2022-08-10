@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/04/02.
+  
+*/
+
+"cancel" = "キャンセル";
+"open_in" = "MinBrowserで開く";
