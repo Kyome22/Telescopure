@@ -7,29 +7,71 @@
 
 import Foundation
 
-final class WebViewModel: ObservableObject {
-    enum Action {
-        case none
-        case goBack
-        case goForward
-        case reload
-        case search(String)
-    }
+enum WebAction {
+    case none
+    case goBack
+    case goForward
+    case reload
+    case search(String)
+}
 
-    enum Dialog {
-        case alert
-        case confirm
-        case prompt
-    }
+enum WebDialog {
+    case alert
+    case confirm
+    case prompt
+}
 
-    @Published var action: Action = .none
+protocol WebViewModelProtocol: ObservableObject {
+    var action: WebAction { get set }
+    var estimatedProgress: Double { get set }
+    var progressOpacity: Double { get set }
+    var canGoBack: Bool { get set }
+    var canGoForward: Bool { get set }
+
+    var showDialog: Bool { get set }
+    var dialog: WebDialog { get set }
+    var dialogMessage: String { get set }
+    var promptDefaultText: String { get set }
+    var promptImput: String { get set }
+
+    // MARK: Web Action
+    func search(with text: String)
+    func goBack()
+    func goForward()
+    func reload()
+
+    // MARK: JS Alert
+    func showAlert(
+        message: String,
+        completion: @escaping () -> Void
+    )
+
+    // MARK: JS Confirm
+    func showConfirm(
+        message: String,
+        completion: @escaping (Bool) -> Void
+    )
+
+    // MARK: JS Prompt
+    func showPrompt(
+        prompt: String,
+        defaultText: String?,
+        completion: @escaping (String?) -> Void
+    )
+
+    func dialogOK()
+    func dialogCancel()
+}
+
+final class WebViewModel: WebViewModelProtocol {
+    @Published var action: WebAction = .none
     @Published var estimatedProgress: Double = 0.0
     @Published var progressOpacity: Double = 1.0
     @Published var canGoBack: Bool = false
     @Published var canGoForward: Bool = false
 
     @Published var showDialog: Bool = false
-    @Published var dialog: Dialog = .alert
+    @Published var dialog: WebDialog = .alert
     @Published var dialogMessage: String = ""
     @Published var promptDefaultText: String = ""
     @Published var promptImput: String = ""
@@ -38,6 +80,7 @@ final class WebViewModel: ObservableObject {
     private var confirmHandler: ((Bool) -> Void)?
     private var promptHandler: ((String?) -> Void)?
 
+    // MARK: Web Action
     func search(with text: String) {
         action = .search(text)
     }

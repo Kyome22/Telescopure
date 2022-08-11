@@ -11,7 +11,7 @@ import SwiftUI
 struct MinBrowserApp: App {
     var body: some Scene {
         WindowGroup {
-            WebView()
+            WebView(viewModel: WebViewModel())
         }
     }
 }

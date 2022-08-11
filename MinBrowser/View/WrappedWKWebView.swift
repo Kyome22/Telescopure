@@ -9,20 +9,20 @@ import SwiftUI
 import WebKit
 import Combine
 
-struct WrappedWKWebView: UIViewRepresentable {
+struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
     typealias UIViewType = WKWebView
 
     private let webView: WKWebView
-    @ObservedObject var viewModel: WebViewModel
+    @ObservedObject var viewModel: T
 
-    init(viewModel: WebViewModel) {
+    init(viewModel: T) {
         webView = WKWebView()
         self.viewModel = viewModel
     }
 
     func makeUIView(context: Context) -> WKWebView {
-        webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
+        webView.uiDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
         webView.backgroundColor = UIColor.secondarySystemBackground
         webView.isOpaque = false
@@ -66,7 +66,7 @@ struct WrappedWKWebView: UIViewRepresentable {
         return Coordinator(self)
     }
 
-    final class Coordinator: NSObject {
+    final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         let contentView: WrappedWKWebView
         var cancellables = Set<AnyCancellable>()
 
@@ -101,66 +101,79 @@ struct WrappedWKWebView: UIViewRepresentable {
                 .assign(to: \.canGoForward, on: contentView.viewModel)
                 .store(in: &cancellables)
         }
-    }
-}
 
-// MARK: - WKNavigationDelegate
-extension WrappedWKWebView.Coordinator: WKNavigationDelegate {
-    func webView(
-        _ webView: WKWebView,
-        decidePolicyFor navigationAction: WKNavigationAction,
-        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-    ) {
-        if let requestURL = navigationAction.request.url {
-            NSLog("🌟🐤 \(requestURL.path)")
-            if requestURL.scheme == "http" || requestURL.scheme == "https" {
-                decisionHandler(.allow)
+        // MARK: - WKNavigationDelegate
+        func webView(
+            _ webView: WKWebView,
+            decidePolicyFor navigationAction: WKNavigationAction,
+            decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
+        ) {
+            guard let requestURL = navigationAction.request.url else {
+                decisionHandler(.cancel)
                 return
-            } else {
-//                UIApplication.shared.open(requestURL, options: [:]) { result in
-//                    NSLog("🌟🐙 \(result)")
-//                }
+            }
+
+            DebugLog(Coordinator.self, requestURL.absoluteString)
+
+            switch requestURL.scheme {
+            case "http", "https", "blob", "file", "about":
+                decisionHandler(.allow)
+            case "sms", "tel", "facetime", "facetime-audio", "mailto", "imessage":
+                UIApplication.shared.open(requestURL, options: [:]) { result in
+                    DebugLog(Coordinator.self, "\(result)")
+                }
+                decisionHandler(.cancel)
+            case "minbrowser":
+                if let components = URLComponents(url: requestURL, resolvingAgainstBaseURL: false),
+                   let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
+                   let queryURL = queryItem.value,
+                   let url = URL(string: queryURL) {
+                    webView.load(URLRequest(url: url))
+                }
+                decisionHandler(.cancel)
+            default:
+                UIApplication.shared.open(requestURL, options: [:]) { result in
+                    DebugLog(Coordinator.self, "\(result)")
+                }
+                decisionHandler(.cancel)
             }
         }
-        decisionHandler(.cancel)
-    }
-}
 
-// MARK: - WKUIDelegate
-extension WrappedWKWebView.Coordinator: WKUIDelegate {
-    // Alert
-    func webView(
-        _ webView: WKWebView,
-        runJavaScriptAlertPanelWithMessage message: String,
-        initiatedByFrame frame: WKFrameInfo,
-        completionHandler: @escaping () -> Void
-    ) {
-        Swift.print("🐸")
-        contentView.viewModel.showAlert(message: message,
-                                        completion: completionHandler)
-    }
+        // MARK: - WKUIDelegate
+        // Alert
+        func webView(
+            _ webView: WKWebView,
+            runJavaScriptAlertPanelWithMessage message: String,
+            initiatedByFrame frame: WKFrameInfo,
+            completionHandler: @escaping () -> Void
+        ) {
+            Swift.print("🐸")
+            contentView.viewModel.showAlert(message: message,
+                                            completion: completionHandler)
+        }
 
-    // Confirm
-    func webView(
-        _ webView: WKWebView,
-        runJavaScriptConfirmPanelWithMessage message: String,
-        initiatedByFrame frame: WKFrameInfo,
-        completionHandler: @escaping (Bool) -> Void
-    ) {
-        contentView.viewModel.showConfirm(message: message,
-                                          completion: completionHandler)
-    }
+        // Confirm
+        func webView(
+            _ webView: WKWebView,
+            runJavaScriptConfirmPanelWithMessage message: String,
+            initiatedByFrame frame: WKFrameInfo,
+            completionHandler: @escaping (Bool) -> Void
+        ) {
+            contentView.viewModel.showConfirm(message: message,
+                                              completion: completionHandler)
+        }
 
-    // Prompt
-    func webView(
-        _ webView: WKWebView,
-        runJavaScriptTextInputPanelWithPrompt prompt: String,
-        defaultText: String?,
-        initiatedByFrame frame: WKFrameInfo,
-        completionHandler: @escaping (String?) -> Void
-    ) {
-        contentView.viewModel.showPrompt(prompt: prompt,
-                                         defaultText: defaultText,
-                                         completion: completionHandler)
+        // Prompt
+        func webView(
+            _ webView: WKWebView,
+            runJavaScriptTextInputPanelWithPrompt prompt: String,
+            defaultText: String?,
+            initiatedByFrame frame: WKFrameInfo,
+            completionHandler: @escaping (String?) -> Void
+        ) {
+            contentView.viewModel.showPrompt(prompt: prompt,
+                                             defaultText: defaultText,
+                                             completion: completionHandler)
+        }
     }
 }

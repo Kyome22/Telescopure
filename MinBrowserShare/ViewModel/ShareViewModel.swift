@@ -17,7 +17,7 @@ protocol ShareViewModelProtocol: ObservableObject {
     func open()
 }
 
-class ShareViewModel: ShareViewModelProtocol {
+final class ShareViewModel: ShareViewModelProtocol {
     @Published var urlText: String = ""
 
     private let vc: UIViewController

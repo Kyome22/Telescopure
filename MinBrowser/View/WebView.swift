@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct WebView: View {
-    @StateObject var viewModel = WebViewModel()
+struct WebView<T: WebViewModelProtocol>: View {
+    @StateObject var viewModel: T
     @State var inputText: String = ""
 
     var body: some View {
@@ -34,7 +34,6 @@ struct WebView: View {
             )
         }
         .onOpenURL(perform: { url in
-            NSLog("🐮 onOpenURL")
             if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
                let queryURL = queryItem.value {
@@ -61,8 +60,39 @@ struct WebView: View {
     }
 }
 
+final class WebViewModelMock: WebViewModelProtocol {
+    @Published var action: WebAction = .none
+    @Published var estimatedProgress: Double = 0.0
+    @Published var progressOpacity: Double = 0.0
+    @Published var canGoBack: Bool = false
+    @Published var canGoForward: Bool = false
+
+    @Published var showDialog: Bool = false
+    @Published var dialog: WebDialog = .alert
+    @Published var dialogMessage: String = ""
+    @Published var promptDefaultText: String = ""
+    @Published var promptImput: String = ""
+
+    func search(with text: String) { fatalError() }
+    func goBack() { fatalError() }
+    func goForward() { fatalError() }
+    func reload() { fatalError() }
+
+    func showAlert(message: String, completion: @escaping () -> Void) {
+        fatalError()
+    }
+    func showConfirm(message: String, completion: @escaping (Bool) -> Void) {
+        fatalError()
+    }
+    func showPrompt(prompt: String, defaultText: String?, completion: @escaping (String?) -> Void) {
+        fatalError()
+    }
+    func dialogOK() { fatalError() }
+    func dialogCancel() { fatalError() }
+}
+
 struct WebView_Previews: PreviewProvider {
     static var previews: some View {
-        WebView()
+        WebView(viewModel: WebViewModelMock())
     }
 }

@@ -40,7 +40,7 @@ struct ShareView<T: ShareViewModelProtocol>: View {
     }
 }
 
-class ShareViewModelMock: ShareViewModelProtocol {
+final class ShareViewModelMock: ShareViewModelProtocol {
     @Published var urlText: String = ""
 
     func setURLText() {

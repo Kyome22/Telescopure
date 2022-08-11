@@ -26,7 +26,7 @@ extension WKWebView: WKScriptMessageHandler {
         didReceive message: WKScriptMessage
     ) {
         // Only a single line of text can be output.
-        NSLog("WKWebView: \(message.body)")
+        DebugLog(WKWebView.self, "\(message.body)")
     }
 }
 
