@@ -24,6 +24,8 @@ struct WebContentView: UIViewRepresentable {
         webView.uiDelegate = context.coordinator
         webView.navigationDelegate = context.coordinator
         webView.allowsBackForwardNavigationGestures = true
+        webView.backgroundColor = UIColor.secondarySystemBackground
+        webView.isOpaque = false
         return webView
     }
 
