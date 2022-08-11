@@ -1,5 +1,5 @@
 //
-//  WebContentViewModel.swift
+//  WebViewModel.swift
 //  MinBrowser
 //
 //  Created by Takuto Nakamura on 2022/08/10.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class WebContentViewModel: ObservableObject {
+final class WebViewModel: ObservableObject {
     enum Action {
         case none
         case goBack
@@ -55,7 +55,10 @@ final class WebContentViewModel: ObservableObject {
     }
 
     // MARK: JS Alert
-    func showAlert(message: String, completion: @escaping () -> Void) {
+    func showAlert(
+        message: String,
+        completion: @escaping () -> Void
+    ) {
         dialogMessage = message
         alertHandler = completion
         dialog = .alert
@@ -63,7 +66,10 @@ final class WebContentViewModel: ObservableObject {
     }
 
     // MARK: JS Confirm
-    func showConfirm(message: String, completion: @escaping (Bool) -> Void) {
+    func showConfirm(
+        message: String,
+        completion: @escaping (Bool) -> Void
+    ) {
         dialogMessage = message
         confirmHandler = completion
         dialog = .confirm
@@ -71,7 +77,11 @@ final class WebContentViewModel: ObservableObject {
     }
 
     // MARK: JS Prompt
-    func showPrompt(prompt: String, defaultText: String?, completion: @escaping (String?) -> Void) {
+    func showPrompt(
+        prompt: String,
+        defaultText: String?,
+        completion: @escaping (String?) -> Void
+    ) {
         dialogMessage = prompt
         promptDefaultText = defaultText ?? ""
         promptHandler = completion

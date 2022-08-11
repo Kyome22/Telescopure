@@ -71,12 +71,11 @@ class ShareViewModel: ShareViewModelProtocol {
             vc.extensionContext?.completeRequest(returningItems: [])
         }
         guard let urlString = url?.absoluteString,
-              let encoded = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+              let encoded = urlString.percentEncoded,
               let shareURL = URL(string: "minbrowser://?url=\(encoded)")
         else {
             return
         }
-        NSLog("🌟🌟 \(shareURL.debugDescription)")
         var responder: UIResponder? = vc
         while responder != nil {
             if let application = responder as? UIApplication {

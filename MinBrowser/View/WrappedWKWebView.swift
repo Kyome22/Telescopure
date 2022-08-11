@@ -1,5 +1,5 @@
 //
-//  WebContentView.swift
+//  WrappedWKWebView.swift
 //  MinBrowser
 //
 //  Created by Takuto Nakamura on 2022/04/02.
@@ -9,13 +9,13 @@ import SwiftUI
 import WebKit
 import Combine
 
-struct WebContentView: UIViewRepresentable {
+struct WrappedWKWebView: UIViewRepresentable {
     typealias UIViewType = WKWebView
 
     private let webView: WKWebView
-    @ObservedObject var viewModel: WebContentViewModel
+    @ObservedObject var viewModel: WebViewModel
 
-    init(viewModel: WebContentViewModel) {
+    init(viewModel: WebViewModel) {
         webView = WKWebView()
         self.viewModel = viewModel
     }
@@ -54,7 +54,7 @@ struct WebContentView: UIViewRepresentable {
                 openURL(urlString: "https://www.google.com")
             } else if searchText.match(pattern: #"^[a-zA-Z]+://"#) {
                 openURL(urlString: searchText)
-            } else if let encoded = searchText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            } else if let encoded = searchText.percentEncoded {
                 let urlString = "https://www.google.com/search?q=\(encoded)"
                 openURL(urlString: urlString)
             }
@@ -67,10 +67,10 @@ struct WebContentView: UIViewRepresentable {
     }
 
     final class Coordinator: NSObject {
-        let contentView: WebContentView
+        let contentView: WrappedWKWebView
         var cancellables = Set<AnyCancellable>()
 
-        init(_ contentView: WebContentView) {
+        init(_ contentView: WrappedWKWebView) {
             self.contentView = contentView
             super.init()
 
@@ -105,7 +105,7 @@ struct WebContentView: UIViewRepresentable {
 }
 
 // MARK: - WKNavigationDelegate
-extension WebContentView.Coordinator: WKNavigationDelegate {
+extension WrappedWKWebView.Coordinator: WKNavigationDelegate {
     func webView(
         _ webView: WKWebView,
         decidePolicyFor navigationAction: WKNavigationAction,
@@ -127,7 +127,7 @@ extension WebContentView.Coordinator: WKNavigationDelegate {
 }
 
 // MARK: - WKUIDelegate
-extension WebContentView.Coordinator: WKUIDelegate {
+extension WrappedWKWebView.Coordinator: WKUIDelegate {
     // Alert
     func webView(
         _ webView: WKWebView,

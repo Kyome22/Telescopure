@@ -1,5 +1,5 @@
 //
-//  NetSurfingView.swift
+//  WebView.swift
 //  MinBrowser
 //
 //  Created by Takuto Nakamura on 2022/04/02.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct NetSurfingView: View {
-    @StateObject var viewModel = WebContentViewModel()
+struct WebView: View {
+    @StateObject var viewModel = WebViewModel()
     @State var inputText: String = ""
 
     var body: some View {
@@ -21,7 +21,7 @@ struct NetSurfingView: View {
             )
             ProgressView(value: viewModel.estimatedProgress)
                 .opacity(viewModel.progressOpacity)
-            WebContentView(viewModel: viewModel)
+            WrappedWKWebView(viewModel: viewModel)
             ToolBar(
                 canGoBack: $viewModel.canGoBack,
                 canGoForward: $viewModel.canGoForward,
@@ -61,8 +61,8 @@ struct NetSurfingView: View {
     }
 }
 
-struct NetSurfingView_Previews: PreviewProvider {    
+struct WebView_Previews: PreviewProvider {
     static var previews: some View {
-        NetSurfingView()
+        WebView()
     }
 }
