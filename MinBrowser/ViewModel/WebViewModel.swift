@@ -34,6 +34,10 @@ protocol WebViewModelProtocol: ObservableObject {
     var promptDefaultText: String { get set }
     var promptImput: String { get set }
 
+    var showBookmark: Bool { get set }
+    var title: String? { get set }
+    var url: URL? { get set }
+
     // MARK: Web Action
     func search(with text: String)
     func goBack()
@@ -75,6 +79,10 @@ final class WebViewModel: WebViewModelProtocol {
     @Published var dialogMessage: String = ""
     @Published var promptDefaultText: String = ""
     @Published var promptImput: String = ""
+
+    @Published var showBookmark: Bool = false
+    @Published var title: String? = nil
+    @Published var url: URL? = nil
 
     private var alertHandler: (() -> Void)?
     private var confirmHandler: ((Bool) -> Void)?

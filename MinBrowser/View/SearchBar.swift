@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var inputText: String
-    private var searchHandler: (String) -> Void
+    private let searchHandler: (String) -> Void
 
     init(
         inputText: Binding<String>,
@@ -26,6 +26,8 @@ struct SearchBar: View {
             HStack(spacing: 4) {
                 Image(systemName: "magnifyingglass")
                 TextField("Search…", text: $inputText)
+                    .disableAutocorrection(true)
+                    .textInputAutocapitalization(.never)
                     .onSubmit {
                         searchHandler(inputText)
                     }

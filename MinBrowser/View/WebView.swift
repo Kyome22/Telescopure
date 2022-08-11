@@ -30,6 +30,9 @@ struct WebView<T: WebViewModelProtocol>: View {
                 },
                 goForwardHandler: {
                     viewModel.goForward()
+                },
+                bookmarkHandler: {
+                    viewModel.showBookmark = true
                 }
             )
         }
@@ -40,6 +43,18 @@ struct WebView<T: WebViewModelProtocol>: View {
                 viewModel.search(with: queryURL)
             }
         })
+        .sheet(isPresented: $viewModel.showBookmark) {
+            BookmarkView(
+                currentTitle: viewModel.title,
+                currentURL: viewModel.url,
+                closeBookmarkHandler: {
+                    viewModel.showBookmark = false
+                }, loadBookmarkHandler: { url in
+                    viewModel.showBookmark = false
+                    viewModel.search(with: url)
+                }
+            )
+        }
         .alert("", isPresented: $viewModel.showDialog, actions: {
             if viewModel.dialog == .prompt {
                 // Prompt is only available on iOS 16 or later.
@@ -72,6 +87,10 @@ final class WebViewModelMock: WebViewModelProtocol {
     @Published var dialogMessage: String = ""
     @Published var promptDefaultText: String = ""
     @Published var promptImput: String = ""
+
+    @Published var showBookmark: Bool = false
+    @Published var url: URL? = nil
+    @Published var title: String? = nil
 
     func search(with text: String) { fatalError() }
     func goBack() { fatalError() }

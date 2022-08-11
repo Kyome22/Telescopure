@@ -100,6 +100,16 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
                 .publisher(for: \.canGoForward)
                 .assign(to: \.canGoForward, on: contentView.viewModel)
                 .store(in: &cancellables)
+
+            contentView.webView
+                .publisher(for: \.title)
+                .assign(to: \.title, on: contentView.viewModel)
+                .store(in: &cancellables)
+
+            contentView.webView
+                .publisher(for: \.url)
+                .assign(to: \.url, on: contentView.viewModel)
+                .store(in: &cancellables)
         }
 
         // MARK: - WKNavigationDelegate

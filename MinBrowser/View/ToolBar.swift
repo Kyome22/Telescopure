@@ -11,19 +11,22 @@ struct ToolBar: View {
     @Binding var canGoBack: Bool
     @Binding var canGoForward: Bool
 
-    private var goBackHandler: () -> Void
-    private var goForwardHandler: () -> Void
+    private let goBackHandler: () -> Void
+    private let goForwardHandler: () -> Void
+    private let bookmarkHandler: () -> Void
 
     init(
         canGoBack: Binding<Bool>,
         canGoForward: Binding<Bool>,
         goBackHandler: @escaping () -> Void,
-        goForwardHandler: @escaping () -> Void
+        goForwardHandler: @escaping () -> Void,
+        bookmarkHandler: @escaping () -> Void
     ) {
         _canGoBack = canGoBack
         _canGoForward = canGoForward
         self.goBackHandler = goBackHandler
         self.goForwardHandler = goForwardHandler
+        self.bookmarkHandler = bookmarkHandler
     }
 
     var body: some View {
@@ -48,6 +51,13 @@ struct ToolBar: View {
                 }
                 .disabled(!canGoForward)
                 Spacer()
+                Button {
+                    bookmarkHandler()
+                } label: {
+                    Image(systemName: "book")
+                        .imageScale(.large)
+                        .frame(width: 40, height: 40, alignment: .center)
+                }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 16)
@@ -57,13 +67,11 @@ struct ToolBar: View {
 }
 
 struct ToolBar_Previews: PreviewProvider {
-    @State static var canGoBack: Bool = false
-    @State static var canGoForward: Bool = false
-
     static var previews: some View {
-        ToolBar(canGoBack: $canGoBack,
-                canGoForward: $canGoForward,
+        ToolBar(canGoBack: .constant(false),
+                canGoForward: .constant(false),
                 goBackHandler: {},
-                goForwardHandler: {})
+                goForwardHandler: {},
+                bookmarkHandler: {})
     }
 }
