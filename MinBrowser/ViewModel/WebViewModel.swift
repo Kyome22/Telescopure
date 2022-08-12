@@ -20,6 +20,7 @@ enum WebDialog {
     case confirm
     case prompt
 }
+typealias AlertType = WebDialog
 
 protocol WebViewModelProtocol: ObservableObject {
     var action: WebAction { get set }
@@ -32,7 +33,7 @@ protocol WebViewModelProtocol: ObservableObject {
     var dialog: WebDialog { get set }
     var dialogMessage: String { get set }
     var promptDefaultText: String { get set }
-    var promptImput: String { get set }
+    var promptInput: String { get set }
 
     var showBookmark: Bool { get set }
     var title: String? { get set }
@@ -78,7 +79,7 @@ final class WebViewModel: WebViewModelProtocol {
     @Published var dialog: WebDialog = .alert
     @Published var dialogMessage: String = ""
     @Published var promptDefaultText: String = ""
-    @Published var promptImput: String = ""
+    @Published var promptInput: String = ""
 
     @Published var showBookmark: Bool = false
     @Published var title: String? = nil
@@ -147,7 +148,7 @@ final class WebViewModel: WebViewModelProtocol {
         case .confirm:
             confirmHandler?(true)
         case .prompt:
-            promptHandler?(promptImput)
+            promptHandler?(promptInput)
         }
     }
 

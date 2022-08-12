@@ -10,6 +10,7 @@ import SwiftUI
 struct BookmarkView: View {
     @AppStorage("bookmarksJSON") var bookmarksJSON = "[]"
     @State var bookmarks: [Bookmark] = []
+
     private let currentTitle: String?
     private let currentURL: URL?
     private let closeBookmarkHandler: () -> Void

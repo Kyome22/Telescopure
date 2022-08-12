@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-typealias AlertType = WebDialog
-
 struct WebView<T: WebViewModelProtocol>: View {
     @StateObject var viewModel: T
     @State var inputText: String = ""

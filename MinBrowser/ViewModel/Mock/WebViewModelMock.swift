@@ -18,7 +18,7 @@ final class WebViewModelMock: WebViewModelProtocol {
     @Published var dialog: WebDialog = .alert
     @Published var dialogMessage: String = ""
     @Published var promptDefaultText: String = ""
-    @Published var promptImput: String = ""
+    @Published var promptInput: String = ""
 
     @Published var showBookmark: Bool = false
     @Published var url: URL? = nil

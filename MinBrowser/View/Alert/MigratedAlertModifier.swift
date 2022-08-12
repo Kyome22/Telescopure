@@ -16,7 +16,7 @@ struct MigratedAlertModifier<T: WebViewModelProtocol>: ViewModifier {
                 if viewModel.dialog == .prompt {
                     // Prompt is only available on iOS 16 or later.
                     // https://sarunw.com/posts/swiftui-alert-textfield/
-                    TextField(viewModel.promptDefaultText, text: $viewModel.promptImput)
+                    TextField(viewModel.promptDefaultText, text: $viewModel.promptInput)
                 }
                 Button("OK") {
                     viewModel.dialogOK()
@@ -35,7 +35,7 @@ struct MigratedAlertModifier<T: WebViewModelProtocol>: ViewModifier {
                 alertType: $viewModel.dialog,
                 title: .constant(""),
                 message: $viewModel.dialogMessage,
-                text: $viewModel.promptImput,
+                text: $viewModel.promptInput,
                 placeholder: $viewModel.promptDefaultText,
                 okActionHandler: {
                     viewModel.dialogOK()
