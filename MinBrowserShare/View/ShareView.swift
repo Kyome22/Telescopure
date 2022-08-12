@@ -33,7 +33,7 @@ struct ShareView<T: ShareViewModelProtocol>: View {
             }
             .contentShape(Rectangle())
         }
-        .background(Color(UIColor.secondarySystemBackground))
+        .background(Color.secondarySystemBackground)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 8)
         .padding(40)

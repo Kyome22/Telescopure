@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ToolBar: View {
+    @Binding var hideToolBar: Bool
     @Binding var canGoBack: Bool
     @Binding var canGoForward: Bool
 
@@ -16,12 +17,14 @@ struct ToolBar: View {
     private let bookmarkHandler: () -> Void
 
     init(
+        hideToolBar: Binding<Bool>,
         canGoBack: Binding<Bool>,
         canGoForward: Binding<Bool>,
         goBackHandler: @escaping () -> Void,
         goForwardHandler: @escaping () -> Void,
         bookmarkHandler: @escaping () -> Void
     ) {
+        _hideToolBar = hideToolBar
         _canGoBack = canGoBack
         _canGoForward = canGoForward
         self.goBackHandler = goBackHandler
@@ -58,6 +61,15 @@ struct ToolBar: View {
                         .imageScale(.large)
                         .frame(width: 40, height: 40, alignment: .center)
                 }
+                Button {
+                    withAnimation(.easeInOut(duration: 0.4)) {
+                        hideToolBar = true
+                    }
+                } label: {
+                    Image(systemName: "chevron.down")
+                        .imageScale(.large)
+                        .frame(width: 40, height: 40, alignment: .center)
+                }
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 16)
@@ -68,7 +80,8 @@ struct ToolBar: View {
 
 struct ToolBar_Previews: PreviewProvider {
     static var previews: some View {
-        ToolBar(canGoBack: .constant(false),
+        ToolBar(hideToolBar: .constant(false),
+                canGoBack: .constant(false),
                 canGoForward: .constant(false),
                 goBackHandler: {},
                 goForwardHandler: {},

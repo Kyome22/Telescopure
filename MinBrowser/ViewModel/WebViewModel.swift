@@ -41,6 +41,8 @@ protocol WebViewModelProtocol: ObservableObject {
     var title: String? { get set }
     var url: URL? { get set }
 
+    var hideToolBar: Bool { get set }
+
     // MARK: Web Action
     func search(with text: String)
     func goBack()
@@ -88,6 +90,8 @@ final class WebViewModel: WebViewModelProtocol {
     @Published var showBookmark: Bool = false
     @Published var title: String? = nil
     @Published var url: URL? = nil
+
+    @Published var hideToolBar: Bool = false
 
     private var alertHandler: (() -> Void)?
     private var confirmHandler: ((Bool) -> Void)?

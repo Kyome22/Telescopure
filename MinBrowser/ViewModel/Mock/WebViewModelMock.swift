@@ -26,6 +26,8 @@ final class WebViewModelMock: WebViewModelProtocol {
     @Published var url: URL? = nil
     @Published var title: String? = nil
 
+    @Published var hideToolBar: Bool = false
+
     func search(with text: String) { fatalError() }
     func goBack() { fatalError() }
     func goForward() { fatalError() }

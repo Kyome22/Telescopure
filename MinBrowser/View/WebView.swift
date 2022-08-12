@@ -11,44 +11,49 @@ struct WebView<T: WebViewModelProtocol>: View {
     @StateObject var viewModel: T
 
     var body: some View {
-        ZStack(alignment: .center) {
+        ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
-                SearchBar(
-                    inputText: $viewModel.inputText,
-                    searchHandler: { inputText in
-                        viewModel.search(with: inputText)
+                if !viewModel.hideToolBar {
+                    Group {
+                        SearchBar(
+                            inputText: $viewModel.inputText,
+                            searchHandler: { inputText in
+                                viewModel.search(with: inputText)
+                            }
+                        )
+                        ProgressView(value: viewModel.estimatedProgress)
+                            .opacity(viewModel.progressOpacity)
                     }
-                )
-                ProgressView(value: viewModel.estimatedProgress)
-                    .opacity(viewModel.progressOpacity)
-                WrappedWKWebView(viewModel: viewModel)
-                ToolBar(
-                    canGoBack: $viewModel.canGoBack,
-                    canGoForward: $viewModel.canGoForward,
-                    goBackHandler: {
-                        viewModel.goBack()
-                    },
-                    goForwardHandler: {
-                        viewModel.goForward()
-                    },
-                    bookmarkHandler: {
-                        viewModel.showBookmark = true
+                    .transition(.move(edge: .top))
+                }
+                ZStack(alignment: .center) {
+                    WrappedWKWebView(viewModel: viewModel)
+                    if viewModel.url == nil {
+                        LogoView()
                     }
-                )
+                }
+                if !viewModel.hideToolBar {
+                    ToolBar(
+                        hideToolBar: $viewModel.hideToolBar,
+                        canGoBack: $viewModel.canGoBack,
+                        canGoForward: $viewModel.canGoForward,
+                        goBackHandler: {
+                            viewModel.goBack()
+                        },
+                        goForwardHandler: {
+                            viewModel.goForward()
+                        },
+                        bookmarkHandler: {
+                            viewModel.showBookmark = true
+                        }
+                    )
+                    .transition(.move(edge: .bottom))
+                }
             }
             .background(Color.secondarySystemBackground)
-            if viewModel.url == nil {
-                VStack(spacing: 4) {
-                    Image("MonoIcon")
-                        .renderingMode(.template)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 120, height: 120)
-                    Text("MinBrowser")
-                        .italic()
-                        .bold()
-                }
-                .foregroundColor(Color.systemGray5)
+            if viewModel.hideToolBar {
+                HideButton(hideToolBar: $viewModel.hideToolBar)
+                    .transition(.opacity)
             }
         }
         .onOpenURL(perform: { url in

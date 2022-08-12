@@ -18,6 +18,9 @@
 		1C5A746928A6454B004364D9 /* ShareViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746828A6454B004364D9 /* ShareViewModelMock.swift */; };
 		1C5A746C28A64A2E004364D9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A746E28A64A2E004364D9 /* Localizable.strings */; };
 		1C5A747128A676BA004364D9 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747028A676BA004364D9 /* Color+Extensions.swift */; };
+		1C5A747228A694A5004364D9 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747028A676BA004364D9 /* Color+Extensions.swift */; };
+		1C5A747428A69D0C004364D9 /* HideButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747328A69D0C004364D9 /* HideButton.swift */; };
+		1C5A747628A69D6B004364D9 /* LogoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747528A69D6B004364D9 /* LogoView.swift */; };
 		1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */; };
 		1CD37B9C27F826D900D7CF7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9B27F826D900D7CF7A /* Assets.xcassets */; };
 		1CD37B9F27F826D900D7CF7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9E27F826D900D7CF7A /* Preview Assets.xcassets */; };
@@ -88,6 +91,8 @@
 		1C5A746D28A64A2E004364D9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C5A746F28A64A30004364D9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		1C5A747028A676BA004364D9 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		1C5A747328A69D0C004364D9 /* HideButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideButton.swift; sourceTree = "<group>"; };
+		1C5A747528A69D6B004364D9 /* LogoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoView.swift; sourceTree = "<group>"; };
 		1CD37B9427F826D800D7CF7A /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserApp.swift; sourceTree = "<group>"; };
 		1CD37B9B27F826D900D7CF7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -262,7 +267,9 @@
 				1CD37BEB27F85DBA00D7CF7A /* WebView.swift */,
 				1CD37BE627F8436500D7CF7A /* WrappedWKWebView.swift */,
 				1CD37BE927F8570200D7CF7A /* SearchBar.swift */,
+				1C5A747528A69D6B004364D9 /* LogoView.swift */,
 				1CD37BF327F8893000D7CF7A /* ToolBar.swift */,
+				1C5A747328A69D0C004364D9 /* HideButton.swift */,
 				1C5A745928A55382004364D9 /* BookmarkView.swift */,
 			);
 			path = View;
@@ -461,7 +468,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C5A747628A69D6B004364D9 /* LogoView.swift in Sources */,
 				1CD37BE527F8416E00D7CF7A /* String+Extensions.swift in Sources */,
+				1C5A747428A69D0C004364D9 /* HideButton.swift in Sources */,
 				1C5A745C28A554E2004364D9 /* Bookmark.swift in Sources */,
 				1CD37BE727F8436500D7CF7A /* WrappedWKWebView.swift in Sources */,
 				1C5A745828A54C95004364D9 /* DebugLog.swift in Sources */,
@@ -505,6 +514,7 @@
 				1CD37BD527F82D5A00D7CF7A /* ShareView.swift in Sources */,
 				1C5A746928A6454B004364D9 /* ShareViewModelMock.swift in Sources */,
 				1CD37BC827F82D2E00D7CF7A /* ShareViewController.swift in Sources */,
+				1C5A747228A694A5004364D9 /* Color+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
