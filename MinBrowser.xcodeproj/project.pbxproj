@@ -15,6 +15,7 @@
 		1C5A746128A61E83004364D9 /* LegacyAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746028A61E83004364D9 /* LegacyAlertModifier.swift */; };
 		1C5A746328A635C9004364D9 /* MigratedAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746228A635C9004364D9 /* MigratedAlertModifier.swift */; };
 		1C5A746628A643F3004364D9 /* WebViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746528A643F3004364D9 /* WebViewModelMock.swift */; };
+		1C5A746928A6454B004364D9 /* ShareViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746828A6454B004364D9 /* ShareViewModelMock.swift */; };
 		1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */; };
 		1CD37B9C27F826D900D7CF7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9B27F826D900D7CF7A /* Assets.xcassets */; };
 		1CD37B9F27F826D900D7CF7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9E27F826D900D7CF7A /* Preview Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		1C5A746028A61E83004364D9 /* LegacyAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAlertModifier.swift; sourceTree = "<group>"; };
 		1C5A746228A635C9004364D9 /* MigratedAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigratedAlertModifier.swift; sourceTree = "<group>"; };
 		1C5A746528A643F3004364D9 /* WebViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModelMock.swift; sourceTree = "<group>"; };
+		1C5A746828A6454B004364D9 /* ShareViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewModelMock.swift; sourceTree = "<group>"; };
 		1CD37B9427F826D800D7CF7A /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserApp.swift; sourceTree = "<group>"; };
 		1CD37B9B27F826D900D7CF7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -152,6 +154,14 @@
 			isa = PBXGroup;
 			children = (
 				1C5A746528A643F3004364D9 /* WebViewModelMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		1C5A746728A6453C004364D9 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				1C5A746828A6454B004364D9 /* ShareViewModelMock.swift */,
 			);
 			path = Mock;
 			sourceTree = "<group>";
@@ -264,6 +274,7 @@
 		1CD37BF127F85E6500D7CF7A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1C5A746728A6453C004364D9 /* Mock */,
 				1CD37BDD27F8303200D7CF7A /* ShareViewModel.swift */,
 			);
 			path = ViewModel;
@@ -483,6 +494,7 @@
 				1C5A745628A4F18C004364D9 /* String+Extensions.swift in Sources */,
 				1CD37BDE27F8303200D7CF7A /* ShareViewModel.swift in Sources */,
 				1CD37BD527F82D5A00D7CF7A /* ShareView.swift in Sources */,
+				1C5A746928A6454B004364D9 /* ShareViewModelMock.swift in Sources */,
 				1CD37BC827F82D2E00D7CF7A /* ShareViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

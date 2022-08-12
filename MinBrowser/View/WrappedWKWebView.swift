@@ -157,7 +157,6 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
             initiatedByFrame frame: WKFrameInfo,
             completionHandler: @escaping () -> Void
         ) {
-            Swift.print("🐸")
             contentView.viewModel.showAlert(message: message,
                                             completion: completionHandler)
         }

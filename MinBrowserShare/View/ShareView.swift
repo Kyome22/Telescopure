@@ -40,16 +40,6 @@ struct ShareView<T: ShareViewModelProtocol>: View {
     }
 }
 
-final class ShareViewModelMock: ShareViewModelProtocol {
-    @Published var urlText: String = ""
-
-    func setURLText() {
-        urlText = "https://zenn.dev/kyome/articles/710cde86537d45"
-    }
-    func cancel() { Swift.print("push cancel") }
-    func open() { Swift.print("push open") }
-}
-
 struct ShareView_Previews: PreviewProvider {
     static var previews: some View {
         ShareView(viewModel: ShareViewModelMock())
