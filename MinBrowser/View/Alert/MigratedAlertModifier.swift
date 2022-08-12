@@ -22,7 +22,7 @@ struct MigratedAlertModifier<T: WebViewModelProtocol>: ViewModifier {
                     viewModel.dialogOK()
                 }
                 if viewModel.dialog != .alert {
-                    Button("Cancel", role: .cancel) {
+                    Button("cancel", role: .cancel) {
                         viewModel.dialogCancel()
                     }
                 }

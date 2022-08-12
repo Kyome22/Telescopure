@@ -108,7 +108,12 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
 
             contentView.webView
                 .publisher(for: \.url)
-                .assign(to: \.url, on: contentView.viewModel)
+                .sink { url in
+                    contentView.viewModel.url = url
+                    if let url = url {
+                        contentView.viewModel.inputText = url.absoluteString
+                    }
+                }
                 .store(in: &cancellables)
         }
 

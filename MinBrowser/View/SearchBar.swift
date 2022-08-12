@@ -25,15 +25,23 @@ struct SearchBar: View {
                 .foregroundColor(Color("SearchBar"))
             HStack(spacing: 4) {
                 Image(systemName: "magnifyingglass")
+                    .foregroundColor(.systemGray)
                 TextField("Search…", text: $inputText)
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
+                    .foregroundColor(.systemGray)
                     .onSubmit {
                         searchHandler(inputText)
                     }
+                Button {
+                    inputText = ""
+                } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(inputText.isEmpty ? .systemGray3 : .systemGray)
+                }
+                .disabled(inputText.isEmpty)
             }
-            .foregroundColor(Color.gray)
-            .padding(.leading, 8)
+            .padding(.horizontal, 8)
         }
         .frame(height: 36)
         .cornerRadius(10)

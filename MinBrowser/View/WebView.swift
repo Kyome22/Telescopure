@@ -9,12 +9,11 @@ import SwiftUI
 
 struct WebView<T: WebViewModelProtocol>: View {
     @StateObject var viewModel: T
-    @State var inputText: String = ""
 
     var body: some View {
         VStack(spacing: 0) {
             SearchBar(
-                inputText: $inputText,
+                inputText: $viewModel.inputText,
                 searchHandler: { inputText in
                     viewModel.search(with: inputText)
                 }

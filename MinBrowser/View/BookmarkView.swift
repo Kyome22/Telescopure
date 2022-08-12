@@ -30,59 +30,8 @@ struct BookmarkView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            ZStack(alignment: .center) {
-                Text("Bookmark")
-                    .font(.title3)
-                HStack {
-                    Spacer()
-                    Button {
-                        closeBookmarkHandler()
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.title3)
-                    }
-                }
-            }
-            .padding(16)
-            .background(Color(UIColor.secondarySystemBackground))
-            List {
-                Section {
-                    if bookmarks.isEmpty {
-                        HStack {
-                            Label("No Bookmark", systemImage: "book")
-                                .disabled(true)
-                            Spacer()
-                        }
-                    } else {
-                        ForEach(bookmarks, id: \.title.hashValue) { bookmark in
-                            HStack {
-                                Label(bookmark.title, systemImage: "book")
-                                Spacer()
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture(perform: {
-                                loadBookmarkHandler(bookmark.url)
-                            })
-                        }
-                        .onDelete { indexSet in
-                            bookmarks.remove(atOffsets: indexSet)
-                            updateBookmarkJSON()
-                        }
-                    }
-                }
-                Section {
-                    HStack {
-                        Label("Add", systemImage: "plus.app")
-                        Spacer()
-                    }
-                    .contentShape(Rectangle())
-                    .onTapGesture(perform: {
-                        addBookmark()
-                    })
-                    .disabled(currentURL == nil)
-                }
-            }
-            .listStyle(.insetGrouped)
+            header()
+            bookmarkList()
         }
         .onAppear {
             if let data = bookmarksJSON.data(using: .utf8),
@@ -96,6 +45,66 @@ struct BookmarkView: View {
                 })
             }
         }
+    }
+
+    func header() -> some View {
+        ZStack(alignment: .center) {
+            Text("bookmark")
+                .font(.title3)
+            HStack {
+                Spacer()
+                Button {
+                    closeBookmarkHandler()
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(.title3)
+                }
+            }
+        }
+        .padding(16)
+        .background(Color.secondarySystemBackground)
+    }
+
+    func bookmarkList() -> some View {
+        List {
+            Section {
+                if bookmarks.isEmpty {
+                    HStack {
+                        Label("noBookmark", systemImage: "book")
+                            .disabled(true)
+                        Spacer()
+                    }
+                } else {
+                    ForEach(bookmarks, id: \.title.hashValue) { bookmark in
+                        HStack {
+                            Label(bookmark.title, systemImage: "book")
+                            Spacer()
+                        }
+                        .contentShape(Rectangle())
+                        .onTapGesture(perform: {
+                            loadBookmarkHandler(bookmark.url)
+                        })
+                    }
+                    .onDelete { indexSet in
+                        bookmarks.remove(atOffsets: indexSet)
+                        updateBookmarkJSON()
+                    }
+                }
+            }
+            Section {
+                HStack {
+                    Label("addBookmark", systemImage: "plus.app")
+                        .foregroundColor(currentURL == nil ? .secondary : .primary)
+                    Spacer()
+                }
+                .contentShape(Rectangle())
+                .onTapGesture(perform: {
+                    addBookmark()
+                })
+                .disabled(currentURL == nil)
+            }
+        }
+        .listStyle(.insetGrouped)
     }
 
     func addBookmark() {

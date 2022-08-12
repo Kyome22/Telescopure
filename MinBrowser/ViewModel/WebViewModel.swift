@@ -29,6 +29,8 @@ protocol WebViewModelProtocol: ObservableObject {
     var canGoBack: Bool { get set }
     var canGoForward: Bool { get set }
 
+    var inputText: String { get set }
+
     var showDialog: Bool { get set }
     var dialog: WebDialog { get set }
     var dialogMessage: String { get set }
@@ -74,6 +76,8 @@ final class WebViewModel: WebViewModelProtocol {
     @Published var progressOpacity: Double = 1.0
     @Published var canGoBack: Bool = false
     @Published var canGoForward: Bool = false
+
+    @Published var inputText: String = ""
 
     @Published var showDialog: Bool = false
     @Published var dialog: WebDialog = .alert

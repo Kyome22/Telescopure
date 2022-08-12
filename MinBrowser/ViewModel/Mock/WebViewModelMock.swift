@@ -14,6 +14,8 @@ final class WebViewModelMock: WebViewModelProtocol {
     @Published var canGoBack: Bool = false
     @Published var canGoForward: Bool = false
 
+    @Published var inputText: String = ""
+
     @Published var showDialog: Bool = false
     @Published var dialog: WebDialog = .alert
     @Published var dialogMessage: String = ""

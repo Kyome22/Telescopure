@@ -48,7 +48,7 @@ struct LegacyAlertModifier: ViewModifier {
         }
 
         if alertType != .alert {
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel) { _ in
                 cancelActionHandler()
                 dismissAlert()
             }

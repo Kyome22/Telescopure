@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/12.
+  
+*/
+
+"cancel" = "キャンセル";
+"bookmark" = "ブックマーク";
+"noBookmark" = "ブックマークなし";
+"addBookmark" = "閲覧中のページを追加する";

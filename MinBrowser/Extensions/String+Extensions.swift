@@ -16,4 +16,8 @@ extension String {
         let matchRange = self.range(of: pattern, options: .regularExpression)
         return matchRange != nil
     }
+
+    var localized: String {
+        return NSLocalizedString(self, comment: self)
+    }
 }
