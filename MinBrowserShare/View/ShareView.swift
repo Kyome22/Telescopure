@@ -16,25 +16,25 @@ struct ShareView<T: ShareViewModelProtocol>: View {
                 viewModel.cancel()
             } label: {
                 Text(LocalizedStringKey("cancel"))
-                    .padding(8)
+                    .padding(16)
             }
             .contentShape(Rectangle())
             Divider()
             Text(viewModel.urlText)
                 .lineLimit(7)
                 .foregroundColor(Color.primary)
-                .padding(4)
+                .padding(16)
             Divider()
             Button {
                 viewModel.open()
             } label: {
                 Text(LocalizedStringKey("open_in"))
-                    .padding(8)
+                    .padding(16)
             }
             .contentShape(Rectangle())
         }
         .background(Color(UIColor.secondarySystemBackground))
-        .clipShape(RoundedRectangle(cornerRadius: 8))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         .shadow(radius: 8)
         .padding(40)
     }

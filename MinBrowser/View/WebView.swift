@@ -11,29 +11,45 @@ struct WebView<T: WebViewModelProtocol>: View {
     @StateObject var viewModel: T
 
     var body: some View {
-        VStack(spacing: 0) {
-            SearchBar(
-                inputText: $viewModel.inputText,
-                searchHandler: { inputText in
-                    viewModel.search(with: inputText)
+        ZStack(alignment: .center) {
+            VStack(spacing: 0) {
+                SearchBar(
+                    inputText: $viewModel.inputText,
+                    searchHandler: { inputText in
+                        viewModel.search(with: inputText)
+                    }
+                )
+                ProgressView(value: viewModel.estimatedProgress)
+                    .opacity(viewModel.progressOpacity)
+                WrappedWKWebView(viewModel: viewModel)
+                ToolBar(
+                    canGoBack: $viewModel.canGoBack,
+                    canGoForward: $viewModel.canGoForward,
+                    goBackHandler: {
+                        viewModel.goBack()
+                    },
+                    goForwardHandler: {
+                        viewModel.goForward()
+                    },
+                    bookmarkHandler: {
+                        viewModel.showBookmark = true
+                    }
+                )
+            }
+            .background(Color.secondarySystemBackground)
+            if viewModel.url == nil {
+                VStack(spacing: 4) {
+                    Image("MonoIcon")
+                        .renderingMode(.template)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 120, height: 120)
+                    Text("MinBrowser")
+                        .italic()
+                        .bold()
                 }
-            )
-            ProgressView(value: viewModel.estimatedProgress)
-                .opacity(viewModel.progressOpacity)
-            WrappedWKWebView(viewModel: viewModel)
-            ToolBar(
-                canGoBack: $viewModel.canGoBack,
-                canGoForward: $viewModel.canGoForward,
-                goBackHandler: {
-                    viewModel.goBack()
-                },
-                goForwardHandler: {
-                    viewModel.goForward()
-                },
-                bookmarkHandler: {
-                    viewModel.showBookmark = true
-                }
-            )
+                .foregroundColor(Color.systemGray5)
+            }
         }
         .onOpenURL(perform: { url in
             if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -61,5 +77,6 @@ struct WebView<T: WebViewModelProtocol>: View {
 struct WebView_Previews: PreviewProvider {
     static var previews: some View {
         WebView(viewModel: WebViewModelMock())
+            .previewInterfaceOrientation(.landscapeRight)
     }
 }

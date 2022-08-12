@@ -32,7 +32,7 @@ final class ShareViewModel: ShareViewModelProtocol {
             do {
                 let context = await vc.extensionContext
                 url = try await extractSharedItem(from: context)
-                if let urlString = url?.absoluteString {
+                if let urlString = url?.absoluteString.removingPercentEncoding {
                     urlText = (255 < urlString.count) ? urlString.prefix(255) + "…" : urlString
                 }
             } catch(let error) {

@@ -47,6 +47,7 @@ struct SearchBar: View {
         .cornerRadius(10)
         .padding(.vertical, 8)
         .padding(.horizontal, 16)
+        .background(Color("ToolBar"))
     }
 }
 

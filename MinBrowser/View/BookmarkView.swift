@@ -71,6 +71,7 @@ struct BookmarkView: View {
                 if bookmarks.isEmpty {
                     HStack {
                         Label("noBookmark", systemImage: "book")
+                            .foregroundColor(.secondary)
                             .disabled(true)
                         Spacer()
                     }
@@ -93,8 +94,13 @@ struct BookmarkView: View {
             }
             Section {
                 HStack {
-                    Label("addBookmark", systemImage: "plus.app")
-                        .foregroundColor(currentURL == nil ? .secondary : .primary)
+                    Label {
+                        Text("addBookmark")
+                            .foregroundColor(currentURL == nil ? .secondary : .primary)
+                    } icon: {
+                        Image(systemName: "plus.app")
+                            .foregroundColor(currentURL == nil ? .secondary : .accentColor)
+                    }
                     Spacer()
                 }
                 .contentShape(Rectangle())
