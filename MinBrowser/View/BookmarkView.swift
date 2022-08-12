@@ -62,7 +62,7 @@ struct BookmarkView: View {
             }
         }
         .padding(16)
-        .background(Color.secondarySystemBackground)
+        .background(Color.systemGray6)
     }
 
     func bookmarkList() -> some View {

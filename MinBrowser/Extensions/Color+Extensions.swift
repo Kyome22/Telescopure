@@ -17,6 +17,9 @@ extension Color {
     static var systemGray5: Color {
         return Color(UIColor.systemGray5)
     }
+    static var systemGray6: Color {
+        return Color(UIColor.systemGray6)
+    }
     static var secondarySystemBackground: Color {
         return Color(UIColor.secondarySystemBackground)
     }

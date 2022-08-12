@@ -35,7 +35,7 @@ struct ToolBar: View {
     var body: some View {
         VStack(spacing: 0) {
             Divider()
-                .overlay(Color("ToolBarBorder"))
+                .overlay(Color("Border"))
             HStack {
                 Button {
                     goBackHandler()
@@ -73,7 +73,7 @@ struct ToolBar: View {
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 16)
-            .background(Color("ToolBar"))
+            .background(Color("Footer"))
         }
     }
 }
