@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+typealias AlertType = WebDialog
+
 struct WebView<T: WebViewModelProtocol>: View {
     @StateObject var viewModel: T
     @State var inputText: String = ""
@@ -55,59 +57,8 @@ struct WebView<T: WebViewModelProtocol>: View {
                 }
             )
         }
-        .alert("", isPresented: $viewModel.showDialog, actions: {
-            if viewModel.dialog == .prompt {
-                // Prompt is only available on iOS 16 or later.
-                // https://sarunw.com/posts/swiftui-alert-textfield/
-                TextField(viewModel.promptDefaultText, text: $viewModel.promptImput)
-            }
-            Button("OK") {
-                viewModel.dialogOK()
-            }
-            if viewModel.dialog != .alert {
-                Button("Cancel", role: .cancel) {
-                    viewModel.dialogCancel()
-                }
-            }
-        }, message: {
-            Text(viewModel.dialogMessage)
-        })
+        .modifier(MigratedAlertModifier(viewModel: viewModel))
     }
-}
-
-final class WebViewModelMock: WebViewModelProtocol {
-    @Published var action: WebAction = .none
-    @Published var estimatedProgress: Double = 0.0
-    @Published var progressOpacity: Double = 0.0
-    @Published var canGoBack: Bool = false
-    @Published var canGoForward: Bool = false
-
-    @Published var showDialog: Bool = false
-    @Published var dialog: WebDialog = .alert
-    @Published var dialogMessage: String = ""
-    @Published var promptDefaultText: String = ""
-    @Published var promptImput: String = ""
-
-    @Published var showBookmark: Bool = false
-    @Published var url: URL? = nil
-    @Published var title: String? = nil
-
-    func search(with text: String) { fatalError() }
-    func goBack() { fatalError() }
-    func goForward() { fatalError() }
-    func reload() { fatalError() }
-
-    func showAlert(message: String, completion: @escaping () -> Void) {
-        fatalError()
-    }
-    func showConfirm(message: String, completion: @escaping (Bool) -> Void) {
-        fatalError()
-    }
-    func showPrompt(prompt: String, defaultText: String?, completion: @escaping (String?) -> Void) {
-        fatalError()
-    }
-    func dialogOK() { fatalError() }
-    func dialogCancel() { fatalError() }
 }
 
 struct WebView_Previews: PreviewProvider {

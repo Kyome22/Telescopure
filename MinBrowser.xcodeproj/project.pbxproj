@@ -12,6 +12,9 @@
 		1C5A745828A54C95004364D9 /* DebugLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A745728A54C95004364D9 /* DebugLog.swift */; };
 		1C5A745A28A55382004364D9 /* BookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A745928A55382004364D9 /* BookmarkView.swift */; };
 		1C5A745C28A554E2004364D9 /* Bookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A745B28A554E2004364D9 /* Bookmark.swift */; };
+		1C5A746128A61E83004364D9 /* LegacyAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746028A61E83004364D9 /* LegacyAlertModifier.swift */; };
+		1C5A746328A635C9004364D9 /* MigratedAlertModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746228A635C9004364D9 /* MigratedAlertModifier.swift */; };
+		1C5A746628A643F3004364D9 /* WebViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A746528A643F3004364D9 /* WebViewModelMock.swift */; };
 		1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */; };
 		1CD37B9C27F826D900D7CF7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9B27F826D900D7CF7A /* Assets.xcassets */; };
 		1CD37B9F27F826D900D7CF7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9E27F826D900D7CF7A /* Preview Assets.xcassets */; };
@@ -75,6 +78,9 @@
 		1C5A745728A54C95004364D9 /* DebugLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLog.swift; sourceTree = "<group>"; };
 		1C5A745928A55382004364D9 /* BookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkView.swift; sourceTree = "<group>"; };
 		1C5A745B28A554E2004364D9 /* Bookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookmark.swift; sourceTree = "<group>"; };
+		1C5A746028A61E83004364D9 /* LegacyAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegacyAlertModifier.swift; sourceTree = "<group>"; };
+		1C5A746228A635C9004364D9 /* MigratedAlertModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MigratedAlertModifier.swift; sourceTree = "<group>"; };
+		1C5A746528A643F3004364D9 /* WebViewModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModelMock.swift; sourceTree = "<group>"; };
 		1CD37B9427F826D800D7CF7A /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserApp.swift; sourceTree = "<group>"; };
 		1CD37B9B27F826D900D7CF7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -133,6 +139,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C5A745F28A61E3A004364D9 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				1C5A746028A61E83004364D9 /* LegacyAlertModifier.swift */,
+				1C5A746228A635C9004364D9 /* MigratedAlertModifier.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		1C5A746428A643D2004364D9 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				1C5A746528A643F3004364D9 /* WebViewModelMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		1CD37B8B27F826D800D7CF7A = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +241,7 @@
 		1CD37BED27F85DF400D7CF7A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				1C5A745F28A61E3A004364D9 /* Alert */,
 				1CD37BEB27F85DBA00D7CF7A /* WebView.swift */,
 				1CD37BE627F8436500D7CF7A /* WrappedWKWebView.swift */,
 				1CD37BE927F8570200D7CF7A /* SearchBar.swift */,
@@ -230,6 +254,7 @@
 		1CD37BEE27F85E0400D7CF7A /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1C5A746428A643D2004364D9 /* Mock */,
 				1C5A745028A3EC34004364D9 /* WebViewModel.swift */,
 				1C5A745B28A554E2004364D9 /* Bookmark.swift */,
 			);
@@ -424,7 +449,10 @@
 				1CD37BF427F8893000D7CF7A /* ToolBar.swift in Sources */,
 				1CD37BEC27F85DBA00D7CF7A /* WebView.swift in Sources */,
 				1C5A745128A3EC34004364D9 /* WebViewModel.swift in Sources */,
+				1C5A746128A61E83004364D9 /* LegacyAlertModifier.swift in Sources */,
 				1CD37BE227F8414900D7CF7A /* WKWebView+Extension.swift in Sources */,
+				1C5A746628A643F3004364D9 /* WebViewModelMock.swift in Sources */,
+				1C5A746328A635C9004364D9 /* MigratedAlertModifier.swift in Sources */,
 				1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */,
 				1C5A745A28A55382004364D9 /* BookmarkView.swift in Sources */,
 				1CD37BEA27F8570200D7CF7A /* SearchBar.swift in Sources */,

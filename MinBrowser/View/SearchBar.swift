@@ -43,10 +43,8 @@ struct SearchBar: View {
 }
 
 struct SearchBar_Previews: PreviewProvider {
-    @State static var inputText: String = ""
-
     static var previews: some View {
-        SearchBar(inputText: $inputText,
+        SearchBar(inputText: .constant(""),
                   searchHandler: { _ in })
     }
 }
