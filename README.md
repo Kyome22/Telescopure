@@ -55,3 +55,35 @@ You can use MinBrowser to debug your application that work with the browser.
 The goal is to make MinBrowser the Default Browser.
 
 [Apple - Preparing Your App to be the Default Browser or Email Client](https://developer.apple.com/documentation/xcode/preparing-your-app-to-be-the-default-browser-or-email-client)
+
+## Debug Functions
+
+The following page can be used for debugging MinBrowser.
+
+https://kyome.io/debug/index.html
+
+### JS Dialog
+
+- Alert (`window.alert()`)
+- Confirm (`window.confirm()`)
+- Prompt (`window.prompt()`)
+
+### Custom Scheme
+
+- SMS `sms://`
+- Telephone `tel://`
+- FaceTime `facetime://` and `facetime-audio://`
+- iMessage `imessage://`
+- Mail `mailto://`
+
+### Permission
+
+- Photo Library (Load)
+  - `WKWebView` does not need permission to upload photos/videos.
+- Photo Library (Save)
+  - Privacy - Photo Library Additions Usage Description (`NSPhotoLibraryAddUsageDescription`)
+- Device Location
+  - Privacy - Location When In Use Usage Description (`NSLocationWhenInUseUsageDescription`)
+- Camera/Microphone
+  - Privacy - Camera Usage Description (`NSCameraUsageDescription`)
+  - Privacy - Microphone Usage Description (`NSMicrophoneUsageDescription`)
