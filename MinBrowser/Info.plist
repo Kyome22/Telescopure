@@ -12,6 +12,8 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>minbrowser</string>
+				<string>http</string>
+				<string>https</string>
 			</array>
 		</dict>
 	</array>

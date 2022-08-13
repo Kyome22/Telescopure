@@ -8,6 +8,5 @@
 
 "NSCameraUsageDescription" = "This application needs to access your camera for uploading photos/videos.";
 "NSMicrophoneUsageDescription" = "This application needs to access your microphone for uploading videos.";
-"NSPhotoLibraryUsageDescription" = "This application needs to access your photo library for uploading photos/videos.";
 "NSPhotoLibraryAddUsageDescription" = "This application needs to access your photo library for saving photos/videos.";
 "NSLocationWhenInUseUsageDescription" = "This application needs to access your current location.";
