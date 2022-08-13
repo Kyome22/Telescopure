@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/13.
+  
+*/
+
+"NSCameraUsageDescription" = "写真や動画をアップロードするためにカメラへのアクセス権限が必要です。";
+"NSMicrophoneUsageDescription" = "動画をアップロードするためにマイクへのアクセス権限が必要です。";
+"NSPhotoLibraryUsageDescription" = "写真や動画をアップロードするためにフォトライブラリへのアクセス権限が必要です。";
+"NSPhotoLibraryAddUsageDescription" = "写真や動画を保存するためにフォトライブラリへのアクセス権限が必要です。";
+"NSLocationWhenInUseUsageDescription" = "現在地を取得するために権限が必要です。";

@@ -16,16 +16,20 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
     @ObservedObject var viewModel: T
 
     init(viewModel: T) {
-        webView = WKWebView()
+        let config = WKWebViewConfiguration()
+        config.allowsInlineMediaPlayback = true
+
+        webView = WKWebView(frame: .zero, configuration: config)
+        webView.allowsBackForwardNavigationGestures = true
+        webView.backgroundColor = UIColor.secondarySystemBackground
+        webView.isOpaque = false
+
         self.viewModel = viewModel
     }
 
     func makeUIView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
-        webView.allowsBackForwardNavigationGestures = true
-        webView.backgroundColor = UIColor.secondarySystemBackground
-        webView.isOpaque = false
         return webView
     }
 
