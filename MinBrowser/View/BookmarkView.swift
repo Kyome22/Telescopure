@@ -76,14 +76,14 @@ struct BookmarkView: View {
                         Spacer()
                     }
                 } else {
-                    ForEach(bookmarks, id: \.title.hashValue) { bookmark in
+                    ForEach(0 ..< bookmarks.count, id: \.self) { index in
                         HStack {
-                            Label(bookmark.title, systemImage: "book")
+                            Label(bookmarks[index].title, systemImage: "book")
                             Spacer()
                         }
                         .contentShape(Rectangle())
                         .onTapGesture(perform: {
-                            loadBookmarkHandler(bookmark.url)
+                            loadBookmarkHandler(bookmarks[index].url)
                         })
                     }
                     .onDelete { indexSet in
@@ -129,6 +129,7 @@ struct BookmarkView: View {
         }
         if let data = try? JSONSerialization.data(withJSONObject: obj),
            let str = String(data: data, encoding: .utf8) {
+            Swift.print(str)
             bookmarksJSON = str
         }
     }
