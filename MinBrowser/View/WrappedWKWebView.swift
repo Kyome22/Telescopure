@@ -125,36 +125,43 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
         func webView(
             _ webView: WKWebView,
             decidePolicyFor navigationAction: WKNavigationAction,
-            decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-        ) {
+            preferences: WKWebpagePreferences
+        ) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
+            preferences.preferredContentMode = .mobile
+            return (WKNavigationActionPolicy.allow, preferences)
+        }
+
+        func webView(
+            _ webView: WKWebView,
+            decidePolicyFor navigationAction: WKNavigationAction
+        ) async -> WKNavigationActionPolicy {
             guard let requestURL = navigationAction.request.url else {
-                decisionHandler(.cancel)
-                return
+                return .cancel
             }
 
             DebugLog(Coordinator.self, requestURL.absoluteString)
 
             switch requestURL.scheme {
             case "http", "https", "blob", "file", "about":
-                decisionHandler(.allow)
+                return .allow
             case "sms", "tel", "facetime", "facetime-audio", "mailto", "imessage":
-                UIApplication.shared.open(requestURL, options: [:]) { result in
+                await UIApplication.shared.open(requestURL, options: [:]) { result in
                     DebugLog(Coordinator.self, "\(result)")
                 }
-                decisionHandler(.cancel)
+                return .cancel
             case "minbrowser":
                 if let components = URLComponents(url: requestURL, resolvingAgainstBaseURL: false),
                    let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
                    let queryURL = queryItem.value,
                    let url = URL(string: queryURL) {
-                    webView.load(URLRequest(url: url))
+                    await webView.load(URLRequest(url: url))
                 }
-                decisionHandler(.cancel)
+                return .cancel
             default:
-                UIApplication.shared.open(requestURL, options: [:]) { result in
+                await UIApplication.shared.open(requestURL, options: [:]) { result in
                     DebugLog(Coordinator.self, "\(result)")
                 }
-                decisionHandler(.cancel)
+                return .cancel
             }
         }
 
