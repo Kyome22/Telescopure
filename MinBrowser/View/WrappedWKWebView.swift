@@ -21,9 +21,6 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
 
         webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsBackForwardNavigationGestures = true
-        webView.backgroundColor = UIColor.secondarySystemBackground
-        webView.isOpaque = false
-
         self.viewModel = viewModel
     }
 

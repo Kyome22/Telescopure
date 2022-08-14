@@ -10,16 +10,21 @@ import SwiftUI
 struct LogoView: View {
     var body: some View {
         VStack(spacing: 4) {
+            Spacer()
             Image("MonoIcon")
                 .renderingMode(.template)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 120, height: 120)
+                .foregroundColor(Color.systemGray5)
             Text("MinBrowser")
                 .italic()
                 .bold()
+                .foregroundColor(Color.systemGray5)
+            Spacer()
         }
-        .foregroundColor(Color.systemGray5)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.secondarySystemBackground)
     }
 }
 
