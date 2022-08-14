@@ -31,12 +31,6 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
     }
 
     func updateUIView(_ webView: WKWebView, context: Context) {
-        func openURL(urlString: String) {
-            if let url = URL(string: urlString) {
-                webView.load(URLRequest(url: url))
-            }
-        }
-
         switch viewModel.action {
         case .none:
             return
@@ -50,14 +44,9 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
             }
         case .reload:
             webView.reload()
-        case .search(let searchText):
-            if searchText.isEmpty {
-                openURL(urlString: "https://www.google.com")
-            } else if searchText.match(pattern: #"^[a-zA-Z]+://"#) {
-                openURL(urlString: searchText)
-            } else if let encoded = searchText.percentEncoded {
-                let urlString = "https://www.google.com/search?q=\(encoded)"
-                openURL(urlString: urlString)
+        case .search(let urlString):
+            if let url = URL(string: urlString) {
+                webView.load(URLRequest(url: url))
             }
         }
         viewModel.action = .none

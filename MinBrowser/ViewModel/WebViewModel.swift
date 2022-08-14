@@ -99,7 +99,16 @@ final class WebViewModel: WebViewModelProtocol {
 
     // MARK: Web Action
     func search(with text: String) {
-        action = .search(text)
+        let key = UserDefaults.standard.string(forKey: "search-engine") ?? ""
+        let searchEngine = SearchEngine(rawValue: key) ?? .google
+        if text.isEmpty {
+            action = .search(searchEngine.url)
+        } else if text.match(pattern: #"^[a-zA-Z]+://"#) {
+            action = .search(text)
+        } else if let encoded = text.percentEncoded {
+            let urlString = searchEngine.urlWithQuery(keywords: encoded)
+            action = .search(urlString)
+        }
     }
 
     func goBack() {
