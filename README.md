@@ -11,6 +11,7 @@ You can use MinBrowser to debug your application that work with the browser.
 - Pull to refresh
 - Bookmark
 - Open link in MinBrowser via other app.
+- User selected search engine (Google/Bing/DuckDuckgo)
 - Support themes (light/dark).
 - Localized (English, Japanese).
 
@@ -68,6 +69,7 @@ You can use MinBrowser to debug your application that work with the browser.
 │   ├── InfoPlist.strings
 │   ├── Localizable.strings
 │   ├── MinBrowserApp.swift
+│   ├── Settings.bundle
 │   ├── View
 │   │   ├── Alert
 │   │   │   ├── LegacyAlertModifier.swift
