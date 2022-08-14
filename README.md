@@ -8,13 +8,9 @@ You can use MinBrowser to debug your application that work with the browser.
 - Open an HTTP or HTTPS link.
 - Search by keywords.
 - Full screen
+- Pull to refresh
 - Bookmark
 - Open link in MinBrowser via other app.
-- Showing JS `alert()`, `confirm()`, `prompt()`.
-- Uploading photos/videos.
-- Saving photos/videos.
-- Using camera/microphone to take a picture or video.
-- Getting device's currently location.
 - Support themes (light/dark).
 - Localized (English, Japanese).
 
@@ -49,6 +45,57 @@ You can use MinBrowser to debug your application that work with the browser.
 <img src="Resources/light/6-share-view.png" alt="share view" width="150px" />&nbsp;&nbsp;
 <img src="Resources/dark/5-share-sheet.png" alt="share sheet" width="150px" />&nbsp;&nbsp;
 <img src="Resources/dark/6-share-view.png" alt="share view" width="150px" />
+
+## Implementation
+
+- SwiftUI based App
+- WKWebView wrapped in UIViewRepresentable
+- UIAlertController via ViewModifier
+- Share Extension
+
+## Tree
+
+```plain
+.
+├── MinBrowser
+│   ├── Assets.xcassets
+│   ├── DebugLog.swift
+│   ├── Extensions
+│   │   ├── Color+Extensions.swift
+│   │   ├── String+Extensions.swift
+│   │   └── WKWebView+Extension.swift
+│   ├── Info.plist
+│   ├── InfoPlist.strings
+│   ├── Localizable.strings
+│   ├── MinBrowserApp.swift
+│   ├── View
+│   │   ├── Alert
+│   │   │   ├── LegacyAlertModifier.swift
+│   │   │   └── MigratedAlertModifier.swift
+│   │   ├── BookmarkView.swift
+│   │   ├── HideToolBarButton.swift
+│   │   ├── LogoView.swift
+│   │   ├── SearchBar.swift
+│   │   ├── ToolBar.swift
+│   │   ├── WebView.swift
+│   │   └── WrappedWKWebView.swift
+│   └── ViewModel
+│       ├── Bookmark.swift
+│       ├── Mock
+│       │   └── WebViewModelMock.swift
+│       └── WebViewModel.swift
+└── MinBrowserShare
+    ├── Info.plist
+    ├── Localizable.strings
+    ├── MainInterface.strings
+    ├── View
+    │   ├── ShareView.swift
+    │   └── ShareViewController.swift
+    └── ViewModel
+        ├── Mock
+        │   └── ShareViewModelMock.swift
+        └── ShareViewModel.swift
+```
 
 ## How to be the Default Browser
 
