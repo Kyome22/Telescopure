@@ -116,6 +116,15 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
                     }
                 }
                 .store(in: &cancellables)
+
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
+            contentView.webView.scrollView.addSubview(refreshControl)
+        }
+
+        @objc func reloadWebView(_ sender: UIRefreshControl) {
+            contentView.webView.reload()
+            sender.endRefreshing()
         }
 
         // MARK: - WKNavigationDelegate
