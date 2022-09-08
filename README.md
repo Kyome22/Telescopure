@@ -25,26 +25,34 @@ You can use MinBrowser to debug your application that work with the browser.
 
 ### Top
 
-<img src="Resources/light/1-top.png" alt="top" width="150px" style="margin-right: 8px;" />
-<img src="Resources/dark/1-top.png" alt="top" width="150px" />
-
+<div>
+  <img src="Resources/light/1-top.png" alt="top" width="150px" />
+  <img src="Resources/dark/1-top.png" alt="top" width="150px" />
+</div>
+    
 ### Browsing
 
-<img src="Resources/light/2-browsing.png" alt="browsing" width="150px" style="margin-right: 8px;" />
-<img src="Resources/light/3-full-screen.png" alt="full screen" width="150px" style="margin-right: 8px;" />
-<img src="Resources/dark/2-browsing.png" alt="browsing" width="150px" style="margin-right: 8px;" />
-<img src="Resources/dark/3-full-screen.png" alt="full screen" width="150px" />
-
+<div>
+  <img src="Resources/light/2-browsing.png" alt="browsing" width="150px" />
+  <img src="Resources/light/3-full-screen.png" alt="full screen" width="150px" />
+  <img src="Resources/dark/2-browsing.png" alt="browsing" width="150px" />
+  <img src="Resources/dark/3-full-screen.png" alt="full screen" width="150px" />
+</div>
+    
 ### Bookmark
 
-<img src="Resources/light/4-bookmark.png" alt="bookmark" width="150px" style="margin-right: 8px;" />
-<img src="Resources/dark/4-bookmark.png" alt="bookmark" width="150px" />
+<div>
+  <img src="Resources/light/4-bookmark.png" alt="bookmark" width="150px" />
+  <img src="Resources/dark/4-bookmark.png" alt="bookmark" width="150px" />
+</div>
 
 ### Open link via other app
 
-<img src="Resources/light/5-open-link.png" alt="open link" width="150px" style="margin-right: 8px;" />
-<img src="Resources/dark/5-open-link.png" alt="open link" width="150px" />
-
+<div>
+  <img src="Resources/light/5-open-link.png" alt="open link" width="150px" />
+  <img src="Resources/dark/5-open-link.png" alt="open link" width="150px" />
+</div>
+    
 ## Implementation
 
 - SwiftUI based App
