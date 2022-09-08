@@ -1,18 +1,18 @@
-# <img src="Resources/rounded-icon.png" alt="logo" width="30px" height="30px" /> MinBrowser
+# <img src="Resources/rounded-icon.png" alt="logo" width="25px" height="25px" /> MinBrowser
 
-A browser for iOS which has minimal functions.<br>
+MinBrowser is a browser for iOS which has minimal functions.<br>
 You can use MinBrowser to debug your application that work with the browser.
 
 ## Functions
 
 - Open an HTTP or HTTPS link.
 - Search by keywords.
-- Full screen
-- Pull to refresh
-- Bookmark
-- Open link in MinBrowser via other app.
-- User selected search engine (Google/Bing/DuckDuckgo)
-- Support themes (light/dark).
+- Browse a page in the full screen.
+- Pull to refresh a page.
+- Bookmark user's favorite page.
+- Open a link of other app in MinBrowser.
+- User can select a search engine (Google/Bing/DuckDuckGo).
+- Support light and dark themes.
 - Localized (English, Japanese).
 
 ## Requirements
@@ -25,27 +25,25 @@ You can use MinBrowser to debug your application that work with the browser.
 
 ### Top
 
-<img src="Resources/light/1-top.png" alt="top" width="150px" />&nbsp;&nbsp;
+<img src="Resources/light/1-top.png" alt="top" width="150px" style="margin-right: 8px;" />
 <img src="Resources/dark/1-top.png" alt="top" width="150px" />
 
 ### Browsing
 
-<img src="Resources/light/2-open-link.png" alt="open link" width="150px" />&nbsp;&nbsp;
-<img src="Resources/light/3-full-screen.png" alt="full screen" width="150px" />&nbsp;&nbsp;
-<img src="Resources/dark/2-open-link.png" alt="open link" width="150px" />&nbsp;&nbsp;
+<img src="Resources/light/2-browsing.png" alt="browsing" width="150px" style="margin-right: 8px;" />
+<img src="Resources/light/3-full-screen.png" alt="full screen" width="150px" style="margin-right: 8px;" />
+<img src="Resources/dark/2-browsing.png" alt="browsing" width="150px" style="margin-right: 8px;" />
 <img src="Resources/dark/3-full-screen.png" alt="full screen" width="150px" />
 
 ### Bookmark
 
-<img src="Resources/light/4-bookmark.png" alt="bookmark" width="150px" />&nbsp;&nbsp;
+<img src="Resources/light/4-bookmark.png" alt="bookmark" width="150px" style="margin-right: 8px;" />
 <img src="Resources/dark/4-bookmark.png" alt="bookmark" width="150px" />
 
 ### Open link via other app
 
-<img src="Resources/light/5-share-sheet.png" alt="share sheet" width="150px" />&nbsp;&nbsp;
-<img src="Resources/light/6-share-view.png" alt="share view" width="150px" />&nbsp;&nbsp;
-<img src="Resources/dark/5-share-sheet.png" alt="share sheet" width="150px" />&nbsp;&nbsp;
-<img src="Resources/dark/6-share-view.png" alt="share view" width="150px" />
+<img src="Resources/light/5-open-link.png" alt="open link" width="150px" style="margin-right: 8px;" />
+<img src="Resources/dark/5-open-link.png" alt="open link" width="150px" />
 
 ## Implementation
 
