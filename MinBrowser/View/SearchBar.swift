@@ -27,6 +27,7 @@ struct SearchBar: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.systemGray)
                 TextField("search", text: $inputText)
+                    .accessibilityIdentifier("searchTextField")
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
                     .foregroundColor(.systemGray)
@@ -39,6 +40,7 @@ struct SearchBar: View {
                     Image(systemName: "xmark.circle.fill")
                         .foregroundColor(inputText.isEmpty ? .systemGray3 : .systemGray)
                 }
+                .accessibilityIdentifier("clearButton")
                 .disabled(inputText.isEmpty)
             }
             .padding(.horizontal, 8)

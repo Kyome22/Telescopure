@@ -59,6 +59,7 @@ struct BookmarkView: View {
                     Image(systemName: "xmark")
                         .font(.title3)
                 }
+                .accessibilityIdentifier("hideBookmarkButton")
             }
         }
         .padding(16)

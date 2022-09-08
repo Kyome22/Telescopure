@@ -28,7 +28,7 @@ final class WebViewModelMock: WebViewModelProtocol {
 
     @Published var hideToolBar: Bool = false
 
-    func search(with text: String) { fatalError() }
+    func search(with text: String, userDefaults: UserDefaults) { fatalError() }
     func goBack() { fatalError() }
     func goForward() { fatalError() }
     func reload() { fatalError() }

@@ -61,6 +61,7 @@ struct ToolBar: View {
                         .imageScale(.large)
                         .frame(width: 40, height: 40, alignment: .center)
                 }
+                .accessibilityIdentifier("showBookmarkButton")
                 Button {
                     withAnimation(.easeInOut(duration: 0.4)) {
                         hideToolBar = true
@@ -70,6 +71,7 @@ struct ToolBar: View {
                         .imageScale(.large)
                         .frame(width: 40, height: 40, alignment: .center)
                 }
+                .accessibilityIdentifier("hideToolBarButton")
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 16)

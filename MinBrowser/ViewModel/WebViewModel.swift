@@ -44,7 +44,7 @@ protocol WebViewModelProtocol: ObservableObject {
     var hideToolBar: Bool { get set }
 
     // MARK: Web Action
-    func search(with text: String)
+    func search(with text: String, userDefaults: UserDefaults)
     func goBack()
     func goForward()
     func reload()
@@ -70,6 +70,15 @@ protocol WebViewModelProtocol: ObservableObject {
 
     func dialogOK()
     func dialogCancel()
+}
+
+extension WebViewModelProtocol {
+    func search(
+        with text: String,
+        userDefaults: UserDefaults = UserDefaults.standard
+    ) {
+        search(with: text, userDefaults: userDefaults)
+    }
 }
 
 final class WebViewModel: WebViewModelProtocol {
@@ -98,8 +107,11 @@ final class WebViewModel: WebViewModelProtocol {
     private var promptHandler: ((String?) -> Void)?
 
     // MARK: Web Action
-    func search(with text: String) {
-        let key = UserDefaults.standard.string(forKey: "search-engine") ?? ""
+    func search(
+        with text: String,
+        userDefaults: UserDefaults = UserDefaults.standard
+    ) {
+        let key = userDefaults.string(forKey: "search-engine") ?? ""
         let searchEngine = SearchEngine(rawValue: key) ?? .google
         if text.isEmpty {
             action = .search(searchEngine.url)

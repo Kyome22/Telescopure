@@ -1,5 +1,5 @@
 //
-//  HideToolBarButton.swift
+//  ShowToolBarButton.swift
 //  MinBrowser
 //
 //  Created by Takuto Nakamura on 2022/08/12.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HideToolBarButton: View {
+struct ShowToolBarButton: View {
     @Binding var hideToolBar: Bool
 
     var body: some View {
@@ -20,6 +20,7 @@ struct HideToolBarButton: View {
                 .imageScale(.large)
                 .frame(width: 40, height: 40, alignment: .center)
         }
+        .accessibilityIdentifier("showToolBarButton")
         .background(Color("Floating"))
         .clipShape(Circle())
         .shadow(radius: 8)
@@ -28,8 +29,8 @@ struct HideToolBarButton: View {
     }
 }
 
-struct HideToolBarButton_Previews: PreviewProvider {
+struct ShowToolBarButton_Previews: PreviewProvider {
     static var previews: some View {
-        HideToolBarButton(hideToolBar: .constant(false))
+        ShowToolBarButton(hideToolBar: .constant(false))
     }
 }

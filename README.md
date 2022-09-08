@@ -81,9 +81,9 @@ You can use MinBrowser to debug your application that work with the browser.
 │   │   │   ├── LegacyAlertModifier.swift
 │   │   │   └── MigratedAlertModifier.swift
 │   │   ├── BookmarkView.swift
-│   │   ├── HideToolBarButton.swift
 │   │   ├── LogoView.swift
 │   │   ├── SearchBar.swift
+│   │   ├── ShowToolBarButton.swift
 │   │   ├── ToolBar.swift
 │   │   ├── WebView.swift
 │   │   └── WrappedWKWebView.swift

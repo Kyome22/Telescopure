@@ -52,7 +52,7 @@ struct WebView<T: WebViewModelProtocol>: View {
             }
             .background(Color.secondarySystemBackground)
             if viewModel.hideToolBar {
-                HideToolBarButton(hideToolBar: $viewModel.hideToolBar)
+                ShowToolBarButton(hideToolBar: $viewModel.hideToolBar)
                     .transition(.opacity)
             }
         }
