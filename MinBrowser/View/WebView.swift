@@ -57,10 +57,18 @@ struct WebView<T: WebViewModelProtocol>: View {
             }
         }
         .onOpenURL(perform: { url in
-            if let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-               let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
-               let queryURL = queryItem.value {
-                viewModel.search(with: queryURL)
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+                  let queryItem = components.queryItems?.first
+            else { return }
+            if queryItem.name == "link", var link = queryItem.value {
+                if let fragment = url.fragment {
+                    link += "#\(fragment)"
+                }
+                viewModel.search(with: link)
+            }
+            if queryItem.name == "plaintext", let plainText = queryItem.value {
+                // plainText is already removed percent-encoding.
+                viewModel.search(with: plainText)
             }
         })
         .sheet(isPresented: $viewModel.showBookmark) {

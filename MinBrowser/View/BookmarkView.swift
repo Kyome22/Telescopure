@@ -129,7 +129,6 @@ struct BookmarkView: View {
         }
         if let data = try? JSONSerialization.data(withJSONObject: obj),
            let str = String(data: data, encoding: .utf8) {
-            Swift.print(str)
             bookmarksJSON = str
         }
     }

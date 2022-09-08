@@ -18,7 +18,7 @@ final class ShareViewController: UIViewController {
         super.viewDidLoad()
 
         shareViewModel = ShareViewModel(vc: self)
-        shareViewModel.setURLText()
+        shareViewModel.setSharedText()
         let shareView = ShareView(viewModel: self.shareViewModel)
         let vc = UIHostingController(rootView: shareView)
         self.addChild(vc)

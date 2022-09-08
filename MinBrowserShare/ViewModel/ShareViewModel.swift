@@ -6,63 +6,103 @@
 //
 
 import UIKit
-import MobileCoreServices
 import UniformTypeIdentifiers
+import SwiftUI
 
 protocol ShareViewModelProtocol: ObservableObject {
-    var urlText: String { get set }
+    var sharedText: String { get set }
+    var sharedTypeKey: LocalizedStringKey { get set }
 
-    func setURLText()
+    func setSharedText()
     func cancel()
     func open()
 }
 
-final class ShareViewModel: ShareViewModelProtocol {
-    @Published var urlText: String = ""
+enum SharedType {
+    case link(URL)
+    case plainText(String)
 
+    var sharedText: String {
+        switch self {
+        case .link(let url):
+            let urlString = url.absoluteString.removingPercentEncoding ?? url.absoluteString
+            return (255 < urlString.count) ? urlString.prefix(255) + "…" : urlString
+        case .plainText(let text):
+            return (255 < text.count) ? text.prefix(255) + "…" : text
+        }
+    }
+
+    var shareURL: URL? {
+        switch self {
+        case .link(let url):
+            // url is already percent-encoded.
+            return URL(string: "minbrowser://?link=\(url.absoluteString)")
+        case .plainText(let text):
+            guard let encoded = text.percentEncoded else { return nil }
+            return URL(string: "minbrowser://?plaintext=\(encoded)")
+        }
+    }
+
+    var localizedKey: LocalizedStringKey {
+        switch self {
+        case .link(_): return "open_in"
+        case .plainText(_): return "search_in"
+        }
+    }
+}
+
+final class ShareViewModel: ShareViewModelProtocol {
+    @Published var sharedText: String = ""
+    @Published var sharedTypeKey: LocalizedStringKey = ""
+
+    private let domain: String = "com.kyome.MinBrowser"
     private let vc: UIViewController
-    private var url: URL? = nil
+    private var sharedType: SharedType!
 
     init(vc: UIViewController) {
         self.vc = vc
     }
 
-    func setURLText() {
+    func setSharedText() {
         Task {
             do {
                 let context = await vc.extensionContext
-                url = try await extractSharedItem(from: context)
-                if let urlString = url?.absoluteString.removingPercentEncoding {
-                    urlText = (255 < urlString.count) ? urlString.prefix(255) + "…" : urlString
-                }
+                sharedType = try await extractSharedItem(from: context)
+                sharedText = sharedType.sharedText
+                sharedTypeKey = sharedType.localizedKey
             } catch(let error) {
+                try! await Task.sleep(nanoseconds: UInt64(500_000_000))
                 await vc.extensionContext?.cancelRequest(withError: error)
             }
         }
     }
 
-    func extractSharedItem(from context: NSExtensionContext?) async throws -> URL {
+    func extractSharedItem(from context: NSExtensionContext?) async throws -> SharedType {
         guard let item = context?.inputItems.first as? NSExtensionItem,
-              let attachment = item.attachments?.first,
-              attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier)
+              let attachment = item.attachments?.first
         else {
-            throw NSError(domain: "com.kyome.MinBrowser",
-                          code: 404,
-                          userInfo: ["Reason" : "Non-URL item"])
+            throw NSError(domain: domain, code: 404, userInfo: ["Reason": "Non-Attachments item"])
         }
-        let loadedItem = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
-        guard let url = loadedItem as? URL else {
-            throw NSError(domain: "com.kyome.MinBrowser",
-                          code: 404,
-                          userInfo: ["Reason" : "Non-URL item"])
+        if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+            let loadedItem = try await attachment.loadItem(forTypeIdentifier: UTType.url.identifier)
+            guard let link = loadedItem as? URL else {
+                throw NSError(domain: domain, code: 404, userInfo: ["Reason": "Non-URL item"])
+            }
+            return SharedType.link(link)
         }
-        return url
+        if attachment.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
+            let loadedItem = try await attachment.loadItem(forTypeIdentifier: UTType.plainText.identifier)
+            guard let text = loadedItem as? String else {
+                throw NSError(domain: domain, code: 404, userInfo: ["Reason": "Non-Text item"])
+            }
+            let plainText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            return SharedType.plainText(plainText)
+        }
+        throw NSError(domain: domain, code: 404, userInfo: ["Reason": "Non-Supported item"])
     }
 
     func cancel() {
-        let error = NSError(domain: "com.kyome.MinBrowser",
-                            code: 404,
-                            userInfo: ["Reason" : "Canceled"])
+        let error = NSError(domain: domain, code: 404, userInfo: ["Reason": "Canceled"])
         vc.extensionContext?.cancelRequest(withError: error)
     }
 
@@ -70,12 +110,7 @@ final class ShareViewModel: ShareViewModelProtocol {
         defer {
             vc.extensionContext?.completeRequest(returningItems: [])
         }
-        guard let urlString = url?.absoluteString,
-              let encoded = urlString.percentEncoded,
-              let shareURL = URL(string: "minbrowser://?url=\(encoded)")
-        else {
-            return
-        }
+        guard let shareURL = sharedType.shareURL else { return }
         var responder: UIResponder? = vc
         while responder != nil {
             if let application = responder as? UIApplication {
@@ -86,4 +121,3 @@ final class ShareViewModel: ShareViewModelProtocol {
         }
     }
 }
-
