@@ -1,0 +1,51 @@
+name: Dispatch Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test
+    runs-on: macos-12
+    env:
+      DEVELOPER_DIR: "/Applications/Xcode_13.4.1.app/Contents/Developer"
+      CODE_SIGN_IDENTITY: ""
+      CODE_SIGNING_REQUIRED: "NO"
+      CODE_SIGNING_ALLOWED: "NO"
+      DERIVED_DATA: "DerivedData"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Show Xcode Version
+        run: xcodebuild -version
+
+      - name: Build for Test
+        run: |
+          xcodebuild clean build-for-testing \
+            -project MinBrowser.xcodeproj \
+            -scheme MinBrowser \
+            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -derivedDataPath ${{ env.DERIVED_DATA }} | \
+            xcpretty -c && exit ${PIPESTATUS[0]}
+
+      - name: Unit Test
+        run: |
+          xcodebuild test-without-building \
+            -project MinBrowser.xcodeproj \
+            -scheme MinBrowser \
+            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -derivedDataPath ${{ env.DERIVED_DATA }} \
+            -only-testing:MinBrowserTests | \
+            xcpretty -c && exit ${PIPESTATUS[0]}
+
+      - name: UI Test
+        run: |
+          xcodebuild test-without-building \
+            -project MinBrowser.xcodeproj \
+            -scheme MinBrowser \
+            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -derivedDataPath ${{ env.DERIVED_DATA }} \
+            -only-testing:MinBrowserUITests | \
+            xcpretty -c && exit ${PIPESTATUS[0]}
