@@ -27,7 +27,15 @@ struct WebView<T: WebViewModelProtocol>: View {
                     .transition(.move(edge: .top))
                 }
                 ZStack(alignment: .center) {
-                    WrappedWKWebView(viewModel: viewModel)
+                    WrappedWKWebView(setWebViewHandler: { webView in
+                        viewModel.setWebView(webView)
+                    }, showAlertHandler: { message, completion in
+                        viewModel.showAlert(message, completion)
+                    }, showConfirmHandler: { message, completion in
+                        viewModel.showConfirm(message, completion)
+                    }, showPromptHandler: { prompt, defaultText, completion in
+                        viewModel.showPrompt(prompt, defaultText, completion)
+                    })
                     if viewModel.url == nil {
                         LogoView()
                     }
@@ -83,7 +91,19 @@ struct WebView<T: WebViewModelProtocol>: View {
                 }
             )
         }
-        .modifier(MigratedAlertModifier(viewModel: viewModel))
+        .modifier(
+            MigratedAlertModifier(
+                isPresented: $viewModel.showDialog,
+                webDialog: $viewModel.webDialog,
+                text: $viewModel.inputText,
+                okActionHandler: {
+                    viewModel.dialogOK()
+                },
+                cancelActionHandler: {
+                    viewModel.dialogCancel()
+                }
+            )
+        )
     }
 }
 

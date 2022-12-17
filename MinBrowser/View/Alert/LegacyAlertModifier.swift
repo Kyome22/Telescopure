@@ -10,11 +10,8 @@ import SwiftUI
 struct LegacyAlertModifier: ViewModifier {
     @State private var alertController: UIAlertController?
     @Binding var isPresented: Bool
-    @Binding var alertType: AlertType
-    @Binding var title: String
-    @Binding var message: String
+    @Binding var webDialog: WebDialog
     @Binding var text: String
-    @Binding var placeholder: String
     let okActionHandler: () -> Void
     let cancelActionHandler: () -> Void
 
@@ -36,19 +33,19 @@ struct LegacyAlertModifier: ViewModifier {
     }
 
     private func makeAlertController() -> UIAlertController {
-        let alertController = UIAlertController(title: title,
-                                                message: message,
+        let alertController = UIAlertController(title: "",
+                                                message: webDialog.message,
                                                 preferredStyle: .alert)
-        if alertType == .prompt {
+        if case .prompt(_, let defaultText) = webDialog {
             alertController.addTextField { textField in
-                textField.placeholder = placeholder
+                textField.placeholder = defaultText
                 textField.text = text
                 textField.returnKeyType = .done
             }
         }
-
-        if alertType != .alert {
-            let cancelAction = UIAlertAction(title: "cancel".localized, style: .cancel) { _ in
+        if !webDialog.isAlert  {
+            let cancelAction = UIAlertAction(title: "cancel".localized,
+                                             style: .cancel) { _ in
                 cancelActionHandler()
                 dismissAlert()
             }

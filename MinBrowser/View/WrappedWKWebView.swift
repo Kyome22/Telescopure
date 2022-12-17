@@ -9,48 +9,27 @@ import SwiftUI
 import WebKit
 import Combine
 
-struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
+struct WrappedWKWebView: UIViewRepresentable {
     typealias UIViewType = WKWebView
 
-    private let webView: WKWebView
-    @ObservedObject var viewModel: T
+    let setWebViewHandler: (WKWebView) -> Void
+    let showAlertHandler: (String, @escaping () -> Void) -> Void
+    let showConfirmHandler: (String, @escaping (Bool) -> Void) -> Void
+    let showPromptHandler: (String, String?, @escaping (String?) -> Void) -> Void
 
-    init(viewModel: T) {
+    func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration()
         config.allowsInlineMediaPlayback = true
 
-        webView = WKWebView(frame: .zero, configuration: config)
+        let webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsBackForwardNavigationGestures = true
-        self.viewModel = viewModel
-    }
-
-    func makeUIView(context: Context) -> WKWebView {
         webView.navigationDelegate = context.coordinator
         webView.uiDelegate = context.coordinator
+        setWebViewHandler(webView)
         return webView
     }
 
-    func updateUIView(_ webView: WKWebView, context: Context) {
-        switch viewModel.action {
-        case .none:
-            return
-        case .goBack:
-            if webView.canGoBack {
-                webView.goBack()
-            }
-        case .goForward:
-            if webView.canGoForward {
-                webView.goForward()
-            }
-        case .reload:
-            webView.reload()
-        case .search(let urlString):
-            if let url = URL(string: urlString) {
-                webView.load(URLRequest(url: url))
-            }
-        }
-        viewModel.action = .none
-    }
+    func updateUIView(_ webView: WKWebView, context: Context) {}
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(self)
@@ -58,64 +37,11 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
 
     final class Coordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         let contentView: WrappedWKWebView
-        var cancellables = Set<AnyCancellable>()
 
         init(_ contentView: WrappedWKWebView) {
             self.contentView = contentView
             super.init()
-
-            contentView.webView
-                .publisher(for: \.estimatedProgress)
-                .assign(to: \.estimatedProgress, on: contentView.viewModel)
-                .store(in: &cancellables)
-
-            contentView.webView
-                .publisher(for: \.isLoading)
-                .sink { value in
-                    if value {
-                        contentView.viewModel.estimatedProgress = 0
-                        contentView.viewModel.progressOpacity = 1
-                    } else {
-                        contentView.viewModel.progressOpacity = 0
-                    }
-                }
-                .store(in: &cancellables)
-
-            contentView.webView
-                .publisher(for: \.canGoBack)
-                .assign(to: \.canGoBack, on: contentView.viewModel)
-                .store(in: &cancellables)
-
-            contentView.webView
-                .publisher(for: \.canGoForward)
-                .assign(to: \.canGoForward, on: contentView.viewModel)
-                .store(in: &cancellables)
-
-            contentView.webView
-                .publisher(for: \.title)
-                .assign(to: \.title, on: contentView.viewModel)
-                .store(in: &cancellables)
-
-            contentView.webView
-                .publisher(for: \.url)
-                .sink { url in
-                    contentView.viewModel.url = url
-                    if let urlString = url?.absoluteString.removingPercentEncoding {
-                        contentView.viewModel.inputText = urlString
-                    }
-                }
-                .store(in: &cancellables)
-
-            let refreshControl = UIRefreshControl()
-            refreshControl.addTarget(self, action: #selector(reloadWebView(_:)), for: .valueChanged)
-            contentView.webView.scrollView.addSubview(refreshControl)
         }
-
-        @objc func reloadWebView(_ sender: UIRefreshControl) {
-            contentView.webView.reload()
-            sender.endRefreshing()
-        }
-
         // MARK: - WKNavigationDelegate
         func webView(
             _ webView: WKWebView,
@@ -168,8 +94,7 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
             initiatedByFrame frame: WKFrameInfo,
             completionHandler: @escaping () -> Void
         ) {
-            contentView.viewModel.showAlert(message: message,
-                                            completion: completionHandler)
+            contentView.showAlertHandler(message, completionHandler)
         }
 
         // Confirm
@@ -179,8 +104,7 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
             initiatedByFrame frame: WKFrameInfo,
             completionHandler: @escaping (Bool) -> Void
         ) {
-            contentView.viewModel.showConfirm(message: message,
-                                              completion: completionHandler)
+            contentView.showConfirmHandler(message, completionHandler)
         }
 
         // Prompt
@@ -191,9 +115,7 @@ struct WrappedWKWebView<T: WebViewModelProtocol>: UIViewRepresentable {
             initiatedByFrame frame: WKFrameInfo,
             completionHandler: @escaping (String?) -> Void
         ) {
-            contentView.viewModel.showPrompt(prompt: prompt,
-                                             defaultText: defaultText,
-                                             completion: completionHandler)
+            contentView.showPromptHandler(prompt, defaultText, completionHandler)
         }
     }
 }

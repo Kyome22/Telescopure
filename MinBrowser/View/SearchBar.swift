@@ -9,15 +9,7 @@ import SwiftUI
 
 struct SearchBar: View {
     @Binding var inputText: String
-    private let searchHandler: (String) -> Void
-
-    init(
-        inputText: Binding<String>,
-        searchHandler: @escaping (String) -> Void
-    ) {
-        _inputText = inputText
-        self.searchHandler = searchHandler
-    }
+    let searchHandler: (String) -> Void
 
     var body: some View {
         ZStack {
