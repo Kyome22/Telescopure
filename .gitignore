@@ -21,6 +21,7 @@ xcuserdata/
 # Other
 *.moved-aside
 *.xcuserstate
+Previews
 
 # Obj-C/Swift specific
 *.hmap
