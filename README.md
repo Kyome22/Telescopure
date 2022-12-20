@@ -76,6 +76,8 @@ You can use MinBrowser to debug your application that work with the browser.
 │   ├── Localizable.strings
 │   ├── MinBrowserApp.swift
 │   ├── Settings.bundle
+│   │   ├── Root.plist
+│   │   └── Root.strings
 │   ├── View
 │   │   ├── Alert
 │   │   │   ├── LegacyAlertModifier.swift
@@ -91,18 +93,21 @@ You can use MinBrowser to debug your application that work with the browser.
 │       ├── Bookmark.swift
 │       ├── Mock
 │       │   └── WebViewModelMock.swift
+│       ├── SearchEngine.swift
 │       └── WebViewModel.swift
 └── MinBrowserShare
     ├── Info.plist
     ├── Localizable.strings
-    ├── MainInterface.strings
     ├── View
+    │   ├── MainInterface.storyboard
     │   ├── ShareView.swift
     │   └── ShareViewController.swift
     └── ViewModel
         ├── Mock
         │   └── ShareViewModelMock.swift
-        └── ShareViewModel.swift
+        ├── ShareError.swift
+        ├── ShareViewModel.swift
+        └── SharedType.swift
 ```
 
 ## How to be the Default Browser
