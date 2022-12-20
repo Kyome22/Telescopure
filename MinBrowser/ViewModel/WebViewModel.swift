@@ -152,7 +152,7 @@ final class WebViewModel: WebViewModelProtocol {
         refreshControl.addTarget(self,
                                  action: #selector(reloadWebView(_:)),
                                  for: .valueChanged)
-        webView.scrollView.addSubview(refreshControl)
+        webView.scrollView.refreshControl = refreshControl
     }
 
     @objc func reloadWebView(_ sender: UIRefreshControl) {
