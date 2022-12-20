@@ -7,41 +7,42 @@
 
 import SwiftUI
 
-struct MigratedAlertModifier<T: WebViewModelProtocol>: ViewModifier {
-    @ObservedObject var viewModel: T
+struct MigratedAlertModifier: ViewModifier {
+    @Binding var isPresented: Bool
+    @Binding var webDialog: WebDialog
+    @Binding var text: String
+    let okActionHandler: () -> Void
+    let cancelActionHandler: () -> Void
 
     func body(content: Content) -> some View {
         if #available(iOS 16, *) {
-            content.alert("", isPresented: $viewModel.showDialog, actions: {
-                if viewModel.dialog == .prompt {
+            content.alert("", isPresented: $isPresented, actions: {
+                if case .prompt(_, let defaultText) = webDialog {
                     // Prompt is only available on iOS 16 or later.
                     // https://sarunw.com/posts/swiftui-alert-textfield/
-                    TextField(viewModel.promptDefaultText, text: $viewModel.promptInput)
+                    TextField(defaultText, text: $text)
                 }
                 Button("OK") {
-                    viewModel.dialogOK()
+                    okActionHandler()
                 }
-                if viewModel.dialog != .alert {
+                if !webDialog.isAlert {
                     Button("cancel", role: .cancel) {
-                        viewModel.dialogCancel()
+                        cancelActionHandler()
                     }
                 }
             }, message: {
-                Text(viewModel.dialogMessage)
+                Text(webDialog.message)
             })
         } else {
             content.modifier(LegacyAlertModifier(
-                isPresented: $viewModel.showDialog,
-                alertType: $viewModel.dialog,
-                title: .constant(""),
-                message: $viewModel.dialogMessage,
-                text: $viewModel.promptInput,
-                placeholder: $viewModel.promptDefaultText,
+                isPresented: $isPresented,
+                webDialog: $webDialog,
+                text: $text,
                 okActionHandler: {
-                    viewModel.dialogOK()
+                    okActionHandler()
                 },
                 cancelActionHandler: {
-                    viewModel.dialogCancel()
+                    cancelActionHandler()
                 }
             ))
         }

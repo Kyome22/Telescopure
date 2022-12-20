@@ -8,10 +8,6 @@
 import Foundation
 
 extension String {
-    var percentEncoded: String? {
-        return self.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-    }
-
     func match(pattern: String) -> Bool {
         let matchRange = self.range(of: pattern, options: .regularExpression)
         return matchRange != nil

@@ -24,13 +24,15 @@
 		1C5A747928A785CD004364D9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A747B28A785CD004364D9 /* InfoPlist.strings */; };
 		1C5A747E28A939B5004364D9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A747D28A939B5004364D9 /* Settings.bundle */; };
 		1C5A748028A93FF7004364D9 /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747F28A93FF7004364D9 /* SearchEngine.swift */; };
+		1CC25754294E070200AB0A72 /* SharedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC25753294E070200AB0A72 /* SharedType.swift */; };
+		1CC25756294E074F00AB0A72 /* ShareError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC25755294E074F00AB0A72 /* ShareError.swift */; };
 		1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */; };
 		1CD37B9C27F826D900D7CF7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9B27F826D900D7CF7A /* Assets.xcassets */; };
 		1CD37B9F27F826D900D7CF7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37B9E27F826D900D7CF7A /* Preview Assets.xcassets */; };
 		1CD37BB327F826D900D7CF7A /* MinBrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BB227F826D900D7CF7A /* MinBrowserUITests.swift */; };
 		1CD37BC827F82D2E00D7CF7A /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BC727F82D2E00D7CF7A /* ShareViewController.swift */; };
 		1CD37BCB27F82D2E00D7CF7A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37BC927F82D2E00D7CF7A /* MainInterface.storyboard */; };
-		1CD37BCF27F82D2E00D7CF7A /* MinBrowserShare.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1CD37BC527F82D2E00D7CF7A /* MinBrowserShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1CD37BCF27F82D2E00D7CF7A /* MinBrowserShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1CD37BC527F82D2E00D7CF7A /* MinBrowserShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1CD37BD527F82D5A00D7CF7A /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BD427F82D5A00D7CF7A /* ShareView.swift */; };
 		1CD37BD927F82EBC00D7CF7A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1CD37BDB27F82EBC00D7CF7A /* Localizable.strings */; };
 		1CD37BDE27F8303200D7CF7A /* ShareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BDD27F8303200D7CF7A /* ShareViewModel.swift */; };
@@ -68,15 +70,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1CD37BD327F82D2E00D7CF7A /* Embed App Extensions */ = {
+		1CD37BD327F82D2E00D7CF7A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1CD37BCF27F82D2E00D7CF7A /* MinBrowserShare.appex in Embed App Extensions */,
+				1CD37BCF27F82D2E00D7CF7A /* MinBrowserShare.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -99,6 +101,8 @@
 		1C5A747C28A785D1004364D9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1C5A747D28A939B5004364D9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1C5A747F28A93FF7004364D9 /* SearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
+		1CC25753294E070200AB0A72 /* SharedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedType.swift; sourceTree = "<group>"; };
+		1CC25755294E074F00AB0A72 /* ShareError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareError.swift; sourceTree = "<group>"; };
 		1CD37B9427F826D800D7CF7A /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinBrowserApp.swift; sourceTree = "<group>"; };
 		1CD37B9B27F826D900D7CF7A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -297,6 +301,8 @@
 			children = (
 				1C5A746728A6453C004364D9 /* Mock */,
 				1CD37BDD27F8303200D7CF7A /* ShareViewModel.swift */,
+				1CC25753294E070200AB0A72 /* SharedType.swift */,
+				1CC25755294E074F00AB0A72 /* ShareError.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -321,7 +327,7 @@
 				1CD37B9027F826D800D7CF7A /* Sources */,
 				1CD37B9127F826D800D7CF7A /* Frameworks */,
 				1CD37B9227F826D800D7CF7A /* Resources */,
-				1CD37BD327F82D2E00D7CF7A /* Embed App Extensions */,
+				1CD37BD327F82D2E00D7CF7A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -394,7 +400,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
 					1CD37B9327F826D800D7CF7A = {
 						CreatedOnToolsVersion = 13.3;
@@ -518,8 +524,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC25756294E074F00AB0A72 /* ShareError.swift in Sources */,
 				1C5A745628A4F18C004364D9 /* String+Extensions.swift in Sources */,
 				1CD37BDE27F8303200D7CF7A /* ShareViewModel.swift in Sources */,
+				1CC25754294E070200AB0A72 /* SharedType.swift in Sources */,
 				1CD37BD527F82D5A00D7CF7A /* ShareView.swift in Sources */,
 				1C5A746928A6454B004364D9 /* ShareViewModelMock.swift in Sources */,
 				1CD37BC827F82D2E00D7CF7A /* ShareViewController.swift in Sources */,
@@ -715,6 +723,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MinBrowser/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This application needs to access your camera for uploading photos/videos.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application needs to access your current location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This application needs to access your microphone for uploading videos.";
@@ -750,6 +759,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = MinBrowser/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSCameraUsageDescription = "This application needs to access your camera for uploading photos/videos.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application needs to access your current location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This application needs to access your microphone for uploading videos.";
