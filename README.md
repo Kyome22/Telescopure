@@ -94,6 +94,7 @@ You can use MinBrowser to debug your application that work with the browser.
 │       ├── Mock
 │       │   └── WebViewModelMock.swift
 │       ├── SearchEngine.swift
+│       ├── WebDialog.swift
 │       └── WebViewModel.swift
 └── MinBrowserShare
     ├── Info.plist
