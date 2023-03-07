@@ -1,9 +1,9 @@
-//
-//  SearchEngine.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/08/14.
-//
+/*
+  SearchEngine.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/14.
+*/
 
 import Foundation
 

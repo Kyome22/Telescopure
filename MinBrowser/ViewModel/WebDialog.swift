@@ -3,7 +3,6 @@
   MinBrowser
 
   Created by Takuto Nakamura on 2023/03/07.
-  
 */
 
 enum WebDialog {

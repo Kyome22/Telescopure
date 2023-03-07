@@ -1,9 +1,9 @@
-//
-//  MinBrowserApp.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/04/02.
-//
+/*
+  MinBrowserApp.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/04/02.
+*/
 
 import SwiftUI
 

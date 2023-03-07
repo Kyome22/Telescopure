@@ -1,9 +1,9 @@
-//
-//  SharedType.swift
-//  MinBrowserShare
-//
-//  Created by Takuto Nakamura on 2022/12/17.
-//
+/*
+  SharedType.swift
+  MinBrowserShare
+
+  Created by Takuto Nakamura on 2022/12/17.
+*/
 
 import SwiftUI
 

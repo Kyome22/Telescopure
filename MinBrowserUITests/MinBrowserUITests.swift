@@ -1,9 +1,9 @@
-//
-//  MinBrowserUITests.swift
-//  MinBrowserUITests
-//
-//  Created by Takuto Nakamura on 2022/04/02.
-//
+/*
+  MinBrowserUITests.swift
+  MinBrowserUITests
+
+  Created by Takuto Nakamura on 2022/04/02.
+*/
 
 import XCTest
 

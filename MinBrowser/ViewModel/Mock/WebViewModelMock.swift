@@ -1,9 +1,9 @@
-//
-//  WebViewModelMock.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/08/12.
-//
+/*
+  WebViewModelMock.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/12.
+*/
 
 import Foundation
 import WebKit

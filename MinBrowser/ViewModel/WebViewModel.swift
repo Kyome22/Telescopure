@@ -1,9 +1,9 @@
-//
-//  WebViewModel.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/08/10.
-//
+/*
+  WebViewModel.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/10.
+*/
 
 import Combine
 import Foundation

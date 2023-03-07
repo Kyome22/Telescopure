@@ -1,9 +1,9 @@
-//
-//  WebViewModelTests.swift
-//  MinBrowserTests
-//
-//  Created by Takuto Nakamura on 2022/09/08.
-//
+/*
+  WebViewModelTests.swift
+  MinBrowserTests
+
+  Created by Takuto Nakamura on 2022/09/08.
+*/
 
 import XCTest
 import WebKit

@@ -1,9 +1,9 @@
-//
-//  ShareViewModelMock.swift
-//  MinBrowserShare
-//
-//  Created by Takuto Nakamura on 2022/08/12.
-//
+/*
+  ShareViewModelMock.swift
+  MinBrowserShare
+
+  Created by Takuto Nakamura on 2022/08/12.
+*/
 
 import SwiftUI
 

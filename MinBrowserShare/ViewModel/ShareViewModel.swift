@@ -1,9 +1,9 @@
-//
-//  ShareViewModel.swift
-//  MinBrowserShare
-//
-//  Created by Takuto Nakamura on 2022/04/02.
-//
+/*
+  ShareViewModel.swift
+  MinBrowserShare
+
+  Created by Takuto Nakamura on 2022/04/02.
+*/
 
 import UIKit
 import UniformTypeIdentifiers

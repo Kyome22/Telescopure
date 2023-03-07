@@ -1,9 +1,9 @@
-//
-//  LegacyAlertModifier.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/08/12.
-//
+/*
+  LegacyAlertModifier.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/12.
+*/
 
 import SwiftUI
 

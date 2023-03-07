@@ -1,9 +1,9 @@
-//
-//  String+Extensions.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/04/02.
-//
+/*
+  String+Extensions.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/04/02.
+*/
 
 import Foundation
 

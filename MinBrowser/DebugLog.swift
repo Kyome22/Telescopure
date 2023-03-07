@@ -1,9 +1,9 @@
-//
-//  DebugLog.swift
-//  MinBrowser
-//
-//  Created by Takuto Nakamura on 2022/08/11.
-//
+/*
+  DebugLog.swift
+  MinBrowser
+
+  Created by Takuto Nakamura on 2022/08/11.
+*/
 
 import Foundation
 
