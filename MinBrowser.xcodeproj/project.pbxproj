@@ -212,17 +212,17 @@
 		1CD37B9627F826D800D7CF7A /* MinBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				1CD37BE827F84E2300D7CF7A /* Info.plist */,
+				1C5A747B28A785CD004364D9 /* InfoPlist.strings */,
+				1C5A746E28A64A2E004364D9 /* Localizable.strings */,
+				1CD37B9B27F826D900D7CF7A /* Assets.xcassets */,
+				1C5A747D28A939B5004364D9 /* Settings.bundle */,
 				1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */,
 				1C5A745728A54C95004364D9 /* DebugLog.swift */,
 				1CD37BE327F8415D00D7CF7A /* Extensions */,
 				1CD37BEE27F85E0400D7CF7A /* ViewModel */,
 				1CD37BED27F85DF400D7CF7A /* View */,
-				1CD37B9B27F826D900D7CF7A /* Assets.xcassets */,
-				1CD37BE827F84E2300D7CF7A /* Info.plist */,
 				1CD37B9D27F826D900D7CF7A /* Preview Content */,
-				1C5A747B28A785CD004364D9 /* InfoPlist.strings */,
-				1C5A746E28A64A2E004364D9 /* Localizable.strings */,
-				1C5A747D28A939B5004364D9 /* Settings.bundle */,
 			);
 			path = MinBrowser;
 			sourceTree = "<group>";
@@ -254,10 +254,10 @@
 		1CD37BC627F82D2E00D7CF7A /* MinBrowserShare */ = {
 			isa = PBXGroup;
 			children = (
-				1CD37BF127F85E6500D7CF7A /* ViewModel */,
-				1CD37BF227F85E6E00D7CF7A /* View */,
 				1CD37BCC27F82D2E00D7CF7A /* Info.plist */,
 				1CD37BDB27F82EBC00D7CF7A /* Localizable.strings */,
+				1CD37BF127F85E6500D7CF7A /* ViewModel */,
+				1CD37BF227F85E6E00D7CF7A /* View */,
 			);
 			path = MinBrowserShare;
 			sourceTree = "<group>";
