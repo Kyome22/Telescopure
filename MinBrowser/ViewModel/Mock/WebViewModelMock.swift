@@ -28,11 +28,6 @@ final class WebViewModelMock: WebViewModelProtocol {
     func goBack() {}
     func goForward() {}
     func reload() {}
-
-    func showAlert(_ message: String, _ completion: @escaping () -> Void) {}
-    func showConfirm(_ message: String, _ completion: @escaping (Bool) -> Void) {}
-    func showPrompt(_ prompt: String, _ defaultText: String?, _ completion: @escaping (String?) -> Void) {}
-
     func dialogOK() { fatalError() }
     func dialogCancel() { fatalError() }
 }

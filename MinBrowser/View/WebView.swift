@@ -29,12 +29,6 @@ struct WebView<T: WebViewModelProtocol>: View {
                 ZStack(alignment: .center) {
                     WrappedWKWebView(setWebViewHandler: { webView in
                         viewModel.setWebView(webView)
-                    }, showAlertHandler: { message, completion in
-                        viewModel.showAlert(message, completion)
-                    }, showConfirmHandler: { message, completion in
-                        viewModel.showConfirm(message, completion)
-                    }, showPromptHandler: { prompt, defaultText, completion in
-                        viewModel.showPrompt(prompt, defaultText, completion)
                     })
                     if viewModel.url == nil {
                         LogoView()

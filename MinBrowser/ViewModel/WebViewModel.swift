@@ -9,30 +9,6 @@ import Combine
 import Foundation
 import WebKit
 
-enum WebDialog {
-    case alert(_ message: String)
-    case confirm(_ message: String)
-    case prompt(_ message: String, _ defaultMessage: String)
-
-    var isAlert: Bool {
-        switch self {
-        case .alert: return true
-        default: return false
-        }
-    }
-
-    var message: String {
-        switch self {
-        case .alert(let message):
-            return message
-        case .confirm(let message):
-            return message
-        case .prompt(let message, _):
-            return message
-        }
-    }
-}
-
 protocol WebViewModelProtocol: ObservableObject {
     var estimatedProgress: Double { get set }
     var progressOpacity: Double { get set }
@@ -55,26 +31,6 @@ protocol WebViewModelProtocol: ObservableObject {
     func goBack()
     func goForward()
     func reload()
-
-    // MARK: JS Alert
-    func showAlert(
-        _ message: String,
-        _ completion: @escaping () -> Void
-    )
-
-    // MARK: JS Confirm
-    func showConfirm(
-        _ message: String,
-        _ completion: @escaping (Bool) -> Void
-    )
-
-    // MARK: JS Prompt
-    func showPrompt(
-        _ prompt: String,
-        _ defaultText: String?,
-        _ completion: @escaping (String?) -> Void
-    )
-
     func dialogOK()
     func dialogCancel()
 }
@@ -85,7 +41,7 @@ extension WebViewModelProtocol {
     }
 }
 
-final class WebViewModel: WebViewModelProtocol {
+final class WebViewModel: NSObject, WebViewModelProtocol {
     @Published var estimatedProgress: Double = 0.0
     @Published var progressOpacity: Double = 1.0
     @Published var canGoBack: Bool = false
@@ -109,6 +65,8 @@ final class WebViewModel: WebViewModelProtocol {
     func setWebView(_ webView: WKWebView) {
         self.webView = webView
 
+        webView.navigationDelegate = self
+        webView.uiDelegate = self
         webView.publisher(for: \.estimatedProgress)
             .receive(on: DispatchQueue.main)
             .sink { [weak self] value in
@@ -199,7 +157,7 @@ final class WebViewModel: WebViewModelProtocol {
     }
 
     // MARK: JS Alert
-    func showAlert(
+    private func showAlert(
         _ message: String,
         _ completion: @escaping () -> Void
     ) {
@@ -209,7 +167,7 @@ final class WebViewModel: WebViewModelProtocol {
     }
 
     // MARK: JS Confirm
-    func showConfirm(
+    private func showConfirm(
         _ message: String,
         _ completion: @escaping (Bool) -> Void
     ) {
@@ -219,7 +177,7 @@ final class WebViewModel: WebViewModelProtocol {
     }
 
     // MARK: JS Prompt
-    func showPrompt(
+    private func showPrompt(
         _ prompt: String,
         _ defaultText: String?,
         _ completion: @escaping (String?) -> Void
@@ -249,5 +207,84 @@ final class WebViewModel: WebViewModelProtocol {
         case .prompt:
             promptHandler?(nil)
         }
+    }
+}
+
+
+extension WebViewModel: WKNavigationDelegate {
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction,
+        preferences: WKWebpagePreferences
+    ) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
+        preferences.preferredContentMode = .mobile
+        return (WKNavigationActionPolicy.allow, preferences)
+    }
+
+    func webView(
+        _ webView: WKWebView,
+        decidePolicyFor navigationAction: WKNavigationAction
+    ) async -> WKNavigationActionPolicy {
+        guard let requestURL = navigationAction.request.url else {
+            return .cancel
+        }
+
+        DebugLog(WebViewModel.self, requestURL.absoluteString)
+
+        switch requestURL.scheme {
+        case "http", "https", "blob", "file", "about":
+            return .allow
+        case "sms", "tel", "facetime", "facetime-audio", "mailto", "imessage":
+            await UIApplication.shared.open(requestURL, options: [:]) { result in
+                DebugLog(WebViewModel.self, "\(result)")
+            }
+            return .cancel
+        case "minbrowser":
+            if let components = URLComponents(url: requestURL, resolvingAgainstBaseURL: false),
+               let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
+               let queryURL = queryItem.value,
+               let url = URL(string: queryURL) {
+                await webView.load(URLRequest(url: url))
+            }
+            return .cancel
+        default:
+            await UIApplication.shared.open(requestURL, options: [:]) { result in
+                DebugLog(WebViewModel.self, "\(result)")
+            }
+            return .cancel
+        }
+    }
+}
+
+extension WebViewModel: WKUIDelegate {
+    // Alert
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptAlertPanelWithMessage message: String,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping () -> Void
+    ) {
+        showAlert(message, completionHandler)
+    }
+
+    // Confirm
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptConfirmPanelWithMessage message: String,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping (Bool) -> Void
+    ) {
+        showConfirm(message, completionHandler)
+    }
+
+    // Prompt
+    func webView(
+        _ webView: WKWebView,
+        runJavaScriptTextInputPanelWithPrompt prompt: String,
+        defaultText: String?,
+        initiatedByFrame frame: WKFrameInfo,
+        completionHandler: @escaping (String?) -> Void
+    ) {
+        showPrompt(prompt, defaultText, completionHandler)
     }
 }

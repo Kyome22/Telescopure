@@ -24,6 +24,7 @@
 		1C5A747928A785CD004364D9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A747B28A785CD004364D9 /* InfoPlist.strings */; };
 		1C5A747E28A939B5004364D9 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C5A747D28A939B5004364D9 /* Settings.bundle */; };
 		1C5A748028A93FF7004364D9 /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C5A747F28A93FF7004364D9 /* SearchEngine.swift */; };
+		1CB4323C29B6E35E00EC1D6F /* WebDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CB4323B29B6E35E00EC1D6F /* WebDialog.swift */; };
 		1CC25754294E070200AB0A72 /* SharedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC25753294E070200AB0A72 /* SharedType.swift */; };
 		1CC25756294E074F00AB0A72 /* ShareError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC25755294E074F00AB0A72 /* ShareError.swift */; };
 		1CD37B9827F826D800D7CF7A /* MinBrowserApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37B9727F826D800D7CF7A /* MinBrowserApp.swift */; };
@@ -101,6 +102,7 @@
 		1C5A747C28A785D1004364D9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1C5A747D28A939B5004364D9 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1C5A747F28A93FF7004364D9 /* SearchEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
+		1CB4323B29B6E35E00EC1D6F /* WebDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDialog.swift; sourceTree = "<group>"; };
 		1CC25753294E070200AB0A72 /* SharedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedType.swift; sourceTree = "<group>"; };
 		1CC25755294E074F00AB0A72 /* ShareError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareError.swift; sourceTree = "<group>"; };
 		1CD37B9427F826D800D7CF7A /* MinBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MinBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +294,7 @@
 				1C5A745028A3EC34004364D9 /* WebViewModel.swift */,
 				1C5A745B28A554E2004364D9 /* Bookmark.swift */,
 				1C5A747F28A93FF7004364D9 /* SearchEngine.swift */,
+				1CB4323B29B6E35E00EC1D6F /* WebDialog.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				1CD37BE727F8436500D7CF7A /* WrappedWKWebView.swift in Sources */,
 				1C5A745828A54C95004364D9 /* DebugLog.swift in Sources */,
 				1CD37BF427F8893000D7CF7A /* ToolBar.swift in Sources */,
+				1CB4323C29B6E35E00EC1D6F /* WebDialog.swift in Sources */,
 				1C5A747128A676BA004364D9 /* Color+Extensions.swift in Sources */,
 				1CD37BEC27F85DBA00D7CF7A /* WebView.swift in Sources */,
 				1C5A745128A3EC34004364D9 /* WebViewModel.swift in Sources */,
@@ -728,7 +732,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application needs to access your current location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This application needs to access your microphone for uploading videos.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This application needs to access your photo library for saving photos/videos.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -764,7 +767,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This application needs to access your current location.";
 				INFOPLIST_KEY_NSMicrophoneUsageDescription = "This application needs to access your microphone for uploading videos.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "This application needs to access your photo library for saving photos/videos.";
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
