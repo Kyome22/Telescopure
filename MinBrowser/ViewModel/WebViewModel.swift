@@ -61,6 +61,8 @@ final class WebViewModel: NSObject, WebViewModelProtocol {
     private var promptHandler: ((String?) -> Void)?
     private var cancellables = Set<AnyCancellable>()
 
+    private var flag: Bool = true
+
     // MARK: Reverse Injection
     func setWebView(_ webView: WKWebView) {
         self.webView = webView
@@ -127,9 +129,9 @@ final class WebViewModel: NSObject, WebViewModelProtocol {
         let key = userDefaults.string(forKey: "search-engine") ?? ""
         let searchEngine = SearchEngine(rawValue: key) ?? .google
         var url: URL? = nil
-        if text.isEmpty{
+        if text.isEmpty {
             url = URL(string: searchEngine.url)
-        } else if text.match(pattern: #"^https?://"#) {
+        } else if text.match(pattern: #"^[a-zA-Z]+://"#) {
             url = URLComponents(string: text)?.url
         } else {
             let urlString = searchEngine.urlWithQuery(keywords: text)
@@ -218,27 +220,21 @@ extension WebViewModel: WKNavigationDelegate {
         preferences: WKWebpagePreferences
     ) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
         preferences.preferredContentMode = .mobile
-        return (WKNavigationActionPolicy.allow, preferences)
-    }
 
-    func webView(
-        _ webView: WKWebView,
-        decidePolicyFor navigationAction: WKNavigationAction
-    ) async -> WKNavigationActionPolicy {
         guard let requestURL = navigationAction.request.url else {
-            return .cancel
+            return (.cancel, preferences)
         }
 
         DebugLog(WebViewModel.self, requestURL.absoluteString)
 
         switch requestURL.scheme {
         case "http", "https", "blob", "file", "about":
-            return .allow
+            return (.allow, preferences)
         case "sms", "tel", "facetime", "facetime-audio", "mailto", "imessage":
             await UIApplication.shared.open(requestURL, options: [:]) { result in
                 DebugLog(WebViewModel.self, "\(result)")
             }
-            return .cancel
+            return (.cancel, preferences)
         case "minbrowser":
             if let components = URLComponents(url: requestURL, resolvingAgainstBaseURL: false),
                let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
@@ -246,12 +242,12 @@ extension WebViewModel: WKNavigationDelegate {
                let url = URL(string: queryURL) {
                 await webView.load(URLRequest(url: url))
             }
-            return .cancel
+            return (.cancel, preferences)
         default:
             await UIApplication.shared.open(requestURL, options: [:]) { result in
                 DebugLog(WebViewModel.self, "\(result)")
             }
-            return .cancel
+            return (.cancel, preferences)
         }
     }
 }
