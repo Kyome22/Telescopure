@@ -30,3 +30,8 @@ extension WKWebView: WKScriptMessageHandler {
     }
 }
 
+extension WKWebView {
+    override open var safeAreaInsets: UIEdgeInsets {
+        return .zero
+    }
+}

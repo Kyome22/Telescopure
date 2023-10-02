@@ -58,6 +58,7 @@ struct WebView<T: WebViewModelProtocol>: View {
                     .transition(.opacity)
             }
         }
+        .ignoresSafeArea(edges: viewModel.hideToolBar ? .all : [])
         .onOpenURL(perform: { url in
             guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
                   let queryItem = components.queryItems?.first

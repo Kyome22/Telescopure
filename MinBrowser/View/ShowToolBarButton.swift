@@ -24,8 +24,7 @@ struct ShowToolBarButton: View {
         .background(Color("Floating"))
         .clipShape(Circle())
         .shadow(radius: 8)
-        .padding(.vertical, 8)
-        .padding(.horizontal, 16)
+        .padding(20)
     }
 }
 
