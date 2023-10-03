@@ -88,7 +88,7 @@ struct WebView<T: WebViewModelProtocol>: View {
         }
         .alert("", isPresented: $viewModel.showDialog) {
             if case .prompt(_, let defaultText) = viewModel.webDialog {
-                TextField(defaultText, text: $viewModel.inputText)
+                TextField(defaultText, text: $viewModel.promptInput)
             }
             Button("OK") {
                 viewModel.dialogOK()
