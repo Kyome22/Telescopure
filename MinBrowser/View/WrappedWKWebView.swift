@@ -7,7 +7,6 @@
 
 import SwiftUI
 import WebKit
-import Combine
 
 struct WrappedWKWebView: UIViewRepresentable {
     typealias UIViewType = WKWebView
