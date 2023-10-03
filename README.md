@@ -18,7 +18,7 @@ You can use MinBrowser to debug your application that work with the browser.
 ## Requirements
 
 - Written in Swift 5
-- Compatible with iOS 15.0+
+- Compatible with iOS 16.4+
 - Development with Xcode 13.4.1+
 
 ## Screenshots
@@ -65,23 +65,16 @@ You can use MinBrowser to debug your application that work with the browser.
 ```plain
 .
 ├── MinBrowser
-│   ├── Assets.xcassets
-│   ├── DebugLog.swift
-│   ├── Extensions
-│   │   ├── Color+Extensions.swift
-│   │   ├── String+Extensions.swift
-│   │   └── WKWebView+Extension.swift
 │   ├── Info.plist
 │   ├── InfoPlist.strings
 │   ├── Localizable.strings
-│   ├── MinBrowserApp.swift
+│   ├── Assets.xcassets
 │   ├── Settings.bundle
 │   │   ├── Root.plist
 │   │   └── Root.strings
+│   ├── DebugLog.swift
+│   ├── MinBrowserApp.swift
 │   ├── View
-│   │   ├── Alert
-│   │   │   ├── LegacyAlertModifier.swift
-│   │   │   └── MigratedAlertModifier.swift
 │   │   ├── BookmarkView.swift
 │   │   ├── LogoView.swift
 │   │   ├── SearchBar.swift
@@ -89,13 +82,17 @@ You can use MinBrowser to debug your application that work with the browser.
 │   │   ├── ToolBar.swift
 │   │   ├── WebView.swift
 │   │   └── WrappedWKWebView.swift
-│   └── ViewModel
-│       ├── Bookmark.swift
-│       ├── Mock
-│       │   └── WebViewModelMock.swift
-│       ├── SearchEngine.swift
-│       ├── WebDialog.swift
-│       └── WebViewModel.swift
+│   ├── ViewModel
+│   │   ├── Bookmark.swift
+│   │   ├── Mock
+│   │   │   └── WebViewModelMock.swift
+│   │   ├── SearchEngine.swift
+│   │   ├── WebDialog.swift
+│   │   └── WebViewModel.swift
+│   └── Extensions
+│       ├── Color+Extensions.swift
+│       ├── String+Extensions.swift
+│       └── WKWebView+Extension.swift
 └── MinBrowserShare
     ├── Info.plist
     ├── Localizable.strings
