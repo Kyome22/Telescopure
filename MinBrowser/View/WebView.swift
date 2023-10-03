@@ -86,19 +86,21 @@ struct WebView<T: WebViewModelProtocol>: View {
                 }
             )
         }
-        .modifier(
-            MigratedAlertModifier(
-                isPresented: $viewModel.showDialog,
-                webDialog: $viewModel.webDialog,
-                text: $viewModel.inputText,
-                okActionHandler: {
-                    viewModel.dialogOK()
-                },
-                cancelActionHandler: {
+        .alert("", isPresented: $viewModel.showDialog) {
+            if case .prompt(_, let defaultText) = viewModel.webDialog {
+                TextField(defaultText, text: $viewModel.inputText)
+            }
+            Button("OK") {
+                viewModel.dialogOK()
+            }
+            if !viewModel.webDialog.isAlert {
+                Button("cancel", role: .cancel) {
                     viewModel.dialogCancel()
                 }
-            )
-        )
+            }
+        } message: {
+            Text(viewModel.webDialog.message)
+        }
     }
 }
 
