@@ -3,6 +3,9 @@
 MinBrowser is a browser for iOS which has minimal functions.<br>
 You can use MinBrowser to debug your application that work with the browser.
 
+Download this app from App Store.<br>
+https://apps.apple.com/us/app/minbrowser/id1643406104
+
 ## Functions
 
 - Open an HTTP or HTTPS link.
