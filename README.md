@@ -78,6 +78,7 @@ https://apps.apple.com/us/app/minbrowser/id1643406104
 │   ├── DebugLog.swift
 │   ├── MinBrowserApp.swift
 │   ├── View
+│   │   ├── BookmarkButtonStyle.swift
 │   │   ├── BookmarkView.swift
 │   │   ├── LogoView.swift
 │   │   ├── SearchBar.swift
