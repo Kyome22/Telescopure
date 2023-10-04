@@ -42,6 +42,7 @@
 		1CD37BEC27F85DBA00D7CF7A /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BEB27F85DBA00D7CF7A /* WebView.swift */; };
 		1CD37BF427F8893000D7CF7A /* ToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD37BF327F8893000D7CF7A /* ToolBar.swift */; };
 		1CDE807F28CA1AD500A40F11 /* WebViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CDE807E28CA1AD500A40F11 /* WebViewModelTests.swift */; };
+		1CE05DE02ACD3910006B44EA /* BookmarkButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE05DDF2ACD3910006B44EA /* BookmarkButtonStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		1CD37BEB27F85DBA00D7CF7A /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		1CD37BF327F8893000D7CF7A /* ToolBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBar.swift; sourceTree = "<group>"; };
 		1CDE807E28CA1AD500A40F11 /* WebViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewModelTests.swift; sourceTree = "<group>"; };
+		1CE05DDF2ACD3910006B44EA /* BookmarkButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkButtonStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				1CD37BF327F8893000D7CF7A /* ToolBar.swift */,
 				1C5A747328A69D0C004364D9 /* ShowToolBarButton.swift */,
 				1C5A745928A55382004364D9 /* BookmarkView.swift */,
+				1CE05DDF2ACD3910006B44EA /* BookmarkButtonStyle.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -479,6 +482,7 @@
 				1CD37BE727F8436500D7CF7A /* WrappedWKWebView.swift in Sources */,
 				1C5A745828A54C95004364D9 /* DebugLog.swift in Sources */,
 				1CD37BF427F8893000D7CF7A /* ToolBar.swift in Sources */,
+				1CE05DE02ACD3910006B44EA /* BookmarkButtonStyle.swift in Sources */,
 				1CB4323C29B6E35E00EC1D6F /* WebDialog.swift in Sources */,
 				1C5A747128A676BA004364D9 /* Color+Extensions.swift in Sources */,
 				1CD37BEC27F85DBA00D7CF7A /* WebView.swift in Sources */,

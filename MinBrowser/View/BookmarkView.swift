@@ -78,14 +78,12 @@ struct BookmarkView: View {
                     }
                 } else {
                     ForEach(0 ..< bookmarks.count, id: \.self) { index in
-                        HStack {
-                            Label(bookmarks[index].title, systemImage: "book")
-                            Spacer()
-                        }
-                        .contentShape(Rectangle())
-                        .onTapGesture(perform: {
+                        Button {
                             loadBookmarkHandler(bookmarks[index].url)
-                        })
+                        } label: {
+                            Label(bookmarks[index].title, systemImage: "book")
+                        }
+                        .buttonStyle(.bookmark)
                     }
                     .onDelete { indexSet in
                         bookmarks.remove(atOffsets: indexSet)
@@ -94,7 +92,9 @@ struct BookmarkView: View {
                 }
             }
             Section {
-                HStack {
+                Button {
+                    addBookmark()
+                } label: {
                     Label {
                         Text("addBookmark")
                             .foregroundColor(currentURL == nil ? .secondary : .primary)
@@ -102,12 +102,8 @@ struct BookmarkView: View {
                         Image(systemName: "plus.app")
                             .foregroundColor(currentURL == nil ? .secondary : .accentColor)
                     }
-                    Spacer()
                 }
-                .contentShape(Rectangle())
-                .onTapGesture(perform: {
-                    addBookmark()
-                })
+                .buttonStyle(.bookmark)
                 .disabled(currentURL == nil)
             }
         }
