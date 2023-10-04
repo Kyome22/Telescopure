@@ -19,6 +19,7 @@ struct SearchBar: View {
                 Image(systemName: "magnifyingglass")
                     .foregroundColor(.systemGray)
                 TextField("search", text: $inputText)
+                    .keyboardType(.webSearch)
                     .accessibilityIdentifier("searchTextField")
                     .disableAutocorrection(true)
                     .textInputAutocapitalization(.never)
