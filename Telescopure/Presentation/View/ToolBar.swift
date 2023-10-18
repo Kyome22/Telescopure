@@ -80,13 +80,11 @@ struct ToolBar: View {
     }
 }
 
-struct ToolBar_Previews: PreviewProvider {
-    static var previews: some View {
-        ToolBar(hideToolBar: .constant(false),
-                canGoBack: .constant(false),
-                canGoForward: .constant(false),
-                goBackHandler: {},
-                goForwardHandler: {},
-                bookmarkHandler: {})
-    }
+#Preview {
+    ToolBar(hideToolBar: .constant(false),
+            canGoBack: .constant(false),
+            canGoForward: .constant(false),
+            goBackHandler: {},
+            goForwardHandler: {},
+            bookmarkHandler: {})
 }

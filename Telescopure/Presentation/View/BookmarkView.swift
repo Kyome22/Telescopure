@@ -131,11 +131,9 @@ struct BookmarkView: View {
     }
 }
 
-struct BookmarkView_Previews: PreviewProvider {
-    static var previews: some View {
-        BookmarkView(currentTitle: nil,
-                     currentURL: nil,
-                     closeBookmarkHandler: {},
-                     loadBookmarkHandler: { _ in })
-    }
+#Preview {
+    BookmarkView(currentTitle: nil,
+                 currentURL: nil,
+                 closeBookmarkHandler: {},
+                 loadBookmarkHandler: { _ in })
 }

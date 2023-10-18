@@ -46,9 +46,7 @@ struct SearchBar: View {
     }
 }
 
-struct SearchBar_Previews: PreviewProvider {
-    static var previews: some View {
-        SearchBar(inputText: .constant(""),
-                  searchHandler: { _ in })
-    }
+#Preview {
+    SearchBar(inputText: .constant(""),
+              searchHandler: { _ in })
 }

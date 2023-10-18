@@ -104,9 +104,7 @@ struct WebView<T: WebViewModelProtocol>: View {
     }
 }
 
-struct WebView_Previews: PreviewProvider {
-    static var previews: some View {
-        WebView(viewModel: WebViewModelMock())
-            .previewInterfaceOrientation(.landscapeRight)
-    }
+#Preview {
+    WebView(viewModel: WebViewModelMock())
+        .previewInterfaceOrientation(.landscapeRight)
 }

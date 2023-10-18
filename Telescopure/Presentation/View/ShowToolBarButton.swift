@@ -28,8 +28,6 @@ struct ShowToolBarButton: View {
     }
 }
 
-struct ShowToolBarButton_Previews: PreviewProvider {
-    static var previews: some View {
-        ShowToolBarButton(hideToolBar: .constant(false))
-    }
+#Preview {
+    ShowToolBarButton(hideToolBar: .constant(false))
 }
