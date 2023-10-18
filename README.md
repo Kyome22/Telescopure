@@ -67,49 +67,53 @@ https://apps.apple.com/us/app/minbrowser/id1643406104
 
 ```plain
 .
-├── MinBrowser
+├── Telescopure
 │   ├── Info.plist
-│   ├── InfoPlist.strings
-│   ├── Localizable.strings
+│   ├── InfoPlist.xcstrings
+│   ├── Localizable.xcstrings
 │   ├── Assets.xcassets
 │   ├── Settings.bundle
-│   │   ├── Root.plist
-│   │   └── Root.strings
-│   ├── DebugLog.swift
-│   ├── MinBrowserApp.swift
-│   ├── View
-│   │   ├── BookmarkButtonStyle.swift
-│   │   ├── BookmarkView.swift
-│   │   ├── LogoView.swift
-│   │   ├── SearchBar.swift
-│   │   ├── ShowToolBarButton.swift
-│   │   ├── ToolBar.swift
-│   │   ├── WebView.swift
-│   │   └── WrappedWKWebView.swift
-│   ├── ViewModel
-│   │   ├── Bookmark.swift
-│   │   ├── Mock
-│   │   │   └── WebViewModelMock.swift
-│   │   ├── SearchEngine.swift
-│   │   ├── WebDialog.swift
-│   │   └── WebViewModel.swift
-│   └── Extensions
+│   ├── Data
+│   │   └── Entity
+│   │       ├── Bookmark.swift
+│   │       ├── SearchEngine.swift
+│   │       └── WebDialog.swift
+│   ├── Domain
+│   │   └── ViewModel
+│   │       ├── WebViewModel.swift
+│   │       └── WebViewModelMock.swift
+│   ├── Presentation
+│   │   ├── Style
+│   │   │   └── BookmarkButtonStyle.swift
+│   │   ├── TelescopureApp.swift
+│   │   └── View
+│   │       ├── BookmarkView.swift
+│   │       ├── LogoView.swift
+│   │       ├── SearchBar.swift
+│   │       ├── ShowToolBarButton.swift
+│   │       ├── ToolBar.swift
+│   │       ├── WebView.swift
+│   │       └── WrappedWKWebView.swift
+│   └── Helper
 │       ├── Color+Extensions.swift
+│       ├── DebugLog.swift
 │       ├── String+Extensions.swift
 │       └── WKWebView+Extension.swift
-└── MinBrowserShare
+└── TelescopureShare
     ├── Info.plist
-    ├── Localizable.strings
-    ├── View
-    │   ├── MainInterface.storyboard
-    │   ├── ShareView.swift
-    │   └── ShareViewController.swift
-    └── ViewModel
-        ├── Mock
-        │   └── ShareViewModelMock.swift
-        ├── ShareError.swift
-        ├── ShareViewModel.swift
-        └── SharedType.swift
+    ├── Localizable.xcstrings
+    ├── Data
+    │   └── Entity
+    │       ├── ShareError.swift
+    │       └── SharedType.swift
+    ├── Domain
+    │   ├── ShareViewModel.swift
+    │   └── ShareViewModelMock.swift
+    └── Presentation
+        ├── MainInterface.storyboard
+        ├── ShareViewController.swift
+        └── View
+            └── ShareView.swift
 ```
 
 ## How to be the Default Browser
