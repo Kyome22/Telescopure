@@ -1,7 +1,7 @@
-# <img src="Resources/rounded-icon.png" alt="logo" width="25px" height="25px" /> MinBrowser
+# <img src="Resources/rounded-icon.png" alt="logo" width="25px" height="25px" /> Telescopure
 
-MinBrowser is a browser for iOS which has minimal functions.<br>
-You can use MinBrowser to debug your application that work with the browser.
+Telescopure is a browser for iOS which has minimal functions.<br>
+You can use Telescopure to debug your application that work with the browser.
 
 Download this app from App Store.<br>
 https://apps.apple.com/us/app/minbrowser/id1643406104
@@ -13,7 +13,7 @@ https://apps.apple.com/us/app/minbrowser/id1643406104
 - Browse a page in the full screen.
 - Pull to refresh a page.
 - Bookmark user's favorite page.
-- Open a link of other app in MinBrowser.
+- Open a link of other app in Telescopure.
 - User can select a search engine (Google/Bing/DuckDuckGo).
 - Support light and dark themes.
 - Localized (English, Japanese).
@@ -114,13 +114,13 @@ https://apps.apple.com/us/app/minbrowser/id1643406104
 
 ## How to be the Default Browser
 
-The goal is to make MinBrowser the Default Browser.
+The goal is to make Telescopure the Default Browser.
 
 [Apple - Preparing Your App to be the Default Browser or Email Client](https://developer.apple.com/documentation/xcode/preparing-your-app-to-be-the-default-browser-or-email-client)
 
 ## Debug Functions
 
-The following page can be used for debugging MinBrowser.
+The following page can be used for debugging Telescopure.
 
 https://kyome.io/debug/index.html
 
