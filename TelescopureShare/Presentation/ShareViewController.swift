@@ -9,7 +9,7 @@ import UIKit
 import Social
 import SwiftUI
 
-final class ShareViewController: SLComposeServiceViewController {
+final class ShareViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
 
     private var shareViewModel: ShareViewModel!
