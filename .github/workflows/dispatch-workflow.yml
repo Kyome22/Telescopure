@@ -6,9 +6,9 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: macos-12
+    runs-on: macos-13
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_13.4.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_15.0.app/Contents/Developer"
       CODE_SIGN_IDENTITY: ""
       CODE_SIGNING_REQUIRED: "NO"
       CODE_SIGNING_ALLOWED: "NO"
@@ -24,28 +24,28 @@ jobs:
       - name: Build for Test
         run: |
           xcodebuild clean build-for-testing \
-            -project MinBrowser.xcodeproj \
-            -scheme MinBrowser \
-            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -project Telescopure.xcodeproj \
+            -scheme Telescopure \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
             -derivedDataPath ${{ env.DERIVED_DATA }} | \
             xcpretty -c && exit ${PIPESTATUS[0]}
 
       - name: Unit Test
         run: |
           xcodebuild test-without-building \
-            -project MinBrowser.xcodeproj \
-            -scheme MinBrowser \
-            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -project Telescopure.xcodeproj \
+            -scheme Telescopure \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
-            -only-testing:MinBrowserTests | \
+            -only-testing:TelescopureTests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
 
       - name: UI Test
         run: |
           xcodebuild test-without-building \
-            -project MinBrowser.xcodeproj \
-            -scheme MinBrowser \
-            -destination "platform=iOS Simulator,name=iPhone 13,OS=15.5" \
+            -project Telescopure.xcodeproj \
+            -scheme Telescopure \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
-            -only-testing:MinBrowserUITests | \
+            -only-testing:TelescopureUITests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
