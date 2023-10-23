@@ -4,7 +4,7 @@ Telescopure is a browser for iOS which has minimal functions.<br>
 You can use Telescopure to debug your application that work with the browser.
 
 Download this app from App Store.<br>
-https://apps.apple.com/us/app/minbrowser/id1643406104
+https://apps.apple.com/us/app/telescopure/id1643406104
 
 ## Functions
 
