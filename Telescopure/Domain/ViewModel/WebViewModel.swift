@@ -131,8 +131,13 @@ final class WebViewModel: NSObject, WebViewModelProtocol {
         var url: URL? = nil
         if text.isEmpty {
             url = URL(string: searchEngine.url)
-        } else if text.match(pattern: #"^[a-zA-Z]+://"#) {
-            url = URLComponents(string: text)?.url
+        } else if let _url = URLComponents(string: text)?.url, let scheme = _url.scheme {
+            switch scheme.lowercased() {
+            case "http", "https":
+                url = URL(string: text)
+            default:
+                url = _url
+            }
         } else {
             let urlString = searchEngine.urlWithQuery(keywords: text)
             url = URLComponents(string: urlString)?.url
