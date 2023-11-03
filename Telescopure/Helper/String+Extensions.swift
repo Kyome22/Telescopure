@@ -18,4 +18,13 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: self)
     }
+
+    var firstCapitalized: String {
+        self.components(separatedBy: .whitespaces)
+            .enumerated()
+            .map { (offset, item) in
+                return offset == 0 ? item.capitalized : item
+            }
+            .joined(separator: " ")
+    }
 }

@@ -250,6 +250,23 @@ extension WebViewModel: WKNavigationDelegate {
             return (.cancel, preferences)
         }
     }
+
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        guard let fileURL = Bundle.main.url(forResource: "error", withExtension: "html"),
+              var htmlString = try? String(contentsOf: fileURL) else {
+            fatalError("Could not load error.html")
+        }
+        let key = "ERROR_MESSAGE"
+        if let urlError = error as? URLError {
+            let message = urlError.localizedDescription.firstCapitalized
+            htmlString = htmlString.replacingOccurrences(of: key, with: message)
+            webView.loadHTMLString(htmlString, baseURL: urlError.failingURL)
+        } else {
+            let message = error.localizedDescription.firstCapitalized
+            htmlString = htmlString.replacingOccurrences(of: key, with: message)
+            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: "error.html"))
+        }
+    }
 }
 
 extension WebViewModel: WKUIDelegate {

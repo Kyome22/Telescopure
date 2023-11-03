@@ -43,6 +43,7 @@
 		1C67D1A42AE035D4009F4A60 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1A32AE035D4009F4A60 /* Localizable.xcstrings */; };
 		1C67D1A62AE0366C009F4A60 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1A52AE0366C009F4A60 /* Localizable.xcstrings */; };
 		1C67D1A82AE03937009F4A60 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1A72AE03937009F4A60 /* InfoPlist.xcstrings */; };
+		1CE7245B2AF509B5000B24EC /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 1CE724582AF507E9000B24EC /* error.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +125,7 @@
 		1C67D1A32AE035D4009F4A60 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1C67D1A52AE0366C009F4A60 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1C67D1A72AE03937009F4A60 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		1CE724582AF507E9000B24EC /* error.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +190,7 @@
 				1C67D1A52AE0366C009F4A60 /* Localizable.xcstrings */,
 				1C67D12B2AE02C90009F4A60 /* Assets.xcassets */,
 				1C67D1792AE02F4C009F4A60 /* Settings.bundle */,
+				1CE724552AF505C0000B24EC /* HTML */,
 				1C67D1542AE02E83009F4A60 /* Data */,
 				1C67D1562AE02E97009F4A60 /* Domain */,
 				1C67D1532AE02E68009F4A60 /* Presentation */,
@@ -356,6 +359,14 @@
 			path = Domain;
 			sourceTree = "<group>";
 		};
+		1CE724552AF505C0000B24EC /* HTML */ = {
+			isa = PBXGroup;
+			children = (
+				1CE724582AF507E9000B24EC /* error.html */,
+			);
+			path = HTML;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -484,6 +495,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CE7245B2AF509B5000B24EC /* error.html in Resources */,
 				1C67D12F2AE02C90009F4A60 /* Preview Assets.xcassets in Resources */,
 				1C67D1A82AE03937009F4A60 /* InfoPlist.xcstrings in Resources */,
 				1C67D17A2AE02F4C009F4A60 /* Settings.bundle in Resources */,
