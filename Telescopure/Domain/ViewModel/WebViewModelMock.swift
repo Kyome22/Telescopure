@@ -23,7 +23,7 @@ final class WebViewModelMock: WebViewModelProtocol {
     @Published var hideToolBar: Bool = false
 
     func setWebView(_ webView: WKWebView) {}
-
+    func openURL(with url: URL) {}
     func search(with text: String, userDefaults: UserDefaults) {}
     func goBack() {}
     func goForward() {}

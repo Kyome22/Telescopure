@@ -26,6 +26,9 @@ protocol WebViewModelProtocol: ObservableObject {
     // MARK: Reverse Injection
     func setWebView(_ webView: WKWebView)
 
+    // MARK: Application Delegate
+    func openURL(with url: URL)
+
     // MARK: Web Action
     func search(with text: String, userDefaults: UserDefaults)
     func goBack()
@@ -118,6 +121,23 @@ final class WebViewModel: NSObject, WebViewModelProtocol {
     @objc func reloadWebView(_ sender: UIRefreshControl) {
         webView?.reload()
         sender.endRefreshing()
+    }
+
+    // MARK: Application Delegate
+    func openURL(with url: URL) {
+        guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
+              let queryItem = components.queryItems?.first
+        else { return }
+        if queryItem.name == "link", var link = queryItem.value {
+            if let fragment = url.fragment {
+                link += "#\(fragment)"
+            }
+            search(with: link)
+        }
+        if queryItem.name == "plaintext", let plainText = queryItem.value {
+            // plainText is already removed percent-encoding.
+            search(with: plainText)
+        }
     }
 
     // MARK: Web Action
@@ -232,25 +252,16 @@ extension WebViewModel: WKNavigationDelegate {
 
         DebugLog(WebViewModel.self, requestURL.absoluteString)
 
-        switch requestURL.scheme {
-        case "http", "https", "blob", "file", "about":
+        if ["http", "https", "blob", "file", "about"].contains(requestURL.scheme) {
             return (.allow, preferences)
-        case "sms", "tel", "facetime", "facetime-audio", "mailto", "imessage":
-            await UIApplication.shared.open(requestURL, options: [:]) { result in
-                DebugLog(WebViewModel.self, "\(result)")
-            }
-            return (.cancel, preferences)
-        case "telescopure":
-            if let components = URLComponents(url: requestURL, resolvingAgainstBaseURL: false),
-               let queryItem = components.queryItems?.first(where: { $0.name == "url" }),
-               let queryURL = queryItem.value,
-               let url = URL(string: queryURL) {
-                await webView.load(URLRequest(url: url))
-            }
-            return (.cancel, preferences)
-        default:
-            await UIApplication.shared.open(requestURL, options: [:]) { result in
-                DebugLog(WebViewModel.self, "\(result)")
+        } else {
+            Task { @MainActor in
+                showConfirm(String(localized: "openExternalApp\(requestURL.absoluteString)")) { result in
+                    guard result else { return }
+                    UIApplication.shared.open(requestURL, options: [:]) { result in
+                        DebugLog(WebViewModel.self, "\(result)")
+                    }
+                }
             }
             return (.cancel, preferences)
         }

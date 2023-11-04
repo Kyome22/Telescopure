@@ -59,21 +59,9 @@ struct WebView<T: WebViewModelProtocol>: View {
             }
         }
         .ignoresSafeArea(edges: viewModel.hideToolBar ? .all : [])
-        .onOpenURL(perform: { url in
-            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                  let queryItem = components.queryItems?.first
-            else { return }
-            if queryItem.name == "link", var link = queryItem.value {
-                if let fragment = url.fragment {
-                    link += "#\(fragment)"
-                }
-                viewModel.search(with: link)
-            }
-            if queryItem.name == "plaintext", let plainText = queryItem.value {
-                // plainText is already removed percent-encoding.
-                viewModel.search(with: plainText)
-            }
-        })
+        .onOpenURL { url in
+            viewModel.openURL(with: url)
+        }
         .sheet(isPresented: $viewModel.showBookmark) {
             BookmarkView(
                 currentTitle: viewModel.title,
