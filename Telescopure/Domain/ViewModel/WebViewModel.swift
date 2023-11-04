@@ -256,10 +256,12 @@ extension WebViewModel: WKNavigationDelegate {
             return (.allow, preferences)
         } else {
             Task { @MainActor in
-                showConfirm(String(localized: "openExternalApp\(requestURL.absoluteString)")) { result in
+                let urlString = requestURL.absoluteString
+                showConfirm(String(localized: "openExternalApp\(urlString)")) { result in
                     guard result else { return }
-                    UIApplication.shared.open(requestURL, options: [:]) { result in
-                        DebugLog(WebViewModel.self, "\(result)")
+                    UIApplication.shared.open(requestURL, options: [:]) { [weak self] result in
+                        if result { return }
+                        self?.showAlert(String(localized: "failedToOpenExternalApp"), {})
                     }
                 }
             }
