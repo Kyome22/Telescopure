@@ -15,10 +15,6 @@ extension String {
         return matchRange != nil
     }
 
-    var localized: String {
-        return NSLocalizedString(self, comment: self)
-    }
-
     var firstCapitalized: String {
         self.components(separatedBy: .whitespaces)
             .enumerated()
