@@ -126,6 +126,7 @@
 		1C67D1A72AE03937009F4A60 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		1CE724582AF507E9000B24EC /* error.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
 		1CE7245C2AF68638000B24EC /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Telescopure.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				1C67D1262AE02C8F009F4A60 /* Telescopure */,
+				1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */,
 				1C67D1372AE02C90009F4A60 /* TelescopureTests */,
 				1C67D1412AE02C90009F4A60 /* TelescopureUITests */,
 				1C67D1852AE032AB009F4A60 /* TelescopureShare */,

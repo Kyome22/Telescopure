@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "70623A47-BF82-4599-A4AF-F55B9DCA5B9B",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Telescopure.xcodeproj",
+      "identifier" : "1C67D1232AE02C8F009F4A60",
+      "name" : "Telescopure"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Telescopure.xcodeproj",
+        "identifier" : "1C67D1332AE02C90009F4A60",
+        "name" : "TelescopureTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Telescopure.xcodeproj",
+        "identifier" : "1C67D13D2AE02C90009F4A60",
+        "name" : "TelescopureUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
