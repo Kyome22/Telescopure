@@ -22,7 +22,7 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 
 - Written in Swift 5
 - Compatible with iOS 16.4+
-- Development with Xcode 13.4.1+
+- Development with Xcode 15.0.1+
 
 ## Screenshots
 
@@ -80,12 +80,12 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 │   │       └── WebDialog.swift
 │   ├── Domain
 │   │   └── ViewModel
-│   │       ├── WebViewModel.swift
-│   │       └── WebViewModelMock.swift
+│   │       ├── BookmarkViewModel.swift
+│   │       └── WebViewModel.swift
 │   ├── Presentation
+│   │   ├── TelescopureApp.swift
 │   │   ├── Style
 │   │   │   └── BookmarkButtonStyle.swift
-│   │   ├── TelescopureApp.swift
 │   │   └── View
 │   │       ├── BookmarkView.swift
 │   │       ├── LogoView.swift
