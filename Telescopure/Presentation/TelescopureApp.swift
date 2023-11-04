@@ -11,7 +11,7 @@ import SwiftUI
 struct TelescopureApp: App {
     var body: some Scene {
         WindowGroup {
-            WebView(viewModel: WebViewModel())
+            WebView<WebViewModel, BookmarkViewModel>(viewModel: WebViewModel())
         }
     }
 }

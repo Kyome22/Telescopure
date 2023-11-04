@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Bookmark {
-    let title: String
-    let url: String
+struct Bookmark: Equatable, Identifiable {
+    var id = UUID()
+    var title: String
+    var url: String
 }

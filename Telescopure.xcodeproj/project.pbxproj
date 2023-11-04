@@ -28,7 +28,6 @@
 		1C67D1742AE02F10009F4A60 /* WebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D1702AE02F10009F4A60 /* WebViewModel.swift */; };
 		1C67D1752AE02F10009F4A60 /* SearchEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D1712AE02F10009F4A60 /* SearchEngine.swift */; };
 		1C67D1762AE02F10009F4A60 /* WebDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D1722AE02F10009F4A60 /* WebDialog.swift */; };
-		1C67D1782AE02F1A009F4A60 /* WebViewModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D1772AE02F1A009F4A60 /* WebViewModelMock.swift */; };
 		1C67D17A2AE02F4C009F4A60 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1792AE02F4C009F4A60 /* Settings.bundle */; };
 		1C67D17F2AE0323B009F4A60 /* WKWebViewMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D17E2AE0323B009F4A60 /* WKWebViewMock.swift */; };
 		1C67D1872AE032AB009F4A60 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C67D1862AE032AB009F4A60 /* ShareViewController.swift */; };
@@ -44,6 +43,7 @@
 		1C67D1A62AE0366C009F4A60 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1A52AE0366C009F4A60 /* Localizable.xcstrings */; };
 		1C67D1A82AE03937009F4A60 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1C67D1A72AE03937009F4A60 /* InfoPlist.xcstrings */; };
 		1CE7245B2AF509B5000B24EC /* error.html in Resources */ = {isa = PBXBuildFile; fileRef = 1CE724582AF507E9000B24EC /* error.html */; };
+		1CE7245D2AF68638000B24EC /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE7245C2AF68638000B24EC /* BookmarkViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +110,6 @@
 		1C67D1702AE02F10009F4A60 /* WebViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewModel.swift; sourceTree = "<group>"; };
 		1C67D1712AE02F10009F4A60 /* SearchEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchEngine.swift; sourceTree = "<group>"; };
 		1C67D1722AE02F10009F4A60 /* WebDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebDialog.swift; sourceTree = "<group>"; };
-		1C67D1772AE02F1A009F4A60 /* WebViewModelMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewModelMock.swift; sourceTree = "<group>"; };
 		1C67D1792AE02F4C009F4A60 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		1C67D17E2AE0323B009F4A60 /* WKWebViewMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKWebViewMock.swift; sourceTree = "<group>"; };
 		1C67D1842AE032AB009F4A60 /* TelescopureShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TelescopureShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +125,7 @@
 		1C67D1A52AE0366C009F4A60 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		1C67D1A72AE03937009F4A60 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		1CE724582AF507E9000B24EC /* error.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = error.html; sourceTree = "<group>"; };
+		1CE7245C2AF68638000B24EC /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,8 +275,8 @@
 		1C67D17B2AE03035009F4A60 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1CE7245C2AF68638000B24EC /* BookmarkViewModel.swift */,
 				1C67D1702AE02F10009F4A60 /* WebViewModel.swift */,
-				1C67D1772AE02F1A009F4A60 /* WebViewModelMock.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -535,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1C67D1692AE02F04009F4A60 /* ToolBar.swift in Sources */,
+				1CE7245D2AF68638000B24EC /* BookmarkViewModel.swift in Sources */,
 				1C67D1672AE02F04009F4A60 /* WrappedWKWebView.swift in Sources */,
 				1C67D15D2AE02EF7009F4A60 /* String+Extensions.swift in Sources */,
 				1C67D1282AE02C8F009F4A60 /* TelescopureApp.swift in Sources */,
@@ -550,7 +551,6 @@
 				1C67D15C2AE02EF7009F4A60 /* Color+Extensions.swift in Sources */,
 				1C67D16E2AE02F04009F4A60 /* WebView.swift in Sources */,
 				1C67D1762AE02F10009F4A60 /* WebDialog.swift in Sources */,
-				1C67D1782AE02F1A009F4A60 /* WebViewModelMock.swift in Sources */,
 				1C67D1752AE02F10009F4A60 /* SearchEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

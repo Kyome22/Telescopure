@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct WebView<T: WebViewModelProtocol>: View {
-    @StateObject var viewModel: T
+struct WebView<W: WebViewModelProtocol, B: BookmarkViewModelProtocol>: View {
+    @StateObject var viewModel: W
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -63,16 +63,13 @@ struct WebView<T: WebViewModelProtocol>: View {
             viewModel.openURL(with: url)
         }
         .sheet(isPresented: $viewModel.showBookmark) {
-            BookmarkView(
+            BookmarkView(viewModel: B(
                 currentTitle: viewModel.title,
                 currentURL: viewModel.url,
-                closeBookmarkHandler: {
-                    viewModel.showBookmark = false
-                }, loadBookmarkHandler: { url in
-                    viewModel.showBookmark = false
-                    viewModel.search(with: url)
+                loadBookmarkHandler: { urlString in
+                    viewModel.search(with: urlString)
                 }
-            )
+            ))
         }
         .alert("", isPresented: $viewModel.showDialog) {
             if case .prompt(_, let defaultText) = viewModel.webDialog {
@@ -93,6 +90,6 @@ struct WebView<T: WebViewModelProtocol>: View {
 }
 
 #Preview {
-    WebView(viewModel: WebViewModelMock())
+    WebView<WebViewModelMock, BookmarkViewModelMock>(viewModel: WebViewModelMock())
         .previewInterfaceOrientation(.landscapeRight)
 }

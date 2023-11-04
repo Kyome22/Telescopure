@@ -7,54 +7,40 @@
 
 import SwiftUI
 
-struct BookmarkView: View {
-    @AppStorage(.bookmarksJSON) var bookmarksJSON = "[]"
-    @State var bookmarks: [Bookmark] = []
-
-    private let currentTitle: String?
-    private let currentURL: URL?
-    private let closeBookmarkHandler: () -> Void
-    private let loadBookmarkHandler: (String) -> Void
-
-    init(
-        currentTitle: String?,
-        currentURL: URL?,
-        closeBookmarkHandler: @escaping () -> Void,
-        loadBookmarkHandler: @escaping (String) -> Void
-    ) {
-        self.currentTitle = currentTitle
-        self.currentURL = currentURL
-        self.closeBookmarkHandler = closeBookmarkHandler
-        self.loadBookmarkHandler = loadBookmarkHandler
-    }
+struct BookmarkView<B: BookmarkViewModelProtocol>: View {
+    @StateObject var viewModel: B
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            header()
-            bookmarkList()
+            header
+            bookmarkList
         }
         .onAppear {
-            if let data = bookmarksJSON.data(using: .utf8),
-               let obj = try? JSONSerialization.jsonObject(with: data) as? [[String: String]] {
-                bookmarks = obj.compactMap({ dict in
-                    if let title = dict["title"], let url = dict["url"] {
-                        return Bookmark(title: title, url: url)
-                    } else {
-                        return nil
-                    }
-                })
+            viewModel.initializeBookmarks()
+        }
+        .alert("editBookmark", isPresented: $viewModel.isPresentedEditDialog) {
+            TextField("inputTitle", text: $viewModel.editingTitle)
+            TextField("inputURL", text: $viewModel.editingURL)
+            Button("cancel", role: .cancel) {
+                viewModel.isPresentedEditDialog = false
             }
+            Button("ok") {
+                viewModel.editBookmark()
+            }
+            // This is a bug in iOS, and if you use it, Action will not fire.
+            // .disabled(viewModel.isDisabledToEdit)
         }
     }
 
-    func header() -> some View {
+    var header: some View {
         ZStack(alignment: .center) {
             Text("bookmark")
                 .font(.title3)
             HStack {
                 Spacer()
                 Button {
-                    closeBookmarkHandler()
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                         .font(.title3)
@@ -66,10 +52,10 @@ struct BookmarkView: View {
         .background(Color.systemGray6)
     }
 
-    func bookmarkList() -> some View {
+    var bookmarkList: some View {
         List {
             Section {
-                if bookmarks.isEmpty {
+                if viewModel.bookmarks.isEmpty {
                     HStack {
                         Label("noBookmark", systemImage: "book")
                             .foregroundColor(.secondary)
@@ -77,63 +63,55 @@ struct BookmarkView: View {
                         Spacer()
                     }
                 } else {
-                    ForEach(0 ..< bookmarks.count, id: \.self) { index in
-                        Button {
-                            loadBookmarkHandler(bookmarks[index].url)
-                        } label: {
-                            Label(bookmarks[index].title, systemImage: "book")
-                        }
-                        .buttonStyle(.bookmark)
-                    }
-                    .onDelete { indexSet in
-                        bookmarks.remove(atOffsets: indexSet)
-                        updateBookmarkJSON()
+                    ForEach(viewModel.bookmarks) { bookmark in
+                        bookmarkItem(bookmark)
                     }
                 }
             }
             Section {
                 Button {
-                    addBookmark()
+                    viewModel.addBookmark()
                 } label: {
                     Label {
                         Text("addBookmark")
-                            .foregroundColor(currentURL == nil ? .secondary : .primary)
+                            .foregroundColor(viewModel.isDisabledToAdd ? .secondary : .primary)
                     } icon: {
                         Image(systemName: "plus.app")
-                            .foregroundColor(currentURL == nil ? .secondary : .accentColor)
+                            .foregroundColor(viewModel.isDisabledToAdd ? .secondary : .accentColor)
                     }
                 }
                 .buttonStyle(.bookmark)
-                .disabled(currentURL == nil)
+                .disabled(viewModel.isDisabledToAdd)
             }
         }
         .listStyle(.insetGrouped)
     }
 
-    func addBookmark() {
-        if let title = currentTitle, let url = currentURL {
-            bookmarks.append(Bookmark(title: title, url: url.absoluteString))
-            updateBookmarkJSON()
+    func bookmarkItem(_ bookmark: Bookmark) -> some View {
+        return Button {
+            viewModel.loadBookmark(bookmark)
+            dismiss()
+        } label: {
+            Label(bookmark.title, systemImage: "book")
         }
-    }
-
-    func updateBookmarkJSON() {
-        let obj = bookmarks.map { bookmark -> [String: String] in
-            return [
-                "title": bookmark.title,
-                "url": bookmark.url
-            ]
-        }
-        if let data = try? JSONSerialization.data(withJSONObject: obj),
-           let str = String(data: data, encoding: .utf8) {
-            bookmarksJSON = str
+        .buttonStyle(.bookmark)
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button {
+                viewModel.deleteBookmark(bookmark)
+            } label: {
+                Text("delete")
+            }
+            .tint(.red)
+            Button {
+                viewModel.openEditDialog(bookmark)
+            } label: {
+                Text("edit")
+            }
+            .tint(.green)
         }
     }
 }
 
 #Preview {
-    BookmarkView(currentTitle: nil,
-                 currentURL: nil,
-                 closeBookmarkHandler: {},
-                 loadBookmarkHandler: { _ in })
+    BookmarkView(viewModel: BookmarkViewModelMock())
 }
