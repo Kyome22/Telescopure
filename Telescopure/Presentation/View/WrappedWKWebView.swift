@@ -18,6 +18,8 @@ struct WrappedWKWebView: UIViewRepresentable {
         config.allowsInlineMediaPlayback = true
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.allowsBackForwardNavigationGestures = true
+        webView.isOpaque = false
+        webView.backgroundColor = .clear
         setWebViewHandler(webView)
         return webView
     }
