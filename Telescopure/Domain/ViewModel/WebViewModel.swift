@@ -276,13 +276,13 @@ extension WebViewModel: WKNavigationDelegate {
         }
         let key = "ERROR_MESSAGE"
         if let urlError = error as? URLError {
-            let message = urlError.localizedDescription.firstCapitalized
+            let message = urlError.localizedDescription
             htmlString = htmlString.replacingOccurrences(of: key, with: message)
             webView.loadHTMLString(htmlString, baseURL: urlError.failingURL)
         } else {
-            let message = error.localizedDescription.firstCapitalized
+            let message = error.localizedDescription
             htmlString = htmlString.replacingOccurrences(of: key, with: message)
-            webView.loadHTMLString(htmlString, baseURL: URL(fileURLWithPath: "error.html"))
+            webView.loadHTMLString(htmlString, baseURL: URL(string: inputText))
         }
     }
 }

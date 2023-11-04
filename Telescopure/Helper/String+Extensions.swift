@@ -14,13 +14,4 @@ extension String {
         let matchRange = self.range(of: pattern, options: .regularExpression)
         return matchRange != nil
     }
-
-    var firstCapitalized: String {
-        self.components(separatedBy: .whitespaces)
-            .enumerated()
-            .map { (offset, item) in
-                return offset == 0 ? item.capitalized : item
-            }
-            .joined(separator: " ")
-    }
 }
