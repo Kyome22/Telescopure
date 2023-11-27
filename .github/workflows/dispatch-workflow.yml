@@ -29,6 +29,12 @@ jobs:
       - name: Show Xcode Version
         run: xcodebuild -version
 
+      - name: Install yeetd
+        run: |
+          wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg
+          sudo installer -pkg yeetd-normal.pkg -target /
+          yeetd &
+
       - name: Build for Test
         run: |
           xcodebuild clean build-for-testing \
