@@ -10,6 +10,7 @@
   ],
   "defaultOptions" : {
     "codeCoverage" : false,
+    "language" : "en",
     "targetForVariableExpansion" : {
       "containerPath" : "container:Telescopure.xcodeproj",
       "identifier" : "1C67D1232AE02C8F009F4A60",
