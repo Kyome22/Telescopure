@@ -31,5 +31,7 @@
 		<key>UIImageName</key>
 		<string>LaunchIcon</string>
 	</dict>
+	<key>UIRequiresPersistentWiFi</key>
+	<true/>
 </dict>
 </plist>
