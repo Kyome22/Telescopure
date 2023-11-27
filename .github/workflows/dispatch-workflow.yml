@@ -2,13 +2,21 @@ name: Dispatch Workflow
 
 on:
   workflow_dispatch:
+    inputs:
+      ui-test-flag:
+        type: choice
+        description: UIテストを実行しますか
+        required: true
+        options:
+        - 実行する
+        - 実行しない
 
 jobs:
   test:
     name: Test
     runs-on: macos-13
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_15.0.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_15.0.1.app/Contents/Developer"
       CODE_SIGN_IDENTITY: ""
       CODE_SIGNING_REQUIRED: "NO"
       CODE_SIGNING_ALLOWED: "NO"
@@ -26,7 +34,7 @@ jobs:
           xcodebuild clean build-for-testing \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} | \
             xcpretty -c && exit ${PIPESTATUS[0]}
 
@@ -35,17 +43,18 @@ jobs:
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -only-testing:TelescopureTests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
 
       - name: UI Test
+        if: github.event.inputs.ui-test-flag == '実行する'
         run: |
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -only-testing:TelescopureUITests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
