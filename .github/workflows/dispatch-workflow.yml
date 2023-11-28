@@ -43,7 +43,7 @@ jobs:
           xcodebuild clean build-for-testing \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} | \
             xcpretty -c && exit ${PIPESTATUS[0]}
 
@@ -52,7 +52,7 @@ jobs:
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -only-testing:TelescopureTests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
@@ -63,7 +63,7 @@ jobs:
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0" \
+            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -only-testing:TelescopureUITests | \
             xcpretty -c && exit ${PIPESTATUS[0]}
