@@ -10,6 +10,12 @@
             "state" : "new",
             "value" : "Telescopure"
           }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telescopure"
+          }
         }
       }
     },
