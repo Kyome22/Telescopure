@@ -1,0 +1,33 @@
+{
+  "originHash" : "43717856562b1bc7d62980720b28cfe9ff30a5b0c435d30a7fe1ed33f29fca8d",
+  "pins" : [
+    {
+      "identity" : "licenselist",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/LicenseList.git",
+      "state" : {
+        "revision" : "a0a1784aa60dcdafbc30cb2ffbac90544b46100a",
+        "version" : "2.1.0"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "revision" : "96a2f8a0fa41e9e09af4585e2724c4e825410b91",
+        "version" : "1.6.2"
+      }
+    },
+    {
+      "identity" : "webui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/cybozu/WebUI.git",
+      "state" : {
+        "revision" : "713cb578e09b5f934e0d9a3fe41b45244d38a1ba",
+        "version" : "3.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}

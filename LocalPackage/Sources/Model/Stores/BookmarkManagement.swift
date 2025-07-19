@@ -1,0 +1,94 @@
+import Foundation
+import DataSource
+import Observation
+
+@MainActor @Observable public final class BookmarkManagement: Identifiable {
+    private let userDefaultsRepository: UserDefaultsRepository
+    private let logService: LogService
+    private let action: @MainActor (Action) async -> Void
+
+    public let id: UUID
+    public let currentURL: URL?
+    public let currentTitle: String?
+    public var bookmarkItems: [BookmarkItem]
+
+    public var isDisabledToAdd: Bool {
+        currentURL == nil
+    }
+
+    public init(
+        _ appDependencies: AppDependencies,
+        id: UUID = UUID(),
+        currentURL: URL? = nil,
+        currentTitle: String? = nil,
+        isPresentedEditDialog: Bool = false,
+        editingBookmarkItemID: BookmarkItem.ID? = nil,
+        bookmarkItems: [BookmarkItem] = [],
+        action: @MainActor @escaping (Action) async -> Void
+    ) {
+        self.id = id
+        self.currentURL = currentURL
+        self.currentTitle = currentTitle
+        self.bookmarkItems = bookmarkItems
+        self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
+        self.logService = .init(appDependencies)
+        self.action = action
+    }
+
+    public func send(_ action: Action) async {
+        await self.action(action)
+
+        switch action {
+        case let .task(screenName):
+            logService.notice(.screenView(name: screenName))
+            bookmarkItems = userDefaultsRepository.bookmarks.map { bookmark in
+                BookmarkItem(
+                    id: bookmark.id,
+                    url: bookmark.url,
+                    title: bookmark.title,
+                    action: { [weak self] in
+                        await self?.send(.bookmarkItem($0))
+                    }
+                )
+            }
+
+        case .addBookmarkButtonTapped:
+            guard let currentURL, let currentTitle else { return }
+            bookmarkItems.append(.init(
+                id: UUID(),
+                url: currentURL,
+                title: currentTitle,
+                action: { [weak self] in
+                    await self?.send(.bookmarkItem($0))
+                }
+            ))
+            saveCurrentBookmaks()
+
+        case let .bookmarkItem(.deleteButtonTapped(id)):
+            bookmarkItems.removeAll { $0.id == id }
+            saveCurrentBookmaks()
+
+        case .bookmarkItem(.onUpdateBookmark):
+            saveCurrentBookmaks()
+
+        case .bookmarkItem:
+            break
+
+        case .closeButtonTapped:
+            break
+        }
+    }
+
+    private func saveCurrentBookmaks() {
+        userDefaultsRepository.bookmarks = bookmarkItems.map {
+            Bookmark(id: $0.id, title: $0.title, url: $0.url)
+        }
+    }
+
+    public enum Action {
+        case task(String)
+        case addBookmarkButtonTapped
+        case bookmarkItem(BookmarkItem.Action)
+        case closeButtonTapped
+    }
+}
