@@ -48,21 +48,15 @@ struct BookmarkManagementView: View {
             .navigationTitle(Text("bookmarks", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
+                ToolbarItem(placement: .confirmationAction) {
                     Button {
                         Task {
-                            await store.send(.closeButtonTapped)
+                            await store.send(.doneButtonTapped)
                         }
                     } label: {
-                        Label {
-                            Text("close", bundle: .module)
-                        } icon: {
-                            Image(systemName: "xmark")
-                        }
-                        .labelStyle(.iconOnly)
+                        Text("done", bundle: .module)
                     }
-                    .buttonStyle(.borderless)
-                    .accessibilityIdentifier("closeBookmarksButton")
+                    .accessibilityIdentifier("doneBookmarksButton")
                 }
             }
         }

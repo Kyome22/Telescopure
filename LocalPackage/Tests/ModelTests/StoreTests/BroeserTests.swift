@@ -131,9 +131,9 @@ struct BrowserTests {
     }
 
     @MainActor @Test
-    func send_bookmarkManagement_closeButtonTapped() async {
+    func send_bookmarkManagement_doneButtonTapped() async {
         let sut = Browser(.testDependencies())
-        await sut.send(.bookmarkManagement(.closeButtonTapped))
+        await sut.send(.bookmarkManagement(.doneButtonTapped))
         #expect(sut.bookmarkManagement == nil)
     }
 }

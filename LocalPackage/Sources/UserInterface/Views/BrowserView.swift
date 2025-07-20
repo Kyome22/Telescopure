@@ -3,6 +3,7 @@ import SwiftUI
 import WebUI
 
 struct BrowserView: View {
+    @Environment(\.appDependencies) private var appDependencies
     @StateObject var store: Browser
     @StateObject private var navigationDelegate: BrowserNavigationDelegate
     @StateObject private var uiDelegate: BrowserUIDelegate
@@ -22,7 +23,7 @@ struct BrowserView: View {
                             HStack(spacing: 8) {
                                 Button {
                                     Task {
-                                        await store.send(.settingsButtonTapped)
+                                        await store.send(.settingsButtonTapped(appDependencies))
                                     }
                                 } label: {
                                     Label {
@@ -91,6 +92,9 @@ struct BrowserView: View {
             }
         }
         .ignoresSafeArea(edges: store.isPresentedToolBar ? [] : .all)
+        .sheet(item: $store.settings) { store in
+            SettingsView(store: store)
+        }
         .sheet(item: $store.bookmarkManagement) { store in
             BookmarkManagementView(store: store)
         }

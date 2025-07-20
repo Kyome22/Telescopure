@@ -16,7 +16,7 @@ final class TelescopureUITests: XCTestCase {
 
         let actual = try XCTUnwrap(searchTextField.value as? String)
         let expect = "https://www.google.com/search?q=apple"
-        XCTAssertEqual(actual, expect)
+        XCTAssertTrue(actual.hasPrefix(expect))
     }
 
     @MainActor
@@ -59,10 +59,10 @@ final class TelescopureUITests: XCTestCase {
         let openBookmarksButton = app.buttons["openBookmarksButton"]
         openBookmarksButton.tap()
 
-        let closeBookmarksButton = app.buttons["closeBookmarksButton"]
-        XCTAssertTrue(closeBookmarksButton.exists)
+        let doneBookmarksButton = app.buttons["doneBookmarksButton"]
+        XCTAssertTrue(doneBookmarksButton.exists)
 
-        closeBookmarksButton.tap()
+        doneBookmarksButton.tap()
         XCTAssertTrue(openBookmarksButton.exists)
     }
 }

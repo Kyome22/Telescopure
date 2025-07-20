@@ -1,9 +1,11 @@
 import Foundation
 
-public enum SearchEngine: String {
-    case google
-    case bing
-    case duckduckgo
+public enum SearchEngine: String, Hashable, CaseIterable {
+    case google = "Google"
+    case bing = "Bing"
+    case duckduckgo = "DuckDuckGo"
+
+    public var label: String { rawValue }
 
     public var url: String {
         switch self {
