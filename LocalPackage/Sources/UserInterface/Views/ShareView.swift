@@ -21,7 +21,7 @@ public struct ShareView: View {
             .padding(16)
             Color(.systemGray3)
                 .frame(maxWidth: .infinity, minHeight: 1, maxHeight: 1)
-            Text(verbatim: store.sharedType.sharedText)
+            Text(store.sharedType.sharedText)
                 .lineLimit(7)
                 .foregroundColor(Color.primary)
                 .padding(16)
@@ -32,7 +32,7 @@ public struct ShareView: View {
                     await store.send(.openButtonTapped)
                 }
             } label: {
-                Text(store.sharedType.labelKey)
+                Text(store.sharedType.label)
             }
             .padding(16)
         }
