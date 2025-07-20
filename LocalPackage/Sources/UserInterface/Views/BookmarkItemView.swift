@@ -62,7 +62,7 @@ struct BookmarkItemView: View {
     BookmarkItemView(store: .init(
         id: UUID(),
         url: URL(string: "https://example.com")!,
-        title: "Sample",
+        title: "Example",
         action: { _ in }
     ))
 }
