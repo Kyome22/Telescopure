@@ -228,7 +228,7 @@ import WebUI
         case let .browserUI(.runJavaScriptTextInputPanelWithPrompt(prompt, defaultText, continuation)):
             await send(.onRequestPrompt(prompt, defaultText, continuation))
 
-        case .settings(.closeButtonTapped):
+        case .settings(.doneButtonTapped):
             settings = nil
 
         case .settings:
@@ -238,7 +238,7 @@ import WebUI
             bookmarkManagement = nil
             await webViewProxyClient.load(URLRequest(url: url))
 
-        case .bookmarkManagement(.closeButtonTapped):
+        case .bookmarkManagement(.doneButtonTapped):
             bookmarkManagement = nil
 
         case .bookmarkManagement:

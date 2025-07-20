@@ -59,10 +59,10 @@ final class TelescopureUITests: XCTestCase {
         let openBookmarksButton = app.buttons["openBookmarksButton"]
         openBookmarksButton.tap()
 
-        let closeBookmarksButton = app.buttons["closeBookmarksButton"]
-        XCTAssertTrue(closeBookmarksButton.exists)
+        let doneBookmarksButton = app.buttons["doneBookmarksButton"]
+        XCTAssertTrue(doneBookmarksButton.exists)
 
-        closeBookmarksButton.tap()
+        doneBookmarksButton.tap()
         XCTAssertTrue(openBookmarksButton.exists)
     }
 }

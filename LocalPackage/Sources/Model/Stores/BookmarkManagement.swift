@@ -76,7 +76,7 @@ import Observation
         case .bookmarkItem:
             break
 
-        case .closeButtonTapped:
+        case .doneButtonTapped:
             break
         }
     }
@@ -91,6 +91,6 @@ import Observation
         case task(String)
         case addBookmarkButtonTapped
         case bookmarkItem(BookmarkItem.Action)
-        case closeButtonTapped
+        case doneButtonTapped
     }
 }

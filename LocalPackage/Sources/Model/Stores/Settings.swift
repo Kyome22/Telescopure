@@ -68,7 +68,7 @@ import Observation
         case let .licensesButtonTapped(appDependencies):
             path.append(.licenses(.init(appDependencies)))
 
-        case .closeButtonTapped:
+        case .doneButtonTapped:
             break
 
         case let .searchEngineSetting(.onChangeSearchEngine(searchEngine)):
@@ -86,7 +86,7 @@ import Observation
         case crearCacheButtonTapped
         case openRepositoryButtonTapped
         case licensesButtonTapped(AppDependencies)
-        case closeButtonTapped
+        case doneButtonTapped
         case searchEngineSetting(SearchEngineSetting.Action)
     }
 
