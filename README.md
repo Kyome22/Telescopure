@@ -29,31 +29,33 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 ### Top
 
 <div>
-  <img src="Resources/light/1-top.png" alt="top" width="150px" />
-  <img src="Resources/dark/1-top.png" alt="top" width="150px" />
+  <img src="Resources/1-top.png" alt="top" width="150px" />
 </div>
     
 ### Browsing
 
 <div>
-  <img src="Resources/light/2-browsing.png" alt="browsing" width="150px" />
-  <img src="Resources/light/3-full-screen.png" alt="full screen" width="150px" />
-  <img src="Resources/dark/2-browsing.png" alt="browsing" width="150px" />
-  <img src="Resources/dark/3-full-screen.png" alt="full screen" width="150px" />
+  <img src="Resources/2-browsing.png" alt="browsing" width="150px" />
+  <img src="Resources/3-full-screen.png" alt="full screen" width="150px" />
 </div>
     
 ### Bookmark
 
 <div>
-  <img src="Resources/light/4-bookmark.png" alt="bookmark" width="150px" />
-  <img src="Resources/dark/4-bookmark.png" alt="bookmark" width="150px" />
+  <img src="Resources/4-bookmark.png" alt="bookmark" width="150px" />
+</div>
+
+### Settings
+
+<div>
+  <img src="Resources/5-settings.png" alt="settings" width="150px" />
+  <img src="Resources/6-search-engine.png" alt="select search engine" width="150px" />
 </div>
 
 ### Open link via other app
 
 <div>
-  <img src="Resources/light/5-open-link.png" alt="open link" width="150px" />
-  <img src="Resources/dark/5-open-link.png" alt="open link" width="150px" />
+  <img src="Resources/7-share-link.png" alt="share link" width="150px" />
 </div>
     
 ## Implementation
