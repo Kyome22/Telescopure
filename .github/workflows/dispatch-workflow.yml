@@ -67,5 +67,4 @@ jobs:
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/ui_test_result_bundle \
             -skipPackagePluginValidation \
-            -skipMacroValidation | \
-            xcbeautify && exit ${PIPESTATUS[0]}
+            -skipMacroValidation
