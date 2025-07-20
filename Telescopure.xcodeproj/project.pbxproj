@@ -3,14 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		1C56FC332E2BD03000D92D7B /* UserInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1C56FC322E2BD03000D92D7B /* UserInterface */; };
+		1C56FCAA2E2C8E6000D92D7B /* TelescopureShare.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1C56FCB22E2C8F1C00D92D7B /* UserInterface in Frameworks */ = {isa = PBXBuildFile; productRef = 1C56FCB12E2C8F1C00D92D7B /* UserInterface */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		1C56FCA82E2C8E6000D92D7B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1C67D11C2AE02C8F009F4A60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1C56FC9F2E2C8E6000D92D7B;
+			remoteInfo = TelescopureShare;
+		};
 		1C67D1352AE02C90009F4A60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C67D11C2AE02C8F009F4A60 /* Project object */;
@@ -30,18 +39,18 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		1C56FBD72E2B7B4C00D92D7B /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolder = PlugIns;
 			files = (
+				1C56FCAA2E2C8E6000D92D7B /* TelescopureShare.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		1C56FB9C2E2A9B5100D92D7B /* LocalPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPackage; sourceTree = "<group>"; };
+		1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TelescopureShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C67D1242AE02C8F009F4A60 /* Telescopure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telescopure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C67D1342AE02C90009F4A60 /* TelescopureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelescopureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C67D13E2AE02C90009F4A60 /* TelescopureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelescopureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -49,43 +58,73 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		1C56FBAD2E2B6BCA00D92D7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+		1C56FBAD2E2B6BCA00D92D7B /* Exceptions for "Telescopure" folder in "Telescopure" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
 			target = 1C67D1232AE02C8F009F4A60 /* Telescopure */;
 		};
+		1C56FCAE2E2C8E6000D92D7B /* Exceptions for "TelescopureShare" folder in "TelescopureShare" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		1C56FBA72E2B6BCA00D92D7B /* Telescopure */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1C56FBAD2E2B6BCA00D92D7B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Telescopure; sourceTree = "<group>"; };
-		1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TelescopureTests; sourceTree = "<group>"; };
-		1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TelescopureUITests; sourceTree = "<group>"; };
+		1C56FBA72E2B6BCA00D92D7B /* Telescopure */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1C56FBAD2E2B6BCA00D92D7B /* Exceptions for "Telescopure" folder in "Telescopure" target */,
+			);
+			path = Telescopure;
+			sourceTree = "<group>";
+		};
+		1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TelescopureTests;
+			sourceTree = "<group>";
+		};
+		1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = TelescopureUITests;
+			sourceTree = "<group>";
+		};
+		1C56FCA12E2C8E6000D92D7B /* TelescopureShare */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				1C56FCAE2E2C8E6000D92D7B /* Exceptions for "TelescopureShare" folder in "TelescopureShare" target */,
+			);
+			path = TelescopureShare;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1C56FC9D2E2C8E6000D92D7B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				1C56FCB22E2C8F1C00D92D7B /* UserInterface in Frameworks */,
+			);
+		};
 		1C67D1212AE02C8F009F4A60 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				1C56FC332E2BD03000D92D7B /* UserInterface in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1C67D1312AE02C90009F4A60 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1C67D13B2AE02C90009F4A60 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -105,6 +144,7 @@
 				1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */,
 				1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */,
 				1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */,
+				1C56FCA12E2C8E6000D92D7B /* TelescopureShare */,
 				1C56FB9D2E2A9E9900D92D7B /* Frameworks */,
 				1C67D1252AE02C8F009F4A60 /* Products */,
 			);
@@ -116,6 +156,7 @@
 				1C67D1242AE02C8F009F4A60 /* Telescopure.app */,
 				1C67D1342AE02C90009F4A60 /* TelescopureTests.xctest */,
 				1C67D13E2AE02C90009F4A60 /* TelescopureUITests.xctest */,
+				1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,11 +164,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C56FCAB2E2C8E6000D92D7B /* Build configuration list for PBXNativeTarget "TelescopureShare" */;
+			buildPhases = (
+				1C56FC9C2E2C8E6000D92D7B /* Sources */,
+				1C56FC9D2E2C8E6000D92D7B /* Frameworks */,
+				1C56FC9E2E2C8E6000D92D7B /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				1C56FCA12E2C8E6000D92D7B /* TelescopureShare */,
+			);
+			name = TelescopureShare;
+			packageProductDependencies = (
+				1C56FCB12E2C8F1C00D92D7B /* UserInterface */,
+			);
+			productName = TelescopureShare;
+			productReference = 1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1C67D1232AE02C8F009F4A60 /* Telescopure */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C67D1482AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "Telescopure" */;
 			buildPhases = (
-				1C56FBDB2E2B96CD00D92D7B /* Workaround for libswiftWebKit.dylib */,
 				1C67D1202AE02C8F009F4A60 /* Sources */,
 				1C67D1212AE02C8F009F4A60 /* Frameworks */,
 				1C67D1222AE02C8F009F4A60 /* Resources */,
@@ -136,6 +197,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				1C56FCA92E2C8E6000D92D7B /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				1C56FBA72E2B6BCA00D92D7B /* Telescopure */,
@@ -194,9 +256,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
+					1C56FC9F2E2C8E6000D92D7B = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					1C67D1232AE02C8F009F4A60 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -211,7 +276,6 @@
 				};
 			};
 			buildConfigurationList = 1C67D11F2AE02C8F009F4A60 /* Build configuration list for PBXProject "Telescopure" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -220,6 +284,7 @@
 				ja,
 			);
 			mainGroup = 1C67D11B2AE02C8F009F4A60;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 1C67D1252AE02C8F009F4A60 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -227,82 +292,63 @@
 				1C67D1232AE02C8F009F4A60 /* Telescopure */,
 				1C67D1332AE02C90009F4A60 /* TelescopureTests */,
 				1C67D13D2AE02C90009F4A60 /* TelescopureUITests */,
+				1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1C67D1222AE02C8F009F4A60 /* Resources */ = {
+		1C56FC9E2E2C8E6000D92D7B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1C67D1222AE02C8F009F4A60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
 		};
 		1C67D1322AE02C90009F4A60 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1C67D13C2AE02C90009F4A60 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1C56FBDB2E2B96CD00D92D7B /* Workaround for libswiftWebKit.dylib */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
+/* Begin PBXSourcesBuildPhase section */
+		1C56FC9C2E2C8E6000D92D7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
 			files = (
 			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Workaround for libswiftWebKit.dylib";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ \"$PLATFORM_DISPLAY_NAME\" = \"iOS Simulator\" ]; then\n    KEYWORD=\"iOS ${TARGET_DEVICE_OS_VERSION}\"\n    DYLD_FALLBACK_FRAMEWORK_PATH=$(xcrun simctl list devices -v | grep \"$KEYWORD\" | awk -F'[][]' '{print $2}')\n    DYLD_FALLBACK_FRAMEWORK_PATH=\"${DYLD_FALLBACK_FRAMEWORK_PATH}/Contents/Resources/RuntimeRoot/System/Cryptexes/OS/usr/lib/swift/\"\n    LIBRARY_FILE=\"libswiftWebKit.dylib\"\n    ln -sf \"${DYLD_FALLBACK_FRAMEWORK_PATH}/${LIBRARY_FILE}\" \"${BUILT_PRODUCTS_DIR}/${LIBRARY_FILE}\"\n    echo \"👉Created an alias for ${LIBRARY_FILE}\"\nfi\n";
-			showEnvVarsInLog = 0;
 		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
 		1C67D1202AE02C8F009F4A60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1C67D1302AE02C90009F4A60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		1C67D13A2AE02C90009F4A60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1C56FCA92E2C8E6000D92D7B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */;
+			targetProxy = 1C56FCA82E2C8E6000D92D7B /* PBXContainerItemProxy */;
+		};
 		1C67D1362AE02C90009F4A60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1C67D1232AE02C8F009F4A60 /* Telescopure */;
@@ -316,7 +362,59 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1C67D1462AE02C90009F4A60 /* Debug */ = {
+		1C56FCAC2E2C8E6000D92D7B /* Debug configuration for PBXNativeTarget "TelescopureShare" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.3.0;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TelescopureShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TelescopureShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Takuto Nakamura";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.MinBrowser.TelescopureShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1C56FCAD2E2C8E6000D92D7B /* Release configuration for PBXNativeTarget "TelescopureShare" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.3.0;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TelescopureShare/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TelescopureShare;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Takuto Nakamura";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.MinBrowser.TelescopureShare;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1C67D1462AE02C90009F4A60 /* Debug configuration for PBXProject "Telescopure" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -383,7 +481,7 @@
 			};
 			name = Debug;
 		};
-		1C67D1472AE02C90009F4A60 /* Release */ = {
+		1C67D1472AE02C90009F4A60 /* Release configuration for PBXProject "Telescopure" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -443,7 +541,7 @@
 			};
 			name = Release;
 		};
-		1C67D1492AE02C90009F4A60 /* Debug */ = {
+		1C67D1492AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "Telescopure" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -477,7 +575,7 @@
 			};
 			name = Debug;
 		};
-		1C67D14A2AE02C90009F4A60 /* Release */ = {
+		1C67D14A2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "Telescopure" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -511,7 +609,7 @@
 			};
 			name = Release;
 		};
-		1C67D14C2AE02C90009F4A60 /* Debug */ = {
+		1C67D14C2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -530,7 +628,7 @@
 			};
 			name = Debug;
 		};
-		1C67D14D2AE02C90009F4A60 /* Release */ = {
+		1C67D14D2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -549,7 +647,7 @@
 			};
 			name = Release;
 		};
-		1C67D14F2AE02C90009F4A60 /* Debug */ = {
+		1C67D14F2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -567,7 +665,7 @@
 			};
 			name = Debug;
 		};
-		1C67D1502AE02C90009F4A60 /* Release */ = {
+		1C67D1502AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -588,46 +686,54 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1C56FCAB2E2C8E6000D92D7B /* Build configuration list for PBXNativeTarget "TelescopureShare" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C56FCAC2E2C8E6000D92D7B /* Debug configuration for PBXNativeTarget "TelescopureShare" */,
+				1C56FCAD2E2C8E6000D92D7B /* Release configuration for PBXNativeTarget "TelescopureShare" */,
+			);
+			defaultConfigurationName = Release;
+		};
 		1C67D11F2AE02C8F009F4A60 /* Build configuration list for PBXProject "Telescopure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C67D1462AE02C90009F4A60 /* Debug */,
-				1C67D1472AE02C90009F4A60 /* Release */,
+				1C67D1462AE02C90009F4A60 /* Debug configuration for PBXProject "Telescopure" */,
+				1C67D1472AE02C90009F4A60 /* Release configuration for PBXProject "Telescopure" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		1C67D1482AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "Telescopure" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C67D1492AE02C90009F4A60 /* Debug */,
-				1C67D14A2AE02C90009F4A60 /* Release */,
+				1C67D1492AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "Telescopure" */,
+				1C67D14A2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "Telescopure" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		1C67D14B2AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "TelescopureTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C67D14C2AE02C90009F4A60 /* Debug */,
-				1C67D14D2AE02C90009F4A60 /* Release */,
+				1C67D14C2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureTests" */,
+				1C67D14D2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		1C67D14E2AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "TelescopureUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C67D14F2AE02C90009F4A60 /* Debug */,
-				1C67D1502AE02C90009F4A60 /* Release */,
+				1C67D14F2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureUITests" */,
+				1C67D1502AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureUITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		1C56FC322E2BD03000D92D7B /* UserInterface */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = UserInterface;
+		};
+		1C56FCB12E2C8F1C00D92D7B /* UserInterface */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UserInterface;
 		};

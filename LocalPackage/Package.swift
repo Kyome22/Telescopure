@@ -29,7 +29,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.2"),
         .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.1.0"),
-        .package(url: "https://github.com/cybozu/WebUI.git", exact: "3.2.0"),
+        .package(url: "https://github.com/cybozu/WebUI.git", branch: "workaround-for-xcode-16.4-16F6"),
     ],
     targets: [
         .target(
