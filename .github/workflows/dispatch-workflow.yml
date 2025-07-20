@@ -29,11 +29,8 @@ jobs:
       - name: Show Xcode Version
         run: xcodebuild -version
 
-      - name: Prepare Environment
-        run: |
-          defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
-          defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidation -bool YES
-          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
+      - name: Connect Hardware Keyboard OFF
+        run: defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
 
       - name: Build for Test
         run: |
@@ -41,7 +38,9 @@ jobs:
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
             -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
-            -derivedDataPath ${{ env.DERIVED_DATA }} | \
+            -derivedDataPath ${{ env.DERIVED_DATA }} \
+            -skipPackagePluginValidation \
+            -skipMacroValidation | \
             xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Unit Test
@@ -52,7 +51,9 @@ jobs:
             -only-testing:ModelTests \
             -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
-            -resultBundlePath TestResults/unit_test_result_bundle | \
+            -resultBundlePath TestResults/unit_test_result_bundle \
+            -skipPackagePluginValidation \
+            -skipMacroValidation | \
             xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: UI Test
@@ -64,5 +65,7 @@ jobs:
             -only-testing:TelescopureUITests \
             -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
-            -resultBundlePath TestResults/ui_test_result_bundle | \
+            -resultBundlePath TestResults/ui_test_result_bundle \
+            -skipPackagePluginValidation \
+            -skipMacroValidation | \
             xcbeautify && exit ${PIPESTATUS[0]}
