@@ -48,7 +48,6 @@ struct BrowserView: View {
                 }
                 .background(Color(.secondarySystemBackground))
                 .task {
-                    NSLog("🦩 task")
                     await store.send(.task(.init(
                         getLocalizedString: { $0.string },
                         getResourceURL: { Bundle.module.url(forResource: $0, withExtension: $1) },

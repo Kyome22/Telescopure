@@ -20,13 +20,11 @@ import UniformTypeIdentifiers
         self.uiApplicationClient = uiApplicationClient
         self.uiViewControllerClient = uiViewControllerClient
         self.sharedType = sharedType
-        NSLog("🦩 init")
     }
 
     public func send(_ action: Action) async {
         switch action {
         case .task:
-            NSLog("🦩 send task")
             let result = await extractSharedItem(from: viewController?.extensionContext)
             switch result {
             case let .success(sharedType):
@@ -80,7 +78,6 @@ import UniformTypeIdentifiers
                 }
             }
         } else {
-            NSLog("🦩 nonSupportedItem")
             return .failure(.nonSupportedItem)
         }
     }

@@ -16,7 +16,7 @@ public struct ShareView: View {
                     await store.send(.cancelButtonTapped)
                 }
             } label: {
-                Text(LocalizedStringKey("cancel"))
+                Text("cancel", bundle: .module)
             }
             .padding(16)
             Color(.systemGray3)

@@ -13,7 +13,6 @@ final class ShareViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog("🦩 viewDidLoad")
 
         let shareView = ShareView(store: .init(
             viewController: self,
