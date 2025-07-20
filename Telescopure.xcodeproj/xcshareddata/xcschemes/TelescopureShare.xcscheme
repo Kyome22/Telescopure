@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1500"
+   LastUpgradeVersion = "1640"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -15,7 +15,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1C67D1832AE032AB009F4A60"
+               BlueprintIdentifier = "1C56FC9F2E2C8E6000D92D7B"
                BuildableName = "TelescopureShare.appex"
                BlueprintName = "TelescopureShare"
                ReferencedContainer = "container:Telescopure.xcodeproj">

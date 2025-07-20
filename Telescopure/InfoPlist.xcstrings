@@ -20,7 +20,7 @@
       }
     },
     "NSCameraUsageDescription" : {
-      "extractionState" : "manual",
+      "comment" : "Privacy - Camera Usage Description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -37,7 +37,7 @@
       }
     },
     "NSLocationWhenInUseUsageDescription" : {
-      "extractionState" : "manual",
+      "comment" : "Privacy - Location When In Use Usage Description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -54,7 +54,7 @@
       }
     },
     "NSMicrophoneUsageDescription" : {
-      "extractionState" : "manual",
+      "comment" : "Privacy - Microphone Usage Description",
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -71,7 +71,7 @@
       }
     },
     "NSPhotoLibraryAddUsageDescription" : {
-      "extractionState" : "manual",
+      "comment" : "Privacy - Photo Library Additions Usage Description",
       "localizations" : {
         "en" : {
           "stringUnit" : {

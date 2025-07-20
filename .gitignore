@@ -10,3 +10,11 @@ xcuserdata/
 *.xcuserstate
 *.xccheckout
 
+# Swift Package Manager
+Packages.resolved
+.swiftpm/
+.build/
+LocalPackage/Package.resolved
+
+# Test
+TestResults/

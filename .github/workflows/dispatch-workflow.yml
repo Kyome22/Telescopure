@@ -5,18 +5,18 @@ on:
     inputs:
       ui-test-flag:
         type: choice
-        description: UIテストを実行しますか
+        description: Run UI tests?
         required: true
         options:
-        - 実行する
-        - 実行しない
+          - "Yes"
+          - "No"
 
 jobs:
   test:
     name: Test
-    runs-on: macos-13
+    runs-on: macos-15
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_15.0.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_16.4.app/Contents/Developer"
       CODE_SIGN_IDENTITY: ""
       CODE_SIGNING_REQUIRED: "NO"
       CODE_SIGNING_ALLOWED: "NO"
@@ -24,16 +24,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Show Xcode Version
         run: xcodebuild -version
-
-      - name: Install yeetd
-        run: |
-          wget https://github.com/biscuitehh/yeetd/releases/download/1.0/yeetd-normal.pkg
-          sudo installer -pkg yeetd-normal.pkg -target /
-          yeetd &
 
       - name: Connect Hardware Keyboard OFF
         run: defaults write com.apple.iphonesimulator ConnectHardwareKeyboard -bool false
@@ -43,27 +37,27 @@ jobs:
           xcodebuild clean build-for-testing \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
             -derivedDataPath ${{ env.DERIVED_DATA }} | \
-            xcpretty -c && exit ${PIPESTATUS[0]}
+            xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: Unit Test
         run: |
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
-            -only-testing:TelescopureTests | \
-            xcpretty -c && exit ${PIPESTATUS[0]}
+            -only-testing:ModelTests | \
+            xcbeautify && exit ${PIPESTATUS[0]}
 
       - name: UI Test
-        if: github.event.inputs.ui-test-flag == '実行する'
+        if: github.event.inputs.ui-test-flag == 'YES'
         run: |
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 15,OS=17.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 16,OS=18.5" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -only-testing:TelescopureUITests | \
-            xcpretty -c && exit ${PIPESTATUS[0]}
+            xcbeautify && exit ${PIPESTATUS[0]}

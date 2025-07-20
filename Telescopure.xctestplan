@@ -20,9 +20,9 @@
   "testTargets" : [
     {
       "target" : {
-        "containerPath" : "container:Telescopure.xcodeproj",
-        "identifier" : "1C67D1332AE02C90009F4A60",
-        "name" : "TelescopureTests"
+        "containerPath" : "container:LocalPackage",
+        "identifier" : "ModelTests",
+        "name" : "ModelTests"
       }
     },
     {

@@ -1,21 +1,15 @@
-/*
- TelescopureUITests.swift
- TelescopureUITests
-
- Created by Takuto Nakamura on 2023/10/19.
-*/
-
 import XCTest
 
 final class TelescopureUITests: XCTestCase {
-    let app = XCUIApplication()
-
     override func setUpWithError() throws {
         continueAfterFailure = false
-        app.launch()
     }
 
+    @MainActor
     func testSearchKeyword() throws {
+        let app = XCUIApplication()
+        app.launch()
+
         let searchTextField = app.textFields["searchTextField"]
         searchTextField.tap()
         searchTextField.typeText("apple\n")
@@ -25,7 +19,11 @@ final class TelescopureUITests: XCTestCase {
         XCTAssertEqual(actual, expect)
     }
 
+    @MainActor
     func testClearTextField() throws {
+        let app = XCUIApplication()
+        app.launch()
+
         let searchTextField = app.textFields["searchTextField"]
         searchTextField.tap()
         searchTextField.typeText("abcdefghijklmn")
@@ -38,7 +36,11 @@ final class TelescopureUITests: XCTestCase {
         XCTAssertEqual(actual, expect)
     }
 
+    @MainActor
     func testHideToolBar() throws {
+        let app = XCUIApplication()
+        app.launch()
+
         let hideToolBarButton = app.buttons["hideToolBarButton"]
         hideToolBarButton.tap()
 
@@ -49,7 +51,11 @@ final class TelescopureUITests: XCTestCase {
         XCTAssertTrue(hideToolBarButton.exists)
     }
 
+    @MainActor
     func testOpenBookmark() throws {
+        let app = XCUIApplication()
+        app.launch()
+
         let showBookmarkButton = app.buttons["showBookmarkButton"]
         showBookmarkButton.tap()
 
