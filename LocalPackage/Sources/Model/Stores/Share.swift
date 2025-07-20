@@ -45,7 +45,7 @@ import UniformTypeIdentifiers
                 uiViewControllerClient.completeRequest(viewController)
             }
             guard let shareURL = sharedType.shareURL else { return }
-            uiApplicationClient.perform(viewController, sel_registerName("openURL:"), shareURL)
+            uiApplicationClient.perform(viewController, shareURL)
         }
     }
 
