@@ -6,6 +6,7 @@ public final class AppDependencies: Sendable {
     public let loggingSystemClient: LoggingSystemClient
     public let uiApplicationClient: UIApplicationClient
     public let userDefaultsClient: UserDefaultsClient
+    public let uuidClient: UUIDClient
     public let webViewProxyClient: WebViewProxyClient
 
     public nonisolated init(
@@ -13,12 +14,14 @@ public final class AppDependencies: Sendable {
         loggingSystemClient: LoggingSystemClient = .liveValue,
         uiApplicationClient: UIApplicationClient = .liveValue,
         userDefaultsClient: UserDefaultsClient = .liveValue,
+        uuidClient: UUIDClient = .liveValue,
         webViewProxyClient: WebViewProxyClient = .liveValue
     ) {
         self.appStateClient = appStateClient
         self.loggingSystemClient = loggingSystemClient
         self.uiApplicationClient = uiApplicationClient
         self.userDefaultsClient = userDefaultsClient
+        self.uuidClient = uuidClient
         self.webViewProxyClient = webViewProxyClient
     }
 }
@@ -40,6 +43,7 @@ extension AppDependencies {
         loggingSystemClient: LoggingSystemClient = .testValue,
         uiApplicationClient: UIApplicationClient = .testValue,
         userDefaultsClient: UserDefaultsClient = .testValue,
+        uuidClient: UUIDClient = .testValue,
         webViewProxyClient: WebViewProxyClient = .testValue
     ) -> AppDependencies {
         AppDependencies(
@@ -47,6 +51,7 @@ extension AppDependencies {
             loggingSystemClient: loggingSystemClient,
             uiApplicationClient: uiApplicationClient,
             userDefaultsClient: userDefaultsClient,
+            uuidClient: uuidClient,
             webViewProxyClient: webViewProxyClient
         )
     }

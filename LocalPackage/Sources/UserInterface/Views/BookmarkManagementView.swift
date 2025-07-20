@@ -71,5 +71,5 @@ struct BookmarkManagementView: View {
 }
 
 #Preview {
-    BookmarkManagementView(store: .init(.testDependencies(), action: { _ in }))
+    BookmarkManagementView(store: .init(.testDependencies(), id: UUID(), action: { _ in }))
 }

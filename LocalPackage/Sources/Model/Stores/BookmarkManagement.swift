@@ -3,6 +3,7 @@ import DataSource
 import Observation
 
 @MainActor @Observable public final class BookmarkManagement: Identifiable {
+    private let uuidClient: UUIDClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
     private let action: @MainActor (Action) async -> Void
@@ -18,7 +19,7 @@ import Observation
 
     public init(
         _ appDependencies: AppDependencies,
-        id: UUID = UUID(),
+        id: UUID,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
         isPresentedEditDialog: Bool = false,
@@ -30,6 +31,7 @@ import Observation
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.bookmarkItems = bookmarkItems
+        self.uuidClient = appDependencies.uuidClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
         self.action = action
@@ -55,7 +57,7 @@ import Observation
         case .addBookmarkButtonTapped:
             guard let currentURL, let currentTitle else { return }
             bookmarkItems.append(.init(
-                id: UUID(),
+                id: uuidClient.create(),
                 url: currentURL,
                 title: currentTitle,
                 action: { [weak self] in

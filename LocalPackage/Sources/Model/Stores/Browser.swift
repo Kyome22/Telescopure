@@ -5,6 +5,7 @@ import WebUI
 
 @MainActor @Observable public final class Browser: ObservableObject {
     private let uiApplicationClient: UIApplicationClient
+    private let uuidClient: UUIDClient
     private let webViewProxyClient: WebViewProxyClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
@@ -47,6 +48,7 @@ import WebUI
         self.webDialog = webDialog
         self.promptInput = promptInput
         self.uiApplicationClient = appDependencies.uiApplicationClient
+        self.uuidClient = appDependencies.uuidClient
         self.webViewProxyClient = appDependencies.webViewProxyClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
@@ -108,6 +110,7 @@ import WebUI
         case let .bookmarkButtonTapped(appDependencies):
             bookmarkManagement = .init(
                 appDependencies,
+                id: uuidClient.create(),
                 currentURL: currentURL,
                 currentTitle: currentTitle,
                 action: { [weak self] in

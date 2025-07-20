@@ -121,11 +121,11 @@
 		1C67D11B2AE02C8F009F4A60 = {
 			isa = PBXGroup;
 			children = (
+				1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */,
 				1C56FB9C2E2A9B5100D92D7B /* LocalPackage */,
 				1C56FBA72E2B6BCA00D92D7B /* Telescopure */,
-				1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */,
-				1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */,
 				1C56FCA12E2C8E6000D92D7B /* TelescopureShare */,
+				1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */,
 				1C56FB9D2E2A9E9900D92D7B /* Frameworks */,
 				1C67D1252AE02C8F009F4A60 /* Products */,
 			);

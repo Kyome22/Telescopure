@@ -63,6 +63,7 @@ let package = Package(
             dependencies: [
                 "DataSource",
                 "Model",
+                .product(name: "WebUI", package: "WebUI"),
             ],
             swiftSettings: swiftSettings
         ),
