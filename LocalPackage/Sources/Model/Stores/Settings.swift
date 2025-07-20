@@ -11,12 +11,15 @@ import Observation
     public let id: UUID
     public var path: [Path]
     public var searchEngine: SearchEngine
+    public var version: String
+    public let developer = "Takuto Nakamura"
 
     public init(
         _ appDependencies: AppDependencies,
         id: UUID,
         path: [Path] = [],
         searchEngine: SearchEngine? = nil,
+        version: String? = nil,
         action: @MainActor @escaping (Action) async -> Void
     ) {
         self.id = id
@@ -32,6 +35,7 @@ import Observation
         } else {
             .google
         }
+        self.version = version ?? Bundle.main.bundleVersion
     }
 
     public func send(_ action: Action) async {

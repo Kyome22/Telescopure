@@ -31,7 +31,7 @@ struct SettingsView: View {
                 }
                 Section {
                     LabeledContent {
-                        Text(verbatim: "1.3")
+                        Text(store.version)
                     } label: {
                         Label {
                             Text("version", bundle: .module)
@@ -40,7 +40,7 @@ struct SettingsView: View {
                         }
                     }
                     LabeledContent {
-                        Text(verbatim: "Takuto Nakamura")
+                        Text(store.developer)
                     } label: {
                         Label {
                             Text("developer", bundle: .module)
