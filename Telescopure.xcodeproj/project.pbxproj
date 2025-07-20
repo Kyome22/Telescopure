@@ -20,13 +20,6 @@
 			remoteGlobalIDString = 1C56FC9F2E2C8E6000D92D7B;
 			remoteInfo = TelescopureShare;
 		};
-		1C67D1352AE02C90009F4A60 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 1C67D11C2AE02C8F009F4A60 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 1C67D1232AE02C8F009F4A60;
-			remoteInfo = Telescopure;
-		};
 		1C67D13F2AE02C90009F4A60 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 1C67D11C2AE02C8F009F4A60 /* Project object */;
@@ -52,7 +45,6 @@
 		1C56FB9C2E2A9B5100D92D7B /* LocalPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LocalPackage; sourceTree = "<group>"; };
 		1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TelescopureShare.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C67D1242AE02C8F009F4A60 /* Telescopure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Telescopure.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1C67D1342AE02C90009F4A60 /* TelescopureTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelescopureTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1C67D13E2AE02C90009F4A60 /* TelescopureUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TelescopureUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Telescopure.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,11 +75,6 @@
 			path = Telescopure;
 			sourceTree = "<group>";
 		};
-		1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = TelescopureTests;
-			sourceTree = "<group>";
-		};
 		1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = TelescopureUITests;
@@ -116,11 +103,6 @@
 				1C56FC332E2BD03000D92D7B /* UserInterface in Frameworks */,
 			);
 		};
-		1C67D1312AE02C90009F4A60 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			files = (
-			);
-		};
 		1C67D13B2AE02C90009F4A60 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
@@ -142,7 +124,6 @@
 				1C56FB9C2E2A9B5100D92D7B /* LocalPackage */,
 				1C56FBA72E2B6BCA00D92D7B /* Telescopure */,
 				1CE7245E2AF69EE9000B24EC /* Telescopure.xctestplan */,
-				1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */,
 				1C56FBD02E2B6BD500D92D7B /* TelescopureUITests */,
 				1C56FCA12E2C8E6000D92D7B /* TelescopureShare */,
 				1C56FB9D2E2A9E9900D92D7B /* Frameworks */,
@@ -154,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				1C67D1242AE02C8F009F4A60 /* Telescopure.app */,
-				1C67D1342AE02C90009F4A60 /* TelescopureTests.xctest */,
 				1C67D13E2AE02C90009F4A60 /* TelescopureUITests.xctest */,
 				1C56FCA02E2C8E6000D92D7B /* TelescopureShare.appex */,
 			);
@@ -207,27 +187,6 @@
 			productReference = 1C67D1242AE02C8F009F4A60 /* Telescopure.app */;
 			productType = "com.apple.product-type.application";
 		};
-		1C67D1332AE02C90009F4A60 /* TelescopureTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1C67D14B2AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "TelescopureTests" */;
-			buildPhases = (
-				1C67D1302AE02C90009F4A60 /* Sources */,
-				1C67D1312AE02C90009F4A60 /* Frameworks */,
-				1C67D1322AE02C90009F4A60 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				1C67D1362AE02C90009F4A60 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				1C56FBCC2E2B6BD200D92D7B /* TelescopureTests */,
-			);
-			name = TelescopureTests;
-			productName = TelescopureTests;
-			productReference = 1C67D1342AE02C90009F4A60 /* TelescopureTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		1C67D13D2AE02C90009F4A60 /* TelescopureUITests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1C67D14E2AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "TelescopureUITests" */;
@@ -265,10 +224,6 @@
 					1C67D1232AE02C8F009F4A60 = {
 						CreatedOnToolsVersion = 15.0;
 					};
-					1C67D1332AE02C90009F4A60 = {
-						CreatedOnToolsVersion = 15.0;
-						TestTargetID = 1C67D1232AE02C8F009F4A60;
-					};
 					1C67D13D2AE02C90009F4A60 = {
 						CreatedOnToolsVersion = 15.0;
 						TestTargetID = 1C67D1232AE02C8F009F4A60;
@@ -290,9 +245,8 @@
 			projectRoot = "";
 			targets = (
 				1C67D1232AE02C8F009F4A60 /* Telescopure */,
-				1C67D1332AE02C90009F4A60 /* TelescopureTests */,
-				1C67D13D2AE02C90009F4A60 /* TelescopureUITests */,
 				1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */,
+				1C67D13D2AE02C90009F4A60 /* TelescopureUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -304,11 +258,6 @@
 			);
 		};
 		1C67D1222AE02C8F009F4A60 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			files = (
-			);
-		};
-		1C67D1322AE02C90009F4A60 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -331,11 +280,6 @@
 			files = (
 			);
 		};
-		1C67D1302AE02C90009F4A60 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			files = (
-			);
-		};
 		1C67D13A2AE02C90009F4A60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -348,11 +292,6 @@
 			isa = PBXTargetDependency;
 			target = 1C56FC9F2E2C8E6000D92D7B /* TelescopureShare */;
 			targetProxy = 1C56FCA82E2C8E6000D92D7B /* PBXContainerItemProxy */;
-		};
-		1C67D1362AE02C90009F4A60 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1C67D1232AE02C8F009F4A60 /* Telescopure */;
-			targetProxy = 1C67D1352AE02C90009F4A60 /* PBXContainerItemProxy */;
 		};
 		1C67D1402AE02C90009F4A60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -609,44 +548,6 @@
 			};
 			name = Release;
 		};
-		1C67D14C2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureTests" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.TelescopureTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Telescopure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Telescopure";
-			};
-			name = Debug;
-		};
-		1C67D14D2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureTests" */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.kyome.TelescopureTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Telescopure.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Telescopure";
-			};
-			name = Release;
-		};
 		1C67D14F2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -707,14 +608,6 @@
 			buildConfigurations = (
 				1C67D1492AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "Telescopure" */,
 				1C67D14A2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "Telescopure" */,
-			);
-			defaultConfigurationName = Release;
-		};
-		1C67D14B2AE02C90009F4A60 /* Build configuration list for PBXNativeTarget "TelescopureTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1C67D14C2AE02C90009F4A60 /* Debug configuration for PBXNativeTarget "TelescopureTests" */,
-				1C67D14D2AE02C90009F4A60 /* Release configuration for PBXNativeTarget "TelescopureTests" */,
 			);
 			defaultConfigurationName = Release;
 		};

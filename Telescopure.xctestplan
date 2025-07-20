@@ -21,13 +21,6 @@
     {
       "target" : {
         "containerPath" : "container:Telescopure.xcodeproj",
-        "identifier" : "1C67D1332AE02C90009F4A60",
-        "name" : "TelescopureTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:Telescopure.xcodeproj",
         "identifier" : "1C67D13D2AE02C90009F4A60",
         "name" : "TelescopureUITests"
       }
