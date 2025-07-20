@@ -42,7 +42,7 @@ struct BrowserView: View {
                             .padding(.horizontal, 16)
                             .background(Color(.header))
                             ProgressView(value: proxy.estimatedProgress)
-                                .opacity(store.progressOpacity)
+                                .opacity(proxy.isLoading ? 1.0 : 0.0)
                         }
                         .transition(.move(edge: .top))
                     }

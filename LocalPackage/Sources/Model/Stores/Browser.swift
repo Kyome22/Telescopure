@@ -18,7 +18,6 @@ import WebUI
     public var browserUI = BrowserUI(action: { _ in })
     public var inputText: String
     public var isPresentedToolBar: Bool
-    public var progressOpacity: Double
     public var settings: Settings?
     public var bookmarkManagement: BookmarkManagement?
     public var currentURL: URL?
@@ -31,7 +30,6 @@ import WebUI
         _ appDependencies: AppDependencies,
         inputText: String = "",
         isPresentedToolBar: Bool = true,
-        progressOpacity: Double = .zero,
         settings: Settings? = nil,
         bookmarkManagement: BookmarkManagement? = nil,
         currentURL: URL? = nil,
@@ -42,7 +40,6 @@ import WebUI
     ) {
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
-        self.progressOpacity = progressOpacity
         self.settings = settings
         self.bookmarkManagement = bookmarkManagement
         self.currentURL = currentURL
