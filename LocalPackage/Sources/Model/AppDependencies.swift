@@ -8,6 +8,7 @@ public final class AppDependencies: Sendable {
     public let userDefaultsClient: UserDefaultsClient
     public let uuidClient: UUIDClient
     public let webViewProxyClient: WebViewProxyClient
+    public let wkWebsiteDataStoreClient: WKWebsiteDataStoreClient
 
     public nonisolated init(
         appStateClient: AppStateClient = .liveValue,
@@ -15,7 +16,8 @@ public final class AppDependencies: Sendable {
         uiApplicationClient: UIApplicationClient = .liveValue,
         userDefaultsClient: UserDefaultsClient = .liveValue,
         uuidClient: UUIDClient = .liveValue,
-        webViewProxyClient: WebViewProxyClient = .liveValue
+        webViewProxyClient: WebViewProxyClient = .liveValue,
+        wkWebsiteDataStoreClient: WKWebsiteDataStoreClient = .liveValue
     ) {
         self.appStateClient = appStateClient
         self.loggingSystemClient = loggingSystemClient
@@ -23,6 +25,7 @@ public final class AppDependencies: Sendable {
         self.userDefaultsClient = userDefaultsClient
         self.uuidClient = uuidClient
         self.webViewProxyClient = webViewProxyClient
+        self.wkWebsiteDataStoreClient = wkWebsiteDataStoreClient
     }
 }
 
@@ -44,7 +47,8 @@ extension AppDependencies {
         uiApplicationClient: UIApplicationClient = .testValue,
         userDefaultsClient: UserDefaultsClient = .testValue,
         uuidClient: UUIDClient = .testValue,
-        webViewProxyClient: WebViewProxyClient = .testValue
+        webViewProxyClient: WebViewProxyClient = .testValue,
+        wkWebsiteDataStoreClient: WKWebsiteDataStoreClient = .testValue
     ) -> AppDependencies {
         AppDependencies(
             appStateClient: appStateClient,
@@ -52,7 +56,8 @@ extension AppDependencies {
             uiApplicationClient: uiApplicationClient,
             userDefaultsClient: userDefaultsClient,
             uuidClient: uuidClient,
-            webViewProxyClient: webViewProxyClient
+            webViewProxyClient: webViewProxyClient,
+            wkWebsiteDataStoreClient: wkWebsiteDataStoreClient
         )
     }
 }

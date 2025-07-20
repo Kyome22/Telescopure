@@ -4,6 +4,7 @@ import Observation
 
 @MainActor @Observable public final class Settings: Identifiable {
     private let uiApplicationClient: UIApplicationClient
+    private let wkWebsiteDataStoreClient: WKWebsiteDataStoreClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
     private let action: @MainActor (Action) async -> Void
@@ -25,6 +26,7 @@ import Observation
         self.id = id
         self.path = path
         self.uiApplicationClient = appDependencies.uiApplicationClient
+        self.wkWebsiteDataStoreClient = appDependencies.wkWebsiteDataStoreClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
         self.action = action
@@ -54,6 +56,11 @@ import Observation
                 }
             )))
 
+        case .crearCacheButtonTapped:
+            let dataTypes = wkWebsiteDataStoreClient.allWebsiteDataTypes()
+            let records = await wkWebsiteDataStoreClient.dataRecords(dataTypes)
+            await wkWebsiteDataStoreClient.removeData(dataTypes, records)
+
         case .openRepositoryButtonTapped:
             guard let url = URL(string: "https://github.com/Kyome22/Telescopure") else { return }
             _ = await uiApplicationClient.open(url)
@@ -76,6 +83,7 @@ import Observation
     public enum Action {
         case task(String)
         case searchEngineSettingButtonTapped(AppDependencies)
+        case crearCacheButtonTapped
         case openRepositoryButtonTapped
         case licensesButtonTapped(AppDependencies)
         case closeButtonTapped

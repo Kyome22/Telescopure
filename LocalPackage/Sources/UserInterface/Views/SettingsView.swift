@@ -26,6 +26,18 @@ struct SettingsView: View {
                         }
                     }
                     .buttonStyle(.borderless)
+                    LabeledContent {
+                        Button(role: .destructive) {
+                            Task {
+                                await store.send(.crearCacheButtonTapped)
+                            }
+                        } label: {
+                            Text("clear", bundle: .module)
+                        }
+                        .buttonStyle(.borderless)
+                    } label: {
+                        Text("cache", bundle: .module)
+                    }
                 } header: {
                     Text("settings", bundle: .module)
                 }
@@ -88,7 +100,6 @@ struct SettingsView: View {
                 }
             }
             .listStyle(.insetGrouped)
-            .navigationTitle(Text(verbatim: "Telescopure"))
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Settings.Path.self) { path in
                 switch path {
