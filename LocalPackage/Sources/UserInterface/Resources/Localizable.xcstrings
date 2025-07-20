@@ -97,6 +97,22 @@
         }
       }
     },
+    "developer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Developer"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開発者"
+          }
+        }
+      }
+    },
     "edit" : {
       "localizations" : {
         "en" : {
@@ -193,6 +209,22 @@
         }
       }
     },
+    "information" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Information"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "情報"
+          }
+        }
+      }
+    },
     "inputTitle" : {
       "localizations" : {
         "en" : {
@@ -221,6 +253,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URLを入力"
+          }
+        }
+      }
+    },
+    "licenses" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Licenses"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ライセンス"
           }
         }
       }
@@ -321,6 +369,22 @@
         }
       }
     },
+    "repository" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repository"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リポジトリ"
+          }
+        }
+      }
+    },
     "search" : {
       "localizations" : {
         "en" : {
@@ -337,6 +401,22 @@
         }
       }
     },
+    "searchEngine" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Engine"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索エンジン"
+          }
+        }
+      }
+    },
     "searchIn" : {
       "localizations" : {
         "en" : {
@@ -349,6 +429,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Telescopureで検索"
+          }
+        }
+      }
+    },
+    "settings" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
           }
         }
       }
@@ -397,6 +493,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未定義"
+          }
+        }
+      }
+    },
+    "version" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン"
           }
         }
       }

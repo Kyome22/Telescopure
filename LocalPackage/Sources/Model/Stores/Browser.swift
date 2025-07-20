@@ -19,6 +19,7 @@ import WebUI
     public var inputText: String
     public var isPresentedToolBar: Bool
     public var progressOpacity: Double
+    public var settings: Settings?
     public var bookmarkManagement: BookmarkManagement?
     public var currentURL: URL?
     public var currentTitle: String?
@@ -31,6 +32,7 @@ import WebUI
         inputText: String = "",
         isPresentedToolBar: Bool = true,
         progressOpacity: Double = .zero,
+        settings: Settings? = nil,
         bookmarkManagement: BookmarkManagement? = nil,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
@@ -41,6 +43,7 @@ import WebUI
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
         self.progressOpacity = progressOpacity
+        self.settings = settings
         self.bookmarkManagement = bookmarkManagement
         self.currentURL = currentURL
         self.currentTitle = currentTitle
@@ -94,8 +97,14 @@ import WebUI
         case let .onSubmit(keyword):
             await search(with: keyword)
 
-        case .settingsButtonTapped:
-            break
+        case let .settingsButtonTapped(appDependencies):
+            settings = .init(
+                appDependencies,
+                id: uuidClient.create(),
+                action: { [weak self] in
+                    await self?.send(.settings($0))
+                }
+            )
 
         case .clearSearchButtonTapped:
             inputText = ""
@@ -117,8 +126,9 @@ import WebUI
                 currentURL: currentURL,
                 currentTitle: currentTitle,
                 action: { [weak self] in
-                await self?.send(.bookmarkManagement($0))
-            })
+                    await self?.send(.bookmarkManagement($0))
+                }
+            )
 
         case .hideToolBarButtonTapped:
             withAnimation(.easeIn(duration: 0.2)) {
@@ -218,6 +228,12 @@ import WebUI
         case let .browserUI(.runJavaScriptTextInputPanelWithPrompt(prompt, defaultText, continuation)):
             await send(.onRequestPrompt(prompt, defaultText, continuation))
 
+        case .settings(.closeButtonTapped):
+            settings = nil
+
+        case .settings:
+            break
+
         case let .bookmarkManagement(.bookmarkItem(.openBookmarkButtonTapped(url))):
             bookmarkManagement = nil
             await webViewProxyClient.load(URLRequest(url: url))
@@ -255,7 +271,7 @@ import WebUI
         case onChangeTitle(String?)
         case onOpenURL(URL)
         case onSubmit(String)
-        case settingsButtonTapped
+        case settingsButtonTapped(AppDependencies)
         case clearSearchButtonTapped
         case goBackButtonTapped
         case goForwardButtonTapped
@@ -269,6 +285,7 @@ import WebUI
         case dialogCancelButtonTapped
         case browserNavigation(BrowserNavigation.Action)
         case browserUI(BrowserUI.Action)
+        case settings(Settings.Action)
         case bookmarkManagement(BookmarkManagement.Action)
 
         public struct EventBridge {
