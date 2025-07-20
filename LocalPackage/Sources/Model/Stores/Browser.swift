@@ -94,6 +94,9 @@ import WebUI
         case let .onSubmit(keyword):
             await search(with: keyword)
 
+        case .settingsButtonTapped:
+            break
+
         case .clearSearchButtonTapped:
             inputText = ""
 
@@ -118,12 +121,12 @@ import WebUI
             })
 
         case .hideToolBarButtonTapped:
-            withAnimation {
+            withAnimation(.easeIn(duration: 0.2)) {
                 isPresentedToolBar = false
             }
 
         case .showToolBarButtonTapped:
-            withAnimation {
+            withAnimation(.easeIn(duration: 0.2)) {
                 isPresentedToolBar = true
             }
 
@@ -252,6 +255,7 @@ import WebUI
         case onChangeTitle(String?)
         case onOpenURL(URL)
         case onSubmit(String)
+        case settingsButtonTapped
         case clearSearchButtonTapped
         case goBackButtonTapped
         case goForwardButtonTapped

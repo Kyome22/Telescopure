@@ -6,25 +6,7 @@ struct BookmarkManagementView: View {
     @Bindable var store: BookmarkManagement
 
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            ZStack(alignment: .center) {
-                Text("bookmark", bundle: .module)
-                    .font(.title3)
-                HStack {
-                    Spacer()
-                    Button {
-                        Task {
-                            await store.send(.closeButtonTapped)
-                        }
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.title3)
-                    }
-                    .accessibilityIdentifier("hideBookmarkButton")
-                }
-            }
-            .padding(16)
-            .background(Color(.systemGray6))
+        NavigationStack {
             List {
                 Section {
                     if store.bookmarkItems.isEmpty {
@@ -63,6 +45,26 @@ struct BookmarkManagementView: View {
                 }
             }
             .listStyle(.insetGrouped)
+            .navigationTitle(Text("bookmarks", bundle: .module))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        Task {
+                            await store.send(.closeButtonTapped)
+                        }
+                    } label: {
+                        Label {
+                            Text("close", bundle: .module)
+                        } icon: {
+                            Image(systemName: "xmark")
+                        }
+                        .labelStyle(.iconOnly)
+                    }
+                    .buttonStyle(.borderless)
+                    .accessibilityIdentifier("closeBookmarksButton")
+                }
+            }
         }
         .task {
             await store.send(.task(String(describing: Self.self)))

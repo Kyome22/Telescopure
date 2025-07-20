@@ -27,8 +27,13 @@ struct SearchBar: View {
                     await store.send(.clearSearchButtonTapped)
                 }
             } label: {
-                Image(systemName: "xmark.circle.fill")
-                    .foregroundStyle(store.inputText.isEmpty ? Color(.systemGray3) : Color(.systemGray))
+                Label {
+                    Text("clear", bundle: .module)
+                } icon: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(store.inputText.isEmpty ? Color(.systemGray3) : Color(.systemGray))
+                }
+                .labelStyle(.iconOnly)
             }
             .accessibilityIdentifier("clearButton")
             .disabled(store.inputText.isEmpty)
@@ -36,9 +41,6 @@ struct SearchBar: View {
         .padding(.horizontal, 8)
         .frame(height: height)
         .background(Color(.systemGray5), in: .rect(cornerRadius: 10))
-        .padding(.vertical, 8)
-        .padding(.horizontal, 16)
-        .background(Color(.header))
     }
 }
 

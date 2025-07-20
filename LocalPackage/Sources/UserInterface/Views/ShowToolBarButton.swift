@@ -10,12 +10,18 @@ struct ShowToolBarButton: View {
                 await store.send(.showToolBarButtonTapped)
             }
         } label: {
-            Image(systemName: "chevron.up")
-                .imageScale(.large)
-                .frame(width: 40, height: 40, alignment: .center)
+            Label {
+                Text("showToolBar", bundle: .module)
+            } icon: {
+                Image(systemName: "chevron.up")
+                    .imageScale(.large)
+                    .frame(width: 40, height: 40)
+            }
+            .labelStyle(.iconOnly)
         }
+        .buttonStyle(.borderless)
+        .background(Color(.floating), in: Circle())
         .accessibilityIdentifier("showToolBarButton")
-        .background(Color(.floating), in: .circle)
         .shadow(radius: 8)
     }
 }

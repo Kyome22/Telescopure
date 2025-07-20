@@ -17,41 +17,67 @@ struct ToolBar: View {
                         await store.send(.goBackButtonTapped)
                     }
                 } label: {
-                    Image(systemName: "chevron.backward")
-                        .imageScale(.large)
-                        .frame(width: 40, height: 40, alignment: .center)
+                    Label {
+                        Text("goBack", bundle: .module)
+                    } icon: {
+                        Image(systemName: "chevron.backward")
+                            .imageScale(.large)
+                            .frame(width: 40, height: 40)
+                    }
+                    .labelStyle(.iconOnly)
                 }
+                .buttonStyle(.borderless)
                 .disabled(!canGoBack)
+                .accessibilityIdentifier("goBackButton")
                 Button {
                     Task {
                         await store.send(.goForwardButtonTapped)
                     }
                 } label: {
-                    Image(systemName: "chevron.forward")
-                        .imageScale(.large)
-                        .frame(width: 40, height: 40, alignment: .center)
+                    Label {
+                        Text("goForward", bundle: .module)
+                    } icon: {
+                        Image(systemName: "chevron.forward")
+                            .imageScale(.large)
+                            .frame(width: 40, height: 40)
+                    }
+                    .labelStyle(.iconOnly)
                 }
+                .buttonStyle(.borderless)
                 .disabled(!canGoForward)
+                .accessibilityIdentifier("goForwardButton")
                 Spacer()
                 Button {
                     Task {
                         await store.send(.bookmarkButtonTapped(appDependencies))
                     }
                 } label: {
-                    Image(systemName: "book")
-                        .imageScale(.large)
-                        .frame(width: 40, height: 40, alignment: .center)
+                    Label {
+                        Text("openBookmarks", bundle: .module)
+                    } icon: {
+                        Image(systemName: "book")
+                            .imageScale(.large)
+                            .frame(width: 40, height: 40)
+                    }
+                    .labelStyle(.iconOnly)
                 }
-                .accessibilityIdentifier("showBookmarkButton")
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("openBookmarksButton")
                 Button {
                     Task {
                         await store.send(.hideToolBarButtonTapped)
                     }
                 } label: {
-                    Image(systemName: "chevron.down")
-                        .imageScale(.large)
-                        .frame(width: 40, height: 40, alignment: .center)
+                    Label {
+                        Text("hideToolBar", bundle: .module)
+                    } icon: {
+                        Image(systemName: "chevron.down")
+                            .imageScale(.large)
+                            .frame(width: 40, height: 40)
+                    }
+                    .labelStyle(.iconOnly)
                 }
+                .buttonStyle(.borderless)
                 .accessibilityIdentifier("hideToolBarButton")
             }
             .padding(.vertical, 8)

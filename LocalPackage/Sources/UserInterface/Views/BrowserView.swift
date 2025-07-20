@@ -19,7 +19,27 @@ struct BrowserView: View {
                 VStack(spacing: 0) {
                     if store.isPresentedToolBar {
                         VStack(spacing: 0) {
-                            SearchBar(store: store)
+                            HStack(spacing: 8) {
+                                Button {
+                                    Task {
+                                        await store.send(.settingsButtonTapped)
+                                    }
+                                } label: {
+                                    Label {
+                                        Text("openSettings", bundle: .module)
+                                    } icon: {
+                                        Image(systemName: "gearshape")
+                                            .imageScale(.large)
+                                    }
+                                    .labelStyle(.iconOnly)
+                                }
+                                .buttonStyle(.borderless)
+                                .tint(Color(.systemGray))
+                                SearchBar(store: store)
+                            }
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 16)
+                            .background(Color(.header))
                             ProgressView(value: proxy.estimatedProgress)
                                 .opacity(store.progressOpacity)
                         }
@@ -66,7 +86,7 @@ struct BrowserView: View {
                 if !store.isPresentedToolBar {
                     ShowToolBarButton(store: store)
                         .padding(20)
-                        .transition(.opacity)
+                        .transition(.move(edge: .bottom))
                 }
             }
         }
