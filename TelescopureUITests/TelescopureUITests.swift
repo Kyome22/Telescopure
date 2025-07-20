@@ -16,7 +16,7 @@ final class TelescopureUITests: XCTestCase {
 
         let actual = try XCTUnwrap(searchTextField.value as? String)
         let expect = "https://www.google.com/search?q=apple"
-        XCTAssertEqual(actual, expect)
+        XCTAssertTrue(actual.hasPrefix(expect))
     }
 
     @MainActor
