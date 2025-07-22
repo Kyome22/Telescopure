@@ -13,8 +13,8 @@ import Observation
         selection: SearchEngine,
         action: @MainActor @escaping (Action) async -> Void
     ) {
-        self.selection = selection
         self.logService = .init(appDependencies)
+        self.selection = selection
         self.action = action
     }
 

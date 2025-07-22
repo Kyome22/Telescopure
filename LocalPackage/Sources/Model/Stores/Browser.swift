@@ -38,6 +38,11 @@ import WebUI
         webDialog: WebDialog? = nil,
         promptInput: String = ""
     ) {
+        self.uiApplicationClient = appDependencies.uiApplicationClient
+        self.uuidClient = appDependencies.uuidClient
+        self.webViewProxyClient = appDependencies.webViewProxyClient
+        self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
+        self.logService = .init(appDependencies)
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
         self.settings = settings
@@ -47,11 +52,6 @@ import WebUI
         self.isPresentedWebDialog = isPresentedWebDialog
         self.webDialog = webDialog
         self.promptInput = promptInput
-        self.uiApplicationClient = appDependencies.uiApplicationClient
-        self.uuidClient = appDependencies.uuidClient
-        self.webViewProxyClient = appDependencies.webViewProxyClient
-        self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
-        self.logService = .init(appDependencies)
         self.browserNavigation = .init(action: { [weak self] in
             await self?.send(.browserNavigation($0))
         })

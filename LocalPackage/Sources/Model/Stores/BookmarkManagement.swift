@@ -27,13 +27,13 @@ import Observation
         bookmarkItems: [BookmarkItem] = [],
         action: @MainActor @escaping (Action) async -> Void
     ) {
+        self.uuidClient = appDependencies.uuidClient
+        self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
+        self.logService = .init(appDependencies)
         self.id = id
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.bookmarkItems = bookmarkItems
-        self.uuidClient = appDependencies.uuidClient
-        self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
-        self.logService = .init(appDependencies)
         self.action = action
     }
 

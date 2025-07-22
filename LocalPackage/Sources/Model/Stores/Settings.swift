@@ -23,13 +23,12 @@ import Observation
         version: String? = nil,
         action: @MainActor @escaping (Action) async -> Void
     ) {
-        self.id = id
-        self.path = path
         self.uiApplicationClient = appDependencies.uiApplicationClient
         self.wkWebsiteDataStoreClient = appDependencies.wkWebsiteDataStoreClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
-        self.action = action
+        self.id = id
+        self.path = path
         self.searchEngine = if let searchEngine {
             searchEngine
         } else if let searchEngine = userDefaultsRepository.searchEngine {
@@ -38,6 +37,7 @@ import Observation
             .google
         }
         self.version = version ?? Bundle.main.bundleVersion
+        self.action = action
     }
 
     public func send(_ action: Action) async {
