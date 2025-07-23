@@ -69,10 +69,14 @@ struct BrowserView: View {
                 }
                 .background(Color(.secondarySystemBackground))
                 .task {
-                    await store.send(.task(.init(
-                        getLocalizedString: { $0.string },
-                        getResourceURL: { Bundle.module.url(forResource: $0, withExtension: $1) },
-                    ), proxy))
+                    await store.send(.task(
+                        String(describing: Self.self),
+                        .init(
+                            getLocalizedString: { $0.string },
+                            getResourceURL: { Bundle.module.url(forResource: $0, withExtension: $1) },
+                        ),
+                        proxy
+                    ))
                 }
                 .onChange(of: proxy.url) { _, newValue in
                     Task {

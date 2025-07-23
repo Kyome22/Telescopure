@@ -62,7 +62,8 @@ import WebUI
 
     public func send(_ action: Action) async {
         switch action {
-        case let .task(eventBridge, webViewProxy):
+        case let .task(screenName, eventBridge, webViewProxy):
+            logService.notice(.screenView(name: screenName))
             self.getLocalizedString = eventBridge.getLocalizedString
             self.getResourceURL = eventBridge.getResourceURL
             self.webViewProxyClient.setProxy(webViewProxy)
@@ -263,7 +264,7 @@ import WebUI
     }
 
     public enum Action {
-        case task(EventBridge, WebViewProxy)
+        case task(String, EventBridge, WebViewProxy)
         case onChangeURL(URL?)
         case onChangeTitle(String?)
         case onOpenURL(URL)
