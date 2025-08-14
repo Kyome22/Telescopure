@@ -3,69 +3,72 @@ import Observation
 import SwiftUI
 import WebUI
 
-@MainActor @Observable public final class Browser: ObservableObject {
+@MainActor @Observable public final class Browser: Composable {
     private let uiApplicationClient: UIApplicationClient
     private let uuidClient: UUIDClient
     private let webViewProxyClient: WebViewProxyClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
 
-    @ObservationIgnored private var getLocalizedString: ((Action.ResourceBridge) -> String)?
-    @ObservationIgnored private var getResourceURL: ((String, String) -> URL?)?
+    @ObservationIgnored private var eventBridge: Action.EventBridge?
     @ObservationIgnored private var operateWebViewProxy: ((WebViewProxy) -> Void)?
 
-    public var browserNavigation = BrowserNavigation(action: { _ in })
-    public var browserUI = BrowserUI(action: { _ in })
     public var inputText: String
     public var isPresentedToolBar: Bool
-    public var settings: Settings?
-    public var bookmarkManagement: BookmarkManagement?
     public var currentURL: URL?
     public var currentTitle: String?
     public var isPresentedWebDialog: Bool
     public var webDialog: WebDialog?
     public var promptInput: String
+    public var browserNavigation: BrowserNavigation
+    public var browserUI: BrowserUI
+    public var settings: Settings?
+    public var bookmarkManagement: BookmarkManagement?
+    public let action: (Action) async -> Void
 
     public init(
         _ appDependencies: AppDependencies,
+        eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
         isPresentedToolBar: Bool = true,
-        settings: Settings? = nil,
-        bookmarkManagement: BookmarkManagement? = nil,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
         isPresentedWebDialog: Bool = false,
         webDialog: WebDialog? = nil,
-        promptInput: String = ""
+        promptInput: String = "",
+        browserNavigation: BrowserNavigation? = nil,
+        browserUI: BrowserUI? = nil,
+        settings: Settings? = nil,
+        bookmarkManagement: BookmarkManagement? = nil,
+        action: @escaping (Action) async -> Void = { _ in }
     ) {
         self.uiApplicationClient = appDependencies.uiApplicationClient
         self.uuidClient = appDependencies.uuidClient
         self.webViewProxyClient = appDependencies.webViewProxyClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
+        self.eventBridge = eventBridge
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
-        self.settings = settings
-        self.bookmarkManagement = bookmarkManagement
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.isPresentedWebDialog = isPresentedWebDialog
         self.webDialog = webDialog
         self.promptInput = promptInput
-        self.browserNavigation = .init(action: { [weak self] in
-            await self?.send(.browserNavigation($0))
-        })
-        self.browserUI = .init(action: { [weak self] in
-            await self?.send(.browserUI($0))
-        })
+        weak var weakSelf: Browser? = nil
+        self.browserNavigation = browserNavigation ?? .init(action: { await weakSelf?.send(.browserNavigation($0)) })
+        self.browserUI = browserUI ?? .init(action: { await weakSelf?.send(.browserUI($0)) })
+        self.settings = settings
+        self.bookmarkManagement = bookmarkManagement
+        self.action = action
+        weakSelf = self
     }
 
-    public func send(_ action: Action) async {
+    public func reduce(_ action: Action) async {
         switch action {
         case let .task(screenName, eventBridge, webViewProxy):
             logService.notice(.screenView(name: screenName))
-            self.getLocalizedString = eventBridge.getLocalizedString
-            self.getResourceURL = eventBridge.getResourceURL
+            self.eventBridge = eventBridge
             self.webViewProxyClient.setProxy(webViewProxy)
 
         case let .onChangeURL(url):
@@ -180,7 +183,7 @@ import WebUI
             }
             guard ["http", "https", "blob", "file", "about"].contains(requestURL.scheme) else {
                 continuation.resume(returning: (.cancel, preferences))
-                guard let message = getLocalizedString?(.openExternalApp(requestURL.absoluteString)) else {
+                guard let message = eventBridge?.getLocalizedString?(.openExternalApp(requestURL.absoluteString)) else {
                     return
                 }
                 let confirmResult = await withCheckedContinuation { continuation in
@@ -192,7 +195,7 @@ import WebUI
                     return
                 }
                 let openURLResult = await uiApplicationClient.open(requestURL)
-                guard !openURLResult, let message = getLocalizedString?(.failedToOpenExternalApp) else {
+                guard !openURLResult, let message = eventBridge?.getLocalizedString?(.failedToOpenExternalApp) else {
                     return
                 }
                 await withCheckedContinuation { continuation in
@@ -205,7 +208,7 @@ import WebUI
             continuation.resume(returning: (.allow, preferences))
 
         case let .browserNavigation(.didFailProvisionalNavigation(error)):
-            guard let fileURL = getResourceURL?("error", "html"),
+            guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
                   var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
                 fatalError("Could not load error.html")
             }
@@ -263,7 +266,7 @@ import WebUI
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case task(String, EventBridge, WebViewProxy)
         case onChangeURL(URL?)
         case onChangeTitle(String?)
@@ -286,13 +289,13 @@ import WebUI
         case settings(Settings.Action)
         case bookmarkManagement(BookmarkManagement.Action)
 
-        public struct EventBridge {
-            public var getLocalizedString: (ResourceBridge) -> String
-            public var getResourceURL: (String, String) -> URL?
+        public struct EventBridge: Sendable {
+            public var getLocalizedString: (@MainActor @Sendable (ResourceBridge) -> String)?
+            public var getResourceURL: (@MainActor @Sendable (String, String) -> URL?)?
 
             public init(
-                getLocalizedString: @escaping (ResourceBridge) -> String,
-                getResourceURL: @escaping (String, String) -> URL?
+                getLocalizedString: @escaping @MainActor @Sendable (ResourceBridge) -> String,
+                getResourceURL: @escaping @MainActor @Sendable (String, String) -> URL?
             ) {
                 self.getLocalizedString = getLocalizedString
                 self.getResourceURL = getResourceURL

@@ -2,18 +2,18 @@ import Foundation
 import DataSource
 import Observation
 
-@MainActor @Observable public final class Settings: Identifiable {
+@MainActor @Observable public final class Settings: Identifiable, Composable {
     private let uiApplicationClient: UIApplicationClient
     private let wkWebsiteDataStoreClient: WKWebsiteDataStoreClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
-    private let action: @MainActor (Action) async -> Void
 
     public let id: UUID
     public var path: [Path]
     public var searchEngine: SearchEngine
     public var version: String
     public let developer = "Takuto Nakamura"
+    public let action: (Action) async -> Void
 
     public init(
         _ appDependencies: AppDependencies,
@@ -21,7 +21,7 @@ import Observation
         path: [Path] = [],
         searchEngine: SearchEngine? = nil,
         version: String? = nil,
-        action: @MainActor @escaping (Action) async -> Void
+        action: @escaping (Action) async -> Void
     ) {
         self.uiApplicationClient = appDependencies.uiApplicationClient
         self.wkWebsiteDataStoreClient = appDependencies.wkWebsiteDataStoreClient
@@ -40,9 +40,7 @@ import Observation
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-
+    public func reduce(_ action: Action) async {
         switch action {
         case let .task(screenName):
             logService.notice(.screenView(name: screenName))
@@ -80,7 +78,7 @@ import Observation
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case task(String)
         case searchEngineSettingButtonTapped(AppDependencies)
         case crearCacheButtonTapped

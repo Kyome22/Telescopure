@@ -3,7 +3,7 @@ import Model
 import SwiftUI
 
 struct BookmarkItemView: View {
-    @Bindable var store: BookmarkItem
+    @State var store: BookmarkItem
 
     var body: some View {
         Button {

@@ -3,18 +3,16 @@ import WebKit
 
 public typealias PolicyResult = (WKNavigationActionPolicy, WKWebpagePreferences)
 
-@MainActor @Observable public final class BrowserNavigation {
-    private let action: @MainActor (Action) async -> Void
+@MainActor @Observable public final class BrowserNavigation: Composable {
+    public let action: (Action) async -> Void
 
-    public init(action: @MainActor @escaping (Action) async -> Void) {
+    public init(action: @escaping (Action) async -> Void) {
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-    }
+    public func reduce(_ action: Action) async {}
 
-    public enum Action {
+    public enum Action: Sendable {
         case decidePolicyFor(URLRequest, WKWebpagePreferences, CheckedContinuation<PolicyResult, Never>)
         case didFailProvisionalNavigation(any Error)
     }

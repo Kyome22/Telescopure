@@ -2,25 +2,23 @@ import Foundation
 import DataSource
 import Observation
 
-@MainActor @Observable public final class SearchEngineSetting {
+@MainActor @Observable public final class SearchEngineSetting: Composable {
     private let logService: LogService
-    private let action: @MainActor (Action) async -> Void
 
     public var selection: SearchEngine
+    public let action: (Action) async -> Void
 
     public init(
         _ appDependencies: AppDependencies,
         selection: SearchEngine,
-        action: @MainActor @escaping (Action) async -> Void
+        action: @escaping (Action) async -> Void
     ) {
         self.logService = .init(appDependencies)
         self.selection = selection
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-
+    public func reduce(_ action: Action) async {
         switch action {
         case let .task(screenName):
             logService.notice(.screenView(name: screenName))
@@ -30,7 +28,7 @@ import Observation
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case task(String)
         case onChangeSearchEngine(SearchEngine)
     }

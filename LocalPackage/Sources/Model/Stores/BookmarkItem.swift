@@ -2,15 +2,14 @@ import Foundation
 import DataSource
 import Observation
 
-@MainActor @Observable public final class BookmarkItem: Identifiable {
-    private let action: @MainActor (Action) async -> Void
-
+@MainActor @Observable public final class BookmarkItem: Identifiable, Composable {
     public let id: UUID
     public var url: URL
     public var title: String
     public var isPresentedEditDialog: Bool
     public var editingTitle: String
     public var editingURLString: String
+    public let action: (Action) async -> Void
 
     public var isDisabledToEdit: Bool {
         editingTitle.isEmpty || editingURLString.isEmpty
@@ -23,7 +22,7 @@ import Observation
         isPresentedEditDialog: Bool = false,
         editingTitle: String = "",
         editingURLString: String = "",
-        action: @MainActor @escaping (Action) async -> Void
+        action: @escaping (Action) async -> Void
     ) {
         self.id = id
         self.url = url
@@ -34,9 +33,7 @@ import Observation
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-
+    public func reduce(_ action: Action) async {
         switch action {
         case .openBookmarkButtonTapped:
             break
@@ -63,7 +60,7 @@ import Observation
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case openBookmarkButtonTapped(URL)
         case deleteButtonTapped(BookmarkItem.ID)
         case editButtonTapped

@@ -10,7 +10,7 @@ public final class AppDependencies: Sendable {
     public let webViewProxyClient: WebViewProxyClient
     public let wkWebsiteDataStoreClient: WKWebsiteDataStoreClient
 
-    public nonisolated init(
+    nonisolated init(
         appStateClient: AppStateClient = .liveValue,
         loggingSystemClient: LoggingSystemClient = .liveValue,
         uiApplicationClient: UIApplicationClient = .liveValue,
@@ -27,17 +27,12 @@ public final class AppDependencies: Sendable {
         self.webViewProxyClient = webViewProxyClient
         self.wkWebsiteDataStoreClient = wkWebsiteDataStoreClient
     }
+
+    static let shared = AppDependencies()
 }
 
-struct AppDependenciesKey: EnvironmentKey {
-    static let defaultValue = AppDependencies()
-}
-
-public extension EnvironmentValues {
-    var appDependencies: AppDependencies {
-        get { self[AppDependenciesKey.self] }
-        set { self[AppDependenciesKey.self] = newValue }
-    }
+extension EnvironmentValues {
+    @Entry public var appDependencies = AppDependencies.shared
 }
 
 extension AppDependencies {

@@ -3,7 +3,7 @@ import Model
 import SwiftUI
 
 struct BookmarkManagementView: View {
-    @Bindable var store: BookmarkManagement
+    var store: BookmarkManagement
 
     var body: some View {
         NavigationStack {

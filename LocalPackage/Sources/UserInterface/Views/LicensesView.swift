@@ -10,8 +10,8 @@ struct LicensesView: View {
             .licenseViewStyle(.withRepositoryAnchorLink)
             .navigationTitle(Text("licenses", bundle: .module))
             .navigationBarTitleDisplayMode(.inline)
-            .onAppear {
-                store.send(.onAppear(String(describing: Self.self)))
+            .task {
+                await store.send(.task(String(describing: Self.self)))
             }
     }
 }

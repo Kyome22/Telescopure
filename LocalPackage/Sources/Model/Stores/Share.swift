@@ -3,26 +3,29 @@ import Observation
 import UIKit
 import UniformTypeIdentifiers
 
-@MainActor @Observable public final class Share: ObservableObject {
+@MainActor @Observable public final class Share: Composable {
     private weak var viewController: UIViewController?
     private let uiApplicationClient: UIApplicationClient
     private let uiViewControllerClient: UIViewControllerClient
 
     public var sharedType: SharedType
+    public let action: (Action) async -> Void
 
     public init(
         viewController: UIViewController,
         uiApplicationClient: UIApplicationClient,
         uiViewControllerClient: UIViewControllerClient,
-        sharedType: SharedType = .undefined
+        sharedType: SharedType = .undefined,
+        action: @escaping (Action) async -> Void = { _ in }
     ) {
         self.viewController = viewController
         self.uiApplicationClient = uiApplicationClient
         self.uiViewControllerClient = uiViewControllerClient
         self.sharedType = sharedType
+        self.action = action
     }
 
-    public func send(_ action: Action) async {
+    public func reduce(_ action: Action) async {
         switch action {
         case .task:
             let result = await extractSharedItem(from: viewController?.extensionContext)
@@ -82,7 +85,7 @@ import UniformTypeIdentifiers
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case task
         case cancelButtonTapped
         case openButtonTapped

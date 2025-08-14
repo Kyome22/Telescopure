@@ -1,18 +1,16 @@
 import Observation
 import WebKit
 
-@MainActor @Observable public final class BrowserUI {
-    private let action: @MainActor (Action) async -> Void
+@MainActor @Observable public final class BrowserUI: Composable {
+    public let action: (Action) async -> Void
 
-    public init(action: @MainActor @escaping (Action) async -> Void) {
+    public init(action: @escaping (Action) async -> Void) {
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-    }
+    public func reduce(_ action: Action) async {}
 
-    public enum Action {
+    public enum Action: Sendable {
         case runJavaScriptAlertPanelWithMessage(String, CheckedContinuation<Void, Never>)
         case runJavaScriptConfirmPanelWithMessage(String, CheckedContinuation<Bool, Never>)
         case runJavaScriptTextInputPanelWithPrompt(String, String?, CheckedContinuation<String?, Never>)

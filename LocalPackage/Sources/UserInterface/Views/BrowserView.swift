@@ -59,12 +59,10 @@ struct BrowserView: View {
                             }
                         }
                     if store.isPresentedToolBar {
-                        ToolBar(
-                            store: store,
-                            canGoBack: proxy.canGoBack,
-                            canGoForward: proxy.canGoForward
-                        )
-                        .transition(.move(edge: .bottom))
+                        ToolBar(store: store)
+                            .transition(.move(edge: .bottom))
+                            .environment(\.canGoBack, proxy.canGoBack)
+                            .environment(\.canGoForward, proxy.canGoForward)
                     }
                 }
                 .background(Color(.secondarySystemBackground))
@@ -132,6 +130,10 @@ struct BrowserView: View {
         }
     }
 }
+
+extension Browser: ObservableObject {}
+extension BrowserNavigation: ObservableObject {}
+extension BrowserUI: ObservableObject {}
 
 #Preview(traits: .landscapeRight) {
     BrowserView(store: .init(.testDependencies()))

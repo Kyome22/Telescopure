@@ -3,7 +3,7 @@ import Model
 import SwiftUI
 
 struct SearchEngineSettingView: View {
-    @Bindable var store: SearchEngineSetting
+    @State var store: SearchEngineSetting
 
     var body: some View {
         Form {
