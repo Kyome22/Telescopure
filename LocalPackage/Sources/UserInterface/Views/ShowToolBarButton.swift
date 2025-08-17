@@ -2,7 +2,7 @@ import Model
 import SwiftUI
 
 struct ShowToolBarButton: View {
-    @Bindable var store: Browser
+    var store: Browser
 
     var body: some View {
         Button {

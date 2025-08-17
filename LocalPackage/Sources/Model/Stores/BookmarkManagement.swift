@@ -2,16 +2,16 @@ import Foundation
 import DataSource
 import Observation
 
-@MainActor @Observable public final class BookmarkManagement: Identifiable {
+@MainActor @Observable public final class BookmarkManagement: Identifiable, Composable {
     private let uuidClient: UUIDClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
-    private let action: @MainActor (Action) async -> Void
 
     public let id: UUID
     public let currentURL: URL?
     public let currentTitle: String?
     public var bookmarkItems: [BookmarkItem]
+    public let action: (Action) async -> Void
 
     public var isDisabledToAdd: Bool {
         currentURL == nil
@@ -25,7 +25,7 @@ import Observation
         isPresentedEditDialog: Bool = false,
         editingBookmarkItemID: BookmarkItem.ID? = nil,
         bookmarkItems: [BookmarkItem] = [],
-        action: @MainActor @escaping (Action) async -> Void
+        action: @escaping (Action) async -> Void
     ) {
         self.uuidClient = appDependencies.uuidClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
@@ -37,9 +37,7 @@ import Observation
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
-
+    public func reduce(_ action: Action) async {
         switch action {
         case let .task(screenName):
             logService.notice(.screenView(name: screenName))
@@ -66,6 +64,9 @@ import Observation
             ))
             saveCurrentBookmaks()
 
+        case .doneButtonTapped:
+            break
+
         case let .bookmarkItem(.deleteButtonTapped(id)):
             bookmarkItems.removeAll { $0.id == id }
             saveCurrentBookmaks()
@@ -74,9 +75,6 @@ import Observation
             saveCurrentBookmaks()
 
         case .bookmarkItem:
-            break
-
-        case .doneButtonTapped:
             break
         }
     }
@@ -87,10 +85,10 @@ import Observation
         }
     }
 
-    public enum Action {
+    public enum Action: Sendable {
         case task(String)
         case addBookmarkButtonTapped
-        case bookmarkItem(BookmarkItem.Action)
         case doneButtonTapped
+        case bookmarkItem(BookmarkItem.Action)
     }
 }

@@ -1,28 +1,53 @@
+import DataSource
 import Observation
 import WebKit
 
 @MainActor @Observable public final class BrowserUI {
-    private let action: @MainActor (Action) async -> Void
+    private let appStateClient: AppStateClient
+    let action: (Action) async -> Void
 
-    public init(action: @MainActor @escaping (Action) async -> Void) {
+    init(
+        _ appDependencies: AppDependencies,
+        action: @escaping (Action) async -> Void
+    ) {
+        self.appStateClient = appDependencies.appStateClient
         self.action = action
     }
 
-    public func send(_ action: Action) async {
-        await self.action(action)
+    func runJavaScriptAlertPanel(with message: String) async {
+        await action(.runJavaScriptAlertPanel(message))
+        for await _ in appStateClient.withLock(\.alertResponseSubject.values) {
+            return
+        }
     }
 
-    public enum Action {
-        case runJavaScriptAlertPanelWithMessage(String, CheckedContinuation<Void, Never>)
-        case runJavaScriptConfirmPanelWithMessage(String, CheckedContinuation<Bool, Never>)
-        case runJavaScriptTextInputPanelWithPrompt(String, String?, CheckedContinuation<String?, Never>)
+    func runJavaScriptConfirmPanel(with message: String) async -> Bool {
+        await action(.runJavaScriptConfirmPanel(message))
+        for await value in appStateClient.withLock(\.confirmResponseSubject.values) {
+            return value
+        }
+        return false
+    }
+
+    func runJavaScriptTextInputPanel(with prompt: String, defaultText: String?) async -> String? {
+        await action(.runJavaScriptTextInputPanel(prompt, defaultText))
+        for await value in appStateClient.withLock(\.promptResponseSubject.values) {
+            return value
+        }
+        return nil
+    }
+
+    public enum Action: Sendable {
+        case runJavaScriptAlertPanel(String)
+        case runJavaScriptConfirmPanel(String)
+        case runJavaScriptTextInputPanel(String, String?)
     }
 }
 
 public final class BrowserUIDelegate: NSObject, WKUIDelegate, ObservableObject {
     private var store: BrowserUI
 
-    public init(store: BrowserUI) {
+    init(store: BrowserUI) {
         self.store = store
     }
 
@@ -32,11 +57,7 @@ public final class BrowserUIDelegate: NSObject, WKUIDelegate, ObservableObject {
         runJavaScriptAlertPanelWithMessage message: String,
         initiatedByFrame frame: WKFrameInfo
     ) async {
-        await withCheckedContinuation { continuation in
-            Task { @MainActor [store] in
-             await store.send(.runJavaScriptAlertPanelWithMessage(message, continuation))
-            }
-        }
+        await store.runJavaScriptAlertPanel(with: message)
     }
 
     // Confirm
@@ -45,11 +66,7 @@ public final class BrowserUIDelegate: NSObject, WKUIDelegate, ObservableObject {
         runJavaScriptConfirmPanelWithMessage message: String,
         initiatedByFrame frame: WKFrameInfo
     ) async -> Bool {
-        await withCheckedContinuation { continuation in
-            Task { @MainActor [store] in
-                await store.send(.runJavaScriptConfirmPanelWithMessage(message, continuation))
-            }
-        }
+        return await store.runJavaScriptConfirmPanel(with: message)
     }
 
     // Prompt
@@ -59,10 +76,6 @@ public final class BrowserUIDelegate: NSObject, WKUIDelegate, ObservableObject {
         defaultText: String?,
         initiatedByFrame frame: WKFrameInfo
     ) async -> String? {
-        await withCheckedContinuation { continuation in
-            Task { @MainActor [store] in
-                await store.send(.runJavaScriptTextInputPanelWithPrompt(prompt, defaultText, continuation))
-            }
-        }
+        await store.runJavaScriptTextInputPanel(with: prompt, defaultText: defaultText)
     }
 }

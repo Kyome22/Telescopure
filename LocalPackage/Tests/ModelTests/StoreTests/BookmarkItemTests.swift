@@ -34,16 +34,21 @@ struct BookmarkItemTests {
 
     @MainActor @Test
     func send_dialogOKButtonTapped() async {
-        let sut = BookmarkItem(
-            id: UUID(),
-            url: URL(string: "https://example.com")!,
-            title: "Example",
-            isPresentedEditDialog: true,
-            editingTitle: "Test",
-            editingURLString: "https://test.com",
-            action: { _ in }
-        )
+        let sut = TestStore {
+            BookmarkItem(
+                id: UUID(),
+                url: URL(string: "https://example.com")!,
+                title: "Example",
+                isPresentedEditDialog: true,
+                editingTitle: "Test",
+                editingURLString: "https://test.com",
+                action: $0
+            )
+        }
         await sut.send(.dialogOKButtonTapped)
+        await sut.receive {
+            if case .onUpdateBookmark = $0 { true } else { false }
+        }
         #expect(sut.title == "Test")
         #expect(sut.url == URL(string: "https://test.com")!)
         #expect(!sut.isPresentedEditDialog)

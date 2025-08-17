@@ -3,69 +3,91 @@ import Observation
 import SwiftUI
 import WebUI
 
-@MainActor @Observable public final class Browser: ObservableObject {
+@MainActor @Observable public final class Browser: Composable {
+    private let appStateClient: AppStateClient
     private let uiApplicationClient: UIApplicationClient
     private let uuidClient: UUIDClient
     private let webViewProxyClient: WebViewProxyClient
     private let userDefaultsRepository: UserDefaultsRepository
     private let logService: LogService
 
-    @ObservationIgnored private var getLocalizedString: ((Action.ResourceBridge) -> String)?
-    @ObservationIgnored private var getResourceURL: ((String, String) -> URL?)?
+    @ObservationIgnored private var eventBridge: Action.EventBridge?
     @ObservationIgnored private var operateWebViewProxy: ((WebViewProxy) -> Void)?
+    @ObservationIgnored private var lastDialogClosedDate = Date.distantPast
 
-    public var browserNavigation = BrowserNavigation(action: { _ in })
-    public var browserUI = BrowserUI(action: { _ in })
     public var inputText: String
     public var isPresentedToolBar: Bool
-    public var settings: Settings?
-    public var bookmarkManagement: BookmarkManagement?
     public var currentURL: URL?
     public var currentTitle: String?
     public var isPresentedWebDialog: Bool
     public var webDialog: WebDialog?
     public var promptInput: String
+    public var customSchemeURL: URL?
+    public var isPresentedConfirmationDialog: Bool
+    public var isPresentedAlert: Bool
+    public let navigationDelegate: BrowserNavigationDelegate
+    public let uiDelegate: BrowserUIDelegate
+    public var settings: Settings?
+    public var bookmarkManagement: BookmarkManagement?
+
+    public let action: (Action) async -> Void
 
     public init(
         _ appDependencies: AppDependencies,
+        eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
         isPresentedToolBar: Bool = true,
-        settings: Settings? = nil,
-        bookmarkManagement: BookmarkManagement? = nil,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
         isPresentedWebDialog: Bool = false,
         webDialog: WebDialog? = nil,
-        promptInput: String = ""
+        promptInput: String = "",
+        customSchemeURL: URL? = nil,
+        isPresentedConfirmationDialog: Bool = false,
+        isPresentedAlert: Bool = false,
+        browserNavigation: BrowserNavigation? = nil,
+        browserUI: BrowserUI? = nil,
+        settings: Settings? = nil,
+        bookmarkManagement: BookmarkManagement? = nil,
+        action: @escaping (Action) async -> Void = { _ in }
     ) {
+        self.appStateClient = appDependencies.appStateClient
         self.uiApplicationClient = appDependencies.uiApplicationClient
         self.uuidClient = appDependencies.uuidClient
         self.webViewProxyClient = appDependencies.webViewProxyClient
         self.userDefaultsRepository = .init(appDependencies.userDefaultsClient)
         self.logService = .init(appDependencies)
+        self.eventBridge = eventBridge
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
-        self.settings = settings
-        self.bookmarkManagement = bookmarkManagement
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.isPresentedWebDialog = isPresentedWebDialog
         self.webDialog = webDialog
         self.promptInput = promptInput
-        self.browserNavigation = .init(action: { [weak self] in
-            await self?.send(.browserNavigation($0))
+        self.customSchemeURL = customSchemeURL
+        self.isPresentedConfirmationDialog = isPresentedConfirmationDialog
+        self.isPresentedAlert = isPresentedAlert
+        weak var weakSelf: Browser? = nil
+        let browserNavigation = browserNavigation ?? .init(appDependencies, action: {
+            await weakSelf?.send(.browserNavigation($0))
         })
-        self.browserUI = .init(action: { [weak self] in
-            await self?.send(.browserUI($0))
+        self.navigationDelegate = .init(store: browserNavigation)
+        let browserUI = browserUI ?? .init(appDependencies, action: {
+            await weakSelf?.send(.browserUI($0))
         })
+        self.uiDelegate = .init(store: browserUI)
+        self.settings = settings
+        self.bookmarkManagement = bookmarkManagement
+        self.action = action
+        weakSelf = self
     }
 
-    public func send(_ action: Action) async {
+    public func reduce(_ action: Action) async {
         switch action {
         case let .task(screenName, eventBridge, webViewProxy):
             logService.notice(.screenView(name: screenName))
-            self.getLocalizedString = eventBridge.getLocalizedString
-            self.getResourceURL = eventBridge.getResourceURL
+            self.eventBridge = eventBridge
             self.webViewProxyClient.setProxy(webViewProxy)
 
         case let .onChangeURL(url):
@@ -138,74 +160,53 @@ import WebUI
                 isPresentedToolBar = true
             }
 
-        case let .onRequestAlert(message, continuation):
-            webDialog = .alert(message, continuation)
-            isPresentedWebDialog = true
-
-        case let .onRequestConfirm(message, continuation):
-            webDialog = .confirm(message, continuation)
-            isPresentedWebDialog = true
-
-        case let .onRequestPrompt(prompt, defaultText, continuation):
-            webDialog = .prompt(prompt, defaultText ?? "", continuation)
-            isPresentedWebDialog = true
-
         case .dialogOKButtonTapped:
             guard let webDialog else { return }
             switch webDialog {
-            case let .alert(_, continuation):
-                continuation.resume()
-            case let .confirm(_, continuation):
-                continuation.resume(returning: true)
-            case let .prompt(_, _, continuation):
-                continuation.resume(returning: promptInput)
+            case .alert:
+                appStateClient.send(\.alertResponseSubject, input: ())
+            case .confirm:
+                appStateClient.send(\.confirmResponseSubject, input: true)
+            case .prompt:
+                appStateClient.send(\.promptResponseSubject, input: promptInput)
             }
 
         case .dialogCancelButtonTapped:
             guard let webDialog else { return }
             switch webDialog {
-            case let .alert(_, continuation):
-                continuation.resume()
-            case let .confirm(_, continuation):
-                continuation.resume(returning: false)
-            case let .prompt(_, _, continuation):
-                continuation.resume(returning: nil)
+            case .alert:
+                appStateClient.send(\.alertResponseSubject, input: ())
+            case .confirm:
+                appStateClient.send(\.confirmResponseSubject, input: false)
+            case .prompt:
+                appStateClient.send(\.promptResponseSubject, input: nil)
             }
 
-        case let .browserNavigation(.decidePolicyFor(request, preferences, continuation)):
-            preferences.preferredContentMode = .mobile
+        case let .onChangeIsPresentedWebDialog(isPresented):
+            if !isPresented {
+                lastDialogClosedDate = .now
+            }
+
+        case let .confirmButtonTapped(url):
+            let openURLResult = await uiApplicationClient.open(url)
+            guard !openURLResult else { return }
+            isPresentedAlert = true
+
+        case let .browserNavigation(.decidePolicyFor(request)):
             guard let requestURL = request.url else {
-                continuation.resume(returning: (.cancel, preferences))
+                appStateClient.send(\.actionPolicySubject, input: .cancel)
                 return
             }
             guard ["http", "https", "blob", "file", "about"].contains(requestURL.scheme) else {
-                continuation.resume(returning: (.cancel, preferences))
-                guard let message = getLocalizedString?(.openExternalApp(requestURL.absoluteString)) else {
-                    return
-                }
-                let confirmResult = await withCheckedContinuation { continuation in
-                    Task { @MainActor [weak self] in
-                        await self?.send(.onRequestConfirm(message, continuation))
-                    }
-                }
-                guard confirmResult else {
-                    return
-                }
-                let openURLResult = await uiApplicationClient.open(requestURL)
-                guard !openURLResult, let message = getLocalizedString?(.failedToOpenExternalApp) else {
-                    return
-                }
-                await withCheckedContinuation { continuation in
-                    Task { @MainActor [weak self] in
-                        await self?.send(.onRequestAlert(message, continuation))
-                    }
-                }
+                appStateClient.send(\.actionPolicySubject, input: .cancel)
+                customSchemeURL = requestURL
+                isPresentedConfirmationDialog = true
                 return
             }
-            continuation.resume(returning: (.allow, preferences))
+            appStateClient.send(\.actionPolicySubject, input: .allow)
 
         case let .browserNavigation(.didFailProvisionalNavigation(error)):
-            guard let fileURL = getResourceURL?("error", "html"),
+            guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
                   var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
                 fatalError("Could not load error.html")
             }
@@ -217,14 +218,14 @@ import WebUI
                 await webViewProxyClient.loadHTMLString(htmlString, URL(string: inputText))
             }
 
-        case let .browserUI(.runJavaScriptAlertPanelWithMessage(message, continuation)):
-            await send(.onRequestAlert(message, continuation))
+        case let .browserUI(.runJavaScriptAlertPanel(message)):
+            await presentWebDialog(.alert(message))
 
-        case let .browserUI(.runJavaScriptConfirmPanelWithMessage(message, continuation)):
-            await send(.onRequestConfirm(message, continuation))
+        case let .browserUI(.runJavaScriptConfirmPanel(message)):
+            await presentWebDialog(.confirm(message))
 
-        case let .browserUI(.runJavaScriptTextInputPanelWithPrompt(prompt, defaultText, continuation)):
-            await send(.onRequestPrompt(prompt, defaultText, continuation))
+        case let .browserUI(.runJavaScriptTextInputPanel(prompt, defaultText)):
+            await presentWebDialog(.prompt(prompt, defaultText ?? ""))
 
         case .settings(.doneButtonTapped):
             settings = nil
@@ -263,7 +264,15 @@ import WebUI
         }
     }
 
-    public enum Action {
+    private func presentWebDialog(_ webDialog: WebDialog) async {
+        while lastDialogClosedDate.distance(to: .now) < 0.1 {
+            try? await Task.sleep(for: .seconds(0.1))
+        }
+        self.webDialog = webDialog
+        isPresentedWebDialog = true
+    }
+
+    public enum Action: Sendable {
         case task(String, EventBridge, WebViewProxy)
         case onChangeURL(URL?)
         case onChangeTitle(String?)
@@ -276,32 +285,21 @@ import WebUI
         case bookmarkButtonTapped(AppDependencies)
         case hideToolBarButtonTapped
         case showToolBarButtonTapped
-        case onRequestAlert(String, CheckedContinuation<Void, Never>)
-        case onRequestConfirm(String, CheckedContinuation<Bool, Never>)
-        case onRequestPrompt(String, String?, CheckedContinuation<String?, Never>)
         case dialogOKButtonTapped
         case dialogCancelButtonTapped
+        case onChangeIsPresentedWebDialog(Bool)
+        case confirmButtonTapped(URL)
         case browserNavigation(BrowserNavigation.Action)
         case browserUI(BrowserUI.Action)
         case settings(Settings.Action)
         case bookmarkManagement(BookmarkManagement.Action)
 
-        public struct EventBridge {
-            public var getLocalizedString: (ResourceBridge) -> String
-            public var getResourceURL: (String, String) -> URL?
+        public struct EventBridge: Sendable {
+            public var getResourceURL: (@MainActor @Sendable (String, String) -> URL?)?
 
-            public init(
-                getLocalizedString: @escaping (ResourceBridge) -> String,
-                getResourceURL: @escaping (String, String) -> URL?
-            ) {
-                self.getLocalizedString = getLocalizedString
+            public init(getResourceURL: @escaping @MainActor @Sendable (String, String) -> URL?) {
                 self.getResourceURL = getResourceURL
             }
-        }
-
-        public enum ResourceBridge {
-            case openExternalApp(String)
-            case failedToOpenExternalApp
         }
     }
 }

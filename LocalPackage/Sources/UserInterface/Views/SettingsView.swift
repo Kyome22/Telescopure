@@ -4,7 +4,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.appDependencies) private var appDependencies
-    @Bindable var store: Settings
+    @State var store: Settings
 
     var body: some View {
         NavigationStack(path: $store.path) {

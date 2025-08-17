@@ -65,6 +65,7 @@ let package = Package(
                 "Model",
                 .product(name: "WebUI", package: "WebUI"),
             ],
+            resources: [.process("Resources")],
             swiftSettings: swiftSettings
         ),
     ]

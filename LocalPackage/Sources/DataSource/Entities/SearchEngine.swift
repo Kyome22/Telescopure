@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SearchEngine: String, Hashable, CaseIterable {
+public enum SearchEngine: String, Hashable, Sendable, CaseIterable {
     case google = "Google"
     case bing = "Bing"
     case duckduckgo = "DuckDuckGo"

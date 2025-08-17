@@ -2,7 +2,7 @@ import Model
 import SwiftUI
 
 struct SearchBar: View {
-    @Bindable var store: Browser
+    @State var store: Browser
     @ScaledMetric var height: CGFloat = 36
 
     var body: some View {

@@ -45,3 +45,5 @@ public struct ShareView: View {
         }
     }
 }
+
+extension Share: ObservableObject {}

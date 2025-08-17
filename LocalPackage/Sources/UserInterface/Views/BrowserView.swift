@@ -5,14 +5,6 @@ import WebUI
 struct BrowserView: View {
     @Environment(\.appDependencies) private var appDependencies
     @StateObject var store: Browser
-    @StateObject private var navigationDelegate: BrowserNavigationDelegate
-    @StateObject private var uiDelegate: BrowserUIDelegate
-
-    init(store: Browser) {
-        _store = .init(wrappedValue: store)
-        _navigationDelegate = .init(wrappedValue: .init(store: store.browserNavigation))
-        _uiDelegate = .init(wrappedValue: .init(store: store.browserUI))
-    }
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
@@ -47,8 +39,8 @@ struct BrowserView: View {
                         .transition(.move(edge: .top))
                     }
                     WebView(configuration: .forTelescopure)
-                        .navigationDelegate(navigationDelegate)
-                        .uiDelegate(uiDelegate)
+                        .navigationDelegate(store.navigationDelegate)
+                        .uiDelegate(store.uiDelegate)
                         .refreshable()
                         .allowsBackForwardNavigationGestures(true)
                         .allowsOpaqueDrawing(false)
@@ -59,22 +51,17 @@ struct BrowserView: View {
                             }
                         }
                     if store.isPresentedToolBar {
-                        ToolBar(
-                            store: store,
-                            canGoBack: proxy.canGoBack,
-                            canGoForward: proxy.canGoForward
-                        )
-                        .transition(.move(edge: .bottom))
+                        ToolBar(store: store)
+                            .transition(.move(edge: .bottom))
+                            .environment(\.canGoBack, proxy.canGoBack)
+                            .environment(\.canGoForward, proxy.canGoForward)
                     }
                 }
                 .background(Color(.secondarySystemBackground))
                 .task {
                     await store.send(.task(
                         String(describing: Self.self),
-                        .init(
-                            getLocalizedString: { $0.string },
-                            getResourceURL: { Bundle.module.url(forResource: $0, withExtension: $1) },
-                        ),
+                        .init(getResourceURL: { Bundle.module.url(forResource: $0, withExtension: $1) }),
                         proxy
                     ))
                 }
@@ -102,29 +89,24 @@ struct BrowserView: View {
         .sheet(item: $store.bookmarkManagement) { store in
             BookmarkManagementView(store: store)
         }
-        .alert(Text(verbatim: ""), isPresented: $store.isPresentedWebDialog, presenting: store.webDialog) { webDialog in
-            if case let .prompt(_, defaultText, _) = webDialog {
-                TextField(defaultText, text: $store.promptInput)
-            }
-            Button {
-                Task {
-                    await store.send(.dialogOKButtonTapped)
-                }
-            } label: {
-                Text("ok", bundle: .module)
-            }
-            if webDialog.needsCancel {
-                Button(role: .cancel) {
-                    Task {
-                        await store.send(.dialogCancelButtonTapped)
-                    }
-                } label: {
-                    Text("cancel", bundle: .module)
-                }
-            }
-        } message: { webDialog in
-            Text(webDialog.message)
-        }
+        .webDialog(
+            isPresented: $store.isPresentedWebDialog,
+            presenting: store.webDialog,
+            promptInput: $store.promptInput,
+            okButtonTapped: { await store.send(.dialogOKButtonTapped) },
+            cancelButtonTapped: { await store.send(.dialogCancelButtonTapped) },
+            onChangeIsPresented: { await store.send(.onChangeIsPresentedWebDialog($0)) }
+        )
+        .externalAppConfirmationDialog(
+            isPresented: $store.isPresentedConfirmationDialog,
+            presenting: store.customSchemeURL,
+            okButtonTapped: { await store.send(.confirmButtonTapped($0)) }
+        )
+        .alert(
+            Text("failedToOpenExternalApp", bundle: .module),
+            isPresented: $store.isPresentedAlert,
+            actions: {}
+        )
         .onOpenURL { url in
             Task {
                 await store.send(.onOpenURL(url))
@@ -132,6 +114,10 @@ struct BrowserView: View {
         }
     }
 }
+
+extension Browser: ObservableObject {}
+extension BrowserNavigation: ObservableObject {}
+extension BrowserUI: ObservableObject {}
 
 #Preview(traits: .landscapeRight) {
     BrowserView(store: .init(.testDependencies()))

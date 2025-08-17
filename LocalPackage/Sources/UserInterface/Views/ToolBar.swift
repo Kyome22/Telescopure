@@ -3,9 +3,9 @@ import SwiftUI
 
 struct ToolBar: View {
     @Environment(\.appDependencies) private var appDependencies
-    @Bindable var store: Browser
-    var canGoBack: Bool
-    var canGoForward: Bool
+    @Environment(\.canGoBack) private var canGoBack
+    @Environment(\.canGoForward) private var canGoForward
+    var store: Browser
 
     var body: some View {
         VStack(spacing: 0) {
@@ -88,5 +88,5 @@ struct ToolBar: View {
 }
 
 #Preview {
-    ToolBar(store: .init(.testDependencies()), canGoBack: false, canGoForward: false)
+    ToolBar(store: .init(.testDependencies()))
 }

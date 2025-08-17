@@ -337,18 +337,18 @@
         }
       }
     },
-    "openExternalApp%@" : {
+    "openExternalApp" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Open this link in external app?\n%@"
+            "value" : "Open link in external app?"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このリンクを外部アプリで開きますか？\n%@"
+            "value" : "リンクを外部アプリで開きますか？"
           }
         }
       }
