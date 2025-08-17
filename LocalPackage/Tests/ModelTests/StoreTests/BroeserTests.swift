@@ -1,6 +1,7 @@
 import Foundation
 import os
 import Testing
+import WebKit
 
 @testable import DataSource
 @testable import Model
@@ -114,22 +115,92 @@ struct BrowserTests {
         #expect(goForwardCount.withLock(\.self) == 1)
     }
 
+    @MainActor @Test(arguments: [
+        .init(webDialog: .alert("test"), expectAlert: 1),
+        .init(webDialog: .confirm("test"), expectConfirm: true),
+        .init(webDialog: .prompt("test", ""), promptInput: "input", expectPrompt: .some("input")),
+    ] as [DialogProperty])
+    func send_dialogOKButtonTapped(_ property: DialogProperty) async {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let alertResponseCount = OSAllocatedUnfairLock<Int>(initialState: .zero)
+        let confirmResponse = OSAllocatedUnfairLock<Bool?>(initialState: nil)
+        let promptResponse = OSAllocatedUnfairLock<String??>(initialState: nil)
+        let sut = Browser(
+            .testDependencies(
+                appStateClient: .testDependency(appState, receive: .init(action: {
+                    switch ($0, $1) {
+                    case (\AppState.alertResponseSubject, _ as Void):
+                        alertResponseCount.withLock { $0 += 1 }
+                    case (\AppState.confirmResponseSubject, let value as Bool):
+                        confirmResponse.withLock { $0 = value }
+                    case (\AppState.promptResponseSubject, let value as String?):
+                        promptResponse.withLock { $0 = value }
+                    default:
+                        break
+                    }
+                }))
+            ),
+            webDialog: property.webDialog,
+            promptInput: property.promptInput
+        )
+        await sut.send(.dialogOKButtonTapped)
+        #expect(alertResponseCount.withLock(\.self) == property.expectAlert)
+        #expect(confirmResponse.withLock(\.self) == property.expectConfirm)
+        #expect(promptResponse.withLock(\.self) == property.expectPrompt)
+    }
+
+    @MainActor @Test(arguments: [
+        .init(webDialog: .alert("test"), expectAlert: 1),
+        .init(webDialog: .confirm("test"), expectConfirm: false),
+        .init(webDialog: .prompt("test", ""), promptInput: "input", expectPrompt: .some(nil)),
+    ] as [DialogProperty])
+    func send_dialogCancelButtonTapped(_ property: DialogProperty) async {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let alertResponseCount = OSAllocatedUnfairLock<Int>(initialState: .zero)
+        let confirmResponse = OSAllocatedUnfairLock<Bool?>(initialState: nil)
+        let promptResponse = OSAllocatedUnfairLock<String??>(initialState: nil)
+        let sut = Browser(
+            .testDependencies(
+                appStateClient: .testDependency(appState, receive: .init(action: {
+                    switch ($0, $1) {
+                    case (\AppState.alertResponseSubject, _ as Void):
+                        alertResponseCount.withLock { $0 += 1 }
+                    case (\AppState.confirmResponseSubject, let value as Bool):
+                        confirmResponse.withLock { $0 = value }
+                    case (\AppState.promptResponseSubject, let value as String?):
+                        promptResponse.withLock { $0 = value }
+                    default:
+                        break
+                    }
+                }))
+            ),
+            webDialog: property.webDialog,
+            promptInput: property.promptInput
+        )
+        await sut.send(.dialogCancelButtonTapped)
+        #expect(alertResponseCount.withLock(\.self) == property.expectAlert)
+        #expect(confirmResponse.withLock(\.self) == property.expectConfirm)
+        #expect(promptResponse.withLock(\.self) == property.expectPrompt)
+    }
+
     @MainActor @Test
     func send_browserNavigation_decidePolicyFor_requestURL_is_nil() async {
-        var continuation: CheckedContinuation<PolicyResult, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = Browser(.testDependencies())
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let actionPolicy = OSAllocatedUnfairLock<WKNavigationActionPolicy?>(initialState: nil)
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState, receive: .init(action: {
+                switch ($0, $1) {
+                case (\AppState.actionPolicySubject, let value as WKNavigationActionPolicy):
+                    actionPolicy.withLock { $0 = value }
+                default:
+                    break
+                }
+            }))
+        ))
         var request = URLRequest(url: URL(string: "https://test.com")!)
         request.url = nil
-        await sut.send(.browserNavigation(.decidePolicyFor(request, .init(), continuation)))
-        let actual = await continuationTask.value
-        #expect(actual.0 == .cancel)
+        await sut.send(.browserNavigation(.decidePolicyFor(request)))
+        #expect(actionPolicy.withLock(\.self) == .cancel)
     }
 
     @MainActor @Test(arguments: [
@@ -140,19 +211,21 @@ struct BrowserTests {
         "about:blank",
     ] as [String])
     func send_browserNavigation_decidePolicyFor_valid_scheme(_ urlString: String) async {
-        var continuation: CheckedContinuation<PolicyResult, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = Browser(.testDependencies())
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let actionPolicy = OSAllocatedUnfairLock<WKNavigationActionPolicy?>(initialState: nil)
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState, receive: .init(action: {
+                switch ($0, $1) {
+                case (\AppState.actionPolicySubject, let value as WKNavigationActionPolicy):
+                    actionPolicy.withLock { $0 = value }
+                default:
+                    break
+                }
+            }))
+        ))
         let request = URLRequest(url: URL(string: urlString)!)
-        await sut.send(.browserNavigation(.decidePolicyFor(request, .init(), continuation)))
-        let actual = await continuationTask.value
-        #expect(actual.0 == .allow)
+        await sut.send(.browserNavigation(.decidePolicyFor(request)))
+        #expect(actionPolicy.withLock(\.self) == .allow)
     }
 
     @MainActor @Test(arguments: [
@@ -164,44 +237,23 @@ struct BrowserTests {
         "mailto://",
     ] as [String])
     func send_browserNavigation_decidePolicyFor_invalid_scheme(_ urlString: String) async {
-        var continuation: CheckedContinuation<PolicyResult, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = TestStore {
-            Browser(
-                .testDependencies(
-                    uiApplicationClient: testDependency(of: UIApplicationClient.self) {
-                        $0.open = { _ in true }
-                    }
-                ),
-                eventBridge: .init(
-                    getLocalizedString: { _ in "test" },
-                    getResourceURL: { _, _ in nil }
-                ),
-                action: $0
-            )
-        }
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let actionPolicy = OSAllocatedUnfairLock<WKNavigationActionPolicy?>(initialState: nil)
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState, receive: .init(action: {
+                switch ($0, $1) {
+                case (\AppState.actionPolicySubject, let value as WKNavigationActionPolicy):
+                    actionPolicy.withLock { $0 = value }
+                default:
+                    break
+                }
+            }))
+        ))
         let request = URLRequest(url: URL(string: urlString)!)
-        let task = Task {
-            await sut.send(.browserNavigation(.decidePolicyFor(request, .init(), continuation)))
-        }
-        await Task.yield()
-        await sut.receive { action in
-            if case let .onRequestConfirm("test", continuation) = action {
-                continuation.resume(returning: true)
-                return true
-            } else {
-                return false
-            }
-        }
-        await task.value
-        let actual = await continuationTask.value
-        #expect(actual.0 == .cancel)
+        await sut.send(.browserNavigation(.decidePolicyFor(request)))
+        #expect(actionPolicy.withLock(\.self) == .cancel)
+        #expect(sut.customSchemeURL == request.url)
+        #expect(sut.isPresentedConfirmationDialog)
     }
 
     @MainActor @Test
@@ -217,10 +269,9 @@ struct BrowserTests {
                     }
                 }
             ),
-            eventBridge: .init(
-                getLocalizedString: { _ in "" },
-                getResourceURL: { _, _ in Bundle.module.url(forResource: "error", withExtension: "html")! }
-            )
+            eventBridge: .init(getResourceURL: { _, _ in
+                Bundle.module.url(forResource: "error", withExtension: "html")!
+            })
         )
         let error = URLError(.badURL, userInfo: [NSURLErrorFailingURLErrorKey: URL(string: "https://test.com")!])
         await sut.send(.browserNavigation(.didFailProvisionalNavigation(error)))
@@ -241,10 +292,9 @@ struct BrowserTests {
                     }
                 }
             ),
-            eventBridge: .init(
-                getLocalizedString: { _ in "" },
-                getResourceURL: { _, _ in Bundle.module.url(forResource: "error", withExtension: "html")! }
-            ),
+            eventBridge: .init(getResourceURL: { _, _ in
+                Bundle.module.url(forResource: "error", withExtension: "html")!
+            }),
             inputText: "https://test.com"
         )
         let error = CocoaError(.fileReadUnknown)
@@ -254,68 +304,35 @@ struct BrowserTests {
     }
 
     @MainActor @Test
-    func send_browserUI_runJavaScriptAlertPanelWithMessage() async {
-        var continuation: CheckedContinuation<Void, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = TestStore { Browser(.testDependencies(), action: $0) }
-        await sut.send(.browserUI(.runJavaScriptAlertPanelWithMessage("test", continuation)))
-        await sut.receive {
-            if case .onRequestAlert = $0 { true } else { false }
-        }
-        continuation.resume()
-        continuationTask.cancel()
-        let actualWebDialog = if case .alert = sut.webDialog { true } else { false }
-        #expect(actualWebDialog)
+    func send_browserUI_runJavaScriptAlertPanel() async {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState)
+        ))
+        await sut.send(.browserUI(.runJavaScriptAlertPanel("test")))
+        #expect(sut.webDialog == .alert("test"))
         #expect(sut.isPresentedWebDialog)
     }
 
     @MainActor @Test
-    func send_browserUI_runJavaScriptConfirmPanelWithMessage() async {
-        var continuation: CheckedContinuation<Bool, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = TestStore { Browser(.testDependencies(), action: $0) }
-        await sut.send(.browserUI(.runJavaScriptConfirmPanelWithMessage("test", continuation)))
-        await sut.receive {
-            if case .onRequestConfirm = $0 { true } else { false }
-        }
-        continuation.resume(returning: true)
-        continuationTask.cancel()
-        let actualWebDialog = if case .confirm = sut.webDialog { true } else { false }
-        #expect(actualWebDialog)
+    func send_browserUI_runJavaScriptConfirmPanel() async {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState)
+        ))
+        await sut.send(.browserUI(.runJavaScriptConfirmPanel("test")))
+        #expect(sut.webDialog == .confirm("test"))
         #expect(sut.isPresentedWebDialog)
     }
 
     @MainActor @Test
-    func send_browserUI_runJavaScriptTextInputPanelWithPrompt() async {
-        var continuation: CheckedContinuation<String?, Never>!
-        let setContinuation = { continuation = $0 }
-        let continuationTask = Task {
-            await withCheckedContinuation { continuation in
-                setContinuation(continuation)
-            }
-        }
-        await Task.yield()
-        let sut = TestStore { Browser(.testDependencies(), action: $0) }
-        await sut.send(.browserUI(.runJavaScriptTextInputPanelWithPrompt("test", nil, continuation)))
-        await sut.receive {
-            if case .onRequestPrompt = $0 { true } else { false }
-        }
-        continuation.resume(returning: "dummy")
-        continuationTask.cancel()
-        let actualWebDialog = if case .prompt = sut.webDialog { true } else { false }
-        #expect(actualWebDialog)
+    func send_browserUI_runJavaScriptTextInputPanel() async {
+        let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
+        let sut = Browser(.testDependencies(
+            appStateClient: .testDependency(appState)
+        ))
+        await sut.send(.browserUI(.runJavaScriptTextInputPanel("test", nil)))
+        #expect(sut.webDialog == .prompt("test", ""))
         #expect(sut.isPresentedWebDialog)
     }
 
@@ -341,4 +358,12 @@ struct BrowserTests {
         await sut.send(.bookmarkManagement(.doneButtonTapped))
         #expect(sut.bookmarkManagement == nil)
     }
+}
+
+struct DialogProperty: Sendable {
+    var webDialog: WebDialog
+    var promptInput: String = ""
+    var expectAlert: Int = .zero
+    var expectConfirm: Bool? = nil
+    var expectPrompt: String?? = nil
 }

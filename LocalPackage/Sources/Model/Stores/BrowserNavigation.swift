@@ -1,19 +1,33 @@
+import DataSource
 import Observation
 import WebKit
 
-public typealias PolicyResult = (WKNavigationActionPolicy, WKWebpagePreferences)
+@MainActor @Observable public final class BrowserNavigation {
+    private let appStateClient: AppStateClient
+    let action: (Action) async -> Void
 
-@MainActor @Observable public final class BrowserNavigation: Composable {
-    public let action: (Action) async -> Void
-
-    public init(action: @escaping (Action) async -> Void) {
+    init(
+        _ appDependencies: AppDependencies,
+        action: @escaping (Action) async -> Void
+    ) {
+        self.appStateClient = appDependencies.appStateClient
         self.action = action
     }
 
-    public func reduce(_ action: Action) async {}
+    func decidePolicy(for request: URLRequest) async -> WKNavigationActionPolicy {
+        await action(.decidePolicyFor(request))
+        for await value in appStateClient.withLock(\.actionPolicySubject.values) {
+            return value
+        }
+        return .cancel
+    }
+
+    func didFailProvisionalNavigation(error: any Error) async {
+        await action(.didFailProvisionalNavigation(error))
+    }
 
     public enum Action: Sendable {
-        case decidePolicyFor(URLRequest, WKWebpagePreferences, CheckedContinuation<PolicyResult, Never>)
+        case decidePolicyFor(URLRequest)
         case didFailProvisionalNavigation(any Error)
     }
 }
@@ -21,7 +35,7 @@ public typealias PolicyResult = (WKNavigationActionPolicy, WKWebpagePreferences)
 public final class BrowserNavigationDelegate: NSObject, WKNavigationDelegate, ObservableObject {
     private var store: BrowserNavigation
 
-    public init(store: BrowserNavigation) {
+    init(store: BrowserNavigation) {
         self.store = store
     }
 
@@ -30,11 +44,9 @@ public final class BrowserNavigationDelegate: NSObject, WKNavigationDelegate, Ob
         decidePolicyFor navigationAction: WKNavigationAction,
         preferences: WKWebpagePreferences
     ) async -> (WKNavigationActionPolicy, WKWebpagePreferences) {
-        await withCheckedContinuation { continuation in
-            Task { @MainActor [store] in
-                await store.send(.decidePolicyFor(navigationAction.request, preferences, continuation))
-            }
-        }
+        preferences.preferredContentMode = .mobile
+        let actionPolicy = await store.decidePolicy(for: navigationAction.request)
+        return (actionPolicy, preferences)
     }
 
     public func webView(
@@ -42,8 +54,8 @@ public final class BrowserNavigationDelegate: NSObject, WKNavigationDelegate, Ob
         didFailProvisionalNavigation navigation: WKNavigation!,
         withError error: any Error
     ) {
-        Task { @MainActor [store] in
-            await store.send(.didFailProvisionalNavigation(error))
+        Task {
+            await store.didFailProvisionalNavigation(error: error)
         }
     }
 }

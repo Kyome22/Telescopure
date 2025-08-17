@@ -1,7 +1,7 @@
-public enum WebDialog {
-    case alert(_ message: String, _ continuation: CheckedContinuation<Void, Never>)
-    case confirm(_ message: String, _ continuation: CheckedContinuation<Bool, Never>)
-    case prompt(_ prompt: String, _ defaultText: String, _ continuation: CheckedContinuation<String?, Never>)
+public enum WebDialog: Sendable, Equatable {
+    case alert(_ message: String)
+    case confirm(_ message: String)
+    case prompt(_ prompt: String, _ defaultText: String)
 
     public var needsCancel: Bool {
         switch self {
@@ -12,9 +12,9 @@ public enum WebDialog {
 
     public var message: String {
         switch self {
-        case let .alert(message, _): message
-        case let .confirm(message, _): message
-        case let .prompt(message, _, _): message
+        case let .alert(message): message
+        case let .confirm(message): message
+        case let .prompt(message, _): message
         }
     }
 }
