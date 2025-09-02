@@ -1,32 +1,14 @@
 import DataSource
 import SwiftUI
 
-public final class AppDependencies: Sendable {
-    public let appStateClient: AppStateClient
-    public let loggingSystemClient: LoggingSystemClient
-    public let uiApplicationClient: UIApplicationClient
-    public let userDefaultsClient: UserDefaultsClient
-    public let uuidClient: UUIDClient
-    public let webViewProxyClient: WebViewProxyClient
-    public let wkWebsiteDataStoreClient: WKWebsiteDataStoreClient
-
-    nonisolated init(
-        appStateClient: AppStateClient = .liveValue,
-        loggingSystemClient: LoggingSystemClient = .liveValue,
-        uiApplicationClient: UIApplicationClient = .liveValue,
-        userDefaultsClient: UserDefaultsClient = .liveValue,
-        uuidClient: UUIDClient = .liveValue,
-        webViewProxyClient: WebViewProxyClient = .liveValue,
-        wkWebsiteDataStoreClient: WKWebsiteDataStoreClient = .liveValue
-    ) {
-        self.appStateClient = appStateClient
-        self.loggingSystemClient = loggingSystemClient
-        self.uiApplicationClient = uiApplicationClient
-        self.userDefaultsClient = userDefaultsClient
-        self.uuidClient = uuidClient
-        self.webViewProxyClient = webViewProxyClient
-        self.wkWebsiteDataStoreClient = wkWebsiteDataStoreClient
-    }
+public struct AppDependencies: Sendable {
+    public var appStateClient = AppStateClient.liveValue
+    public var loggingSystemClient = LoggingSystemClient.liveValue
+    public var uiApplicationClient = UIApplicationClient.liveValue
+    public var userDefaultsClient = UserDefaultsClient.liveValue
+    public var uuidClient = UUIDClient.liveValue
+    public var webViewProxyClient = WebViewProxyClient.liveValue
+    public var wkWebsiteDataStoreClient = WKWebsiteDataStoreClient.liveValue
 
     static let shared = AppDependencies()
 }
