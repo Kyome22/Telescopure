@@ -23,6 +23,26 @@ struct BrowserTests {
     }
 
     @MainActor @Test
+    func send_onOpenURL_https_scheme() async {
+        let request = OSAllocatedUnfairLock<URLRequest?>(initialState: nil)
+        let sut = Browser(.testDependencies(
+            userDefaultsClient: testDependency(of: UserDefaultsClient.self) {
+                $0.string = { key in
+                    guard key == "search-engine" else { return nil }
+                    return SearchEngine.google.rawValue
+                }
+            },
+            webViewProxyClient: testDependency(of: WebViewProxyClient.self) {
+                $0.load = { value in
+                    request.withLock { $0 = value }
+                }
+            }
+        ))
+        await sut.send(.onOpenURL(URL(string: "https://example.com")!))
+        #expect(request.withLock(\.self)?.url == URL(string: "https://example.com")!)
+    }
+
+    @MainActor @Test
     func send_onOpenURL_link() async {
         let request = OSAllocatedUnfairLock<URLRequest?>(initialState: nil)
         let sut = Browser(.testDependencies(

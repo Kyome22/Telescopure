@@ -100,18 +100,24 @@ import WebUI
             currentTitle = title
 
         case let .onOpenURL(url):
-            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                  let queryItem = components.queryItems?.first
-            else { return }
-            if queryItem.name == "link", var link = queryItem.value {
-                if let fragment = url.fragment {
-                    link += "#\(fragment)"
+            guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+            switch components.scheme {
+            case "http", "https":
+                await webViewProxyClient.load(URLRequest(url: url))
+            case "telescopure":
+                guard let queryItem = components.queryItems?.first else { return }
+                if queryItem.name == "link", var link = queryItem.value {
+                    if let fragment = url.fragment {
+                        link += "#\(fragment)"
+                    }
+                    await search(with: link)
                 }
-                await search(with: link)
-            }
-            if queryItem.name == "plaintext", let plainText = queryItem.value {
-                // plainText is already removed percent-encoding.
-                await search(with: plainText)
+                if queryItem.name == "plaintext", let plainText = queryItem.value {
+                    // plainText is already removed percent-encoding.
+                    await search(with: plainText)
+                }
+            case .some, .none:
+                return
             }
 
         case let .onSubmit(keyword):
