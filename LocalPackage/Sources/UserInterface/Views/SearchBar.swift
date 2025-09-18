@@ -3,9 +3,9 @@ import Model
 import SwiftUI
 
 struct SearchBar: View {
+    @ScaledMetric private var height: CGFloat = 36
     @FocusState.Binding var focusedField: FocusedField?
     @State var store: Browser
-    @ScaledMetric var height: CGFloat = 36
 
     var body: some View {
         HStack(spacing: 4) {
