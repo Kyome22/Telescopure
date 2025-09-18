@@ -16,7 +16,7 @@ import WebUI
     @ObservationIgnored private var lastDialogClosedDate = Date.distantPast
 
     public var inputText: String
-    public var isPresentedToolBar: Bool
+    public var isPresentedToolbar: Bool
     public var isInputingSearchBar: Bool
     public var currentURL: URL?
     public var currentTitle: String?
@@ -37,7 +37,7 @@ import WebUI
         _ appDependencies: AppDependencies,
         eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
-        isPresentedToolBar: Bool = true,
+        isPresentedToolbar: Bool = true,
         isInputingSearchBar: Bool = false,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
@@ -61,7 +61,7 @@ import WebUI
         self.logService = .init(appDependencies)
         self.eventBridge = eventBridge
         self.inputText = inputText
-        self.isPresentedToolBar = isPresentedToolBar
+        self.isPresentedToolbar = isPresentedToolbar
         self.isInputingSearchBar = isInputingSearchBar
         self.currentURL = currentURL
         self.currentTitle = currentTitle
@@ -162,14 +162,14 @@ import WebUI
                 }
             )
 
-        case .hideToolBarButtonTapped:
+        case .hideToolbarButtonTapped:
             withAnimation(.easeIn(duration: 0.2)) {
-                isPresentedToolBar = false
+                isPresentedToolbar = false
             }
 
-        case .showToolBarButtonTapped:
+        case .showToolbarButtonTapped:
             withAnimation(.easeIn(duration: 0.2)) {
-                isPresentedToolBar = true
+                isPresentedToolbar = true
             }
 
         case .dialogOKButtonTapped:
@@ -296,8 +296,8 @@ import WebUI
         case goBackButtonTapped
         case goForwardButtonTapped
         case bookmarkButtonTapped(AppDependencies)
-        case hideToolBarButtonTapped
-        case showToolBarButtonTapped
+        case hideToolbarButtonTapped
+        case showToolbarButtonTapped
         case dialogOKButtonTapped
         case dialogCancelButtonTapped
         case onChangeIsPresentedWebDialog(Bool)

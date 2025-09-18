@@ -1,7 +1,7 @@
 import Model
 import SwiftUI
 
-struct ShowToolBarButton: View {
+struct ShowToolbarButton: View {
     @ScaledMetric private var imageSize = 40
     var store: Browser
 
@@ -18,12 +18,12 @@ struct ShowToolBarButton: View {
     var button: some View {
         Button {
             Task {
-                await store.send(.showToolBarButtonTapped)
+                await store.send(.showToolbarButtonTapped)
             }
         } label: {
             if #available(iOS 26, *) {
                 Label {
-                    Text("showToolBar", bundle: .module)
+                    Text("showToolbar", bundle: .module)
                 } icon: {
                     Image(systemName: "chevron.up")
                         .imageScale(.large)
@@ -33,7 +33,7 @@ struct ShowToolBarButton: View {
                 .padding(8)
             } else {
                 Label {
-                    Text("showToolBar", bundle: .module)
+                    Text("showToolbar", bundle: .module)
                 } icon: {
                     Image(systemName: "chevron.up")
                         .imageScale(.large)
@@ -46,10 +46,10 @@ struct ShowToolBarButton: View {
         }
         .buttonStyle(.borderless)
         .buttonBorderShape(.circle)
-        .accessibilityIdentifier("showToolBarButton")
+        .accessibilityIdentifier("showToolbarButton")
     }
 }
 
 #Preview {
-    ShowToolBarButton(store: .init(.testDependencies()))
+    ShowToolbarButton(store: .init(.testDependencies()))
 }

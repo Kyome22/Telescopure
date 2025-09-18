@@ -12,7 +12,7 @@ struct BrowserView: View {
         ZStack(alignment: .bottomTrailing) {
             WebViewReader { proxy in
                 VStack(spacing: 0) {
-                    if store.isPresentedToolBar {
+                    if store.isPresentedToolbar {
                         VStack(spacing: 0) {
                             HStack(spacing: 8) {
                                 Button {
@@ -66,8 +66,8 @@ struct BrowserView: View {
                                 LogoView()
                             }
                         }
-                    if store.isPresentedToolBar {
-                        ToolBar(store: store)
+                    if store.isPresentedToolbar {
+                        Toolbar(store: store)
                             .transition(.move(edge: .bottom))
                             .environment(\.canGoBack, proxy.canGoBack)
                             .environment(\.canGoForward, proxy.canGoForward)
@@ -91,14 +91,14 @@ struct BrowserView: View {
                         await store.send(.onChangeTitle(newValue))
                     }
                 }
-                if !store.isPresentedToolBar {
-                    ShowToolBarButton(store: store)
+                if !store.isPresentedToolbar {
+                    ShowToolbarButton(store: store)
                         .padding(20)
                         .transition(.move(edge: .bottom))
                 }
             }
         }
-        .ignoresSafeArea(.container, edges: store.isPresentedToolBar ? [] : .all)
+        .ignoresSafeArea(.container, edges: store.isPresentedToolbar ? [] : .all)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(item: $store.settings) { store in
             SettingsView(store: store)
@@ -129,7 +129,7 @@ struct BrowserView: View {
                 await store.send(.onOpenURL(url))
             }
         }
-        .animation(.easeIn(duration: 0.2), value: store.isPresentedToolBar)
+        .animation(.easeIn(duration: 0.2), value: store.isPresentedToolbar)
         .animation(.easeInOut, value: store.isInputingSearchBar)
     }
 }
