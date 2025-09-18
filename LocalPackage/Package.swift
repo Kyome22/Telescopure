@@ -36,6 +36,7 @@ let package = Package(
             name: "DataSource",
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
+                .product(name: "WebUI", package: "WebUI"),
             ],
             swiftSettings: swiftSettings
         ),
@@ -43,17 +44,14 @@ let package = Package(
             name: "Model",
             dependencies: [
                 "DataSource",
-                .product(name: "Logging", package: "swift-log"),
             ],
             swiftSettings: swiftSettings
         ),
         .target(
             name: "UserInterface",
             dependencies: [
-                "DataSource",
                 "Model",
                 .product(name: "LicenseList", package: "LicenseList"),
-                .product(name: "WebUI", package: "WebUI"),
             ],
             resources: [.process("Resources")],
             swiftSettings: swiftSettings
@@ -61,9 +59,7 @@ let package = Package(
         .testTarget(
             name: "ModelTests",
             dependencies: [
-                "DataSource",
                 "Model",
-                .product(name: "WebUI", package: "WebUI"),
             ],
             resources: [.process("Resources")],
             swiftSettings: swiftSettings
