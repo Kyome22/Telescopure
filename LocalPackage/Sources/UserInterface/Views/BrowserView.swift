@@ -1,9 +1,11 @@
+import DataSource
 import Model
 import SwiftUI
 import WebUI
 
 struct BrowserView: View {
     @Environment(\.appDependencies) private var appDependencies
+    @FocusState private var focusedField: FocusedField?
     @StateObject var store: Browser
 
     var body: some View {
@@ -28,11 +30,25 @@ struct BrowserView: View {
                                 }
                                 .buttonStyle(.borderless)
                                 .tint(Color(.systemGray))
-                                SearchBar(store: store)
+                                SearchBar(focusedField: $focusedField, store: store)
+                                if store.isInputingSearchBar {
+                                    Button {
+                                        focusedField = nil
+                                    } label: {
+                                        Text("cancel", bundle: .module)
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .transition(.asymmetric(insertion: .push(from: .trailing), removal: .slide))
+                                }
                             }
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
                             .background(Color(.header))
+                            .onChange(of: focusedField) { _, newValue in
+                                Task {
+                                    await store.send(.onChangeFocusedField(newValue))
+                                }
+                            }
                             ProgressView(value: proxy.estimatedProgress)
                                 .opacity(proxy.isLoading ? 1.0 : 0.0)
                         }
@@ -113,6 +129,8 @@ struct BrowserView: View {
                 await store.send(.onOpenURL(url))
             }
         }
+        .animation(.easeIn(duration: 0.2), value: store.isPresentedToolBar)
+        .animation(.easeInOut, value: store.isInputingSearchBar)
     }
 }
 

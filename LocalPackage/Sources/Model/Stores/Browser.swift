@@ -17,6 +17,7 @@ import WebUI
 
     public var inputText: String
     public var isPresentedToolBar: Bool
+    public var isInputingSearchBar: Bool
     public var currentURL: URL?
     public var currentTitle: String?
     public var isPresentedWebDialog: Bool
@@ -37,6 +38,7 @@ import WebUI
         eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
         isPresentedToolBar: Bool = true,
+        isInputingSearchBar: Bool = false,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
         isPresentedWebDialog: Bool = false,
@@ -60,6 +62,7 @@ import WebUI
         self.eventBridge = eventBridge
         self.inputText = inputText
         self.isPresentedToolBar = isPresentedToolBar
+        self.isInputingSearchBar = isInputingSearchBar
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.isPresentedWebDialog = isPresentedWebDialog
@@ -134,6 +137,9 @@ import WebUI
 
         case .clearSearchButtonTapped:
             inputText = ""
+
+        case let .onChangeFocusedField(focusedField):
+            isInputingSearchBar = focusedField == .search
 
         case .goBackButtonTapped:
             if await webViewProxyClient.canGoBack() {
@@ -286,6 +292,7 @@ import WebUI
         case onSubmit(String)
         case settingsButtonTapped(AppDependencies)
         case clearSearchButtonTapped
+        case onChangeFocusedField(FocusedField?)
         case goBackButtonTapped
         case goForwardButtonTapped
         case bookmarkButtonTapped(AppDependencies)
