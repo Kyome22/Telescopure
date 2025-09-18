@@ -1,5 +1,5 @@
 {
-  "originHash" : "b9f031ee3fc5c4c64355e70a70109abb1c19da82a8abc8bc49127cbbe64922c6",
+  "originHash" : "219543765af46ab271a6c6a61a512ea4872d9c315143982893f6fe33c49c3235",
   "pins" : [
     {
       "identity" : "licenselist",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cybozu/WebUI.git",
       "state" : {
-        "branch" : "workaround-for-xcode-16.4-16F6",
-        "revision" : "a0c20db0977ed7224cd38301d9bc04c4204cbe3d"
+        "revision" : "130377a32ad7da045bd5ae1aa58ee1e5ce9d531b",
+        "version" : "4.0.0"
       }
     }
   ],
