@@ -5,6 +5,7 @@ struct ToolBar: View {
     @Environment(\.appDependencies) private var appDependencies
     @Environment(\.canGoBack) private var canGoBack
     @Environment(\.canGoForward) private var canGoForward
+    @ScaledMetric private var imageSize = 40
     var store: Browser
 
     var body: some View {
@@ -22,7 +23,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "chevron.backward")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -39,7 +40,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "chevron.forward")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -57,7 +58,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "book")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -73,7 +74,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "chevron.down")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
