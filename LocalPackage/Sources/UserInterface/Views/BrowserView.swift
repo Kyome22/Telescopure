@@ -82,7 +82,8 @@ struct BrowserView: View {
                 }
             }
         }
-        .ignoresSafeArea(edges: store.isPresentedToolBar ? [] : .all)
+        .ignoresSafeArea(.container, edges: store.isPresentedToolBar ? [] : .all)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(item: $store.settings) { store in
             SettingsView(store: store)
         }
