@@ -7,46 +7,44 @@ struct ShowToolbarButton: View {
 
     var body: some View {
         if #available(iOS 26, *) {
-            button
-                .glassEffect()
+            Button {
+                Task {
+                    await store.send(.showToolbarButtonTapped)
+                }
+            } label: {
+                Label {
+                    Text("showToolbar", bundle: .module)
+                } icon: {
+                    Image(systemName: "chevron.up")
+                        .imageScale(.large)
+                        .frame(width: imageSize, height: imageSize)
+                }
+                .labelStyle(.iconOnly)
+            }
+            .buttonStyle(.borderless)
+            .buttonBorderShape(.circle)
+            .glassEffect()
+            .accessibilityIdentifier("showToolbarButton")
         } else {
-            button
-                .shadow(radius: 8)
-        }
-    }
-
-    var button: some View {
-        Button {
-            Task {
-                await store.send(.showToolbarButtonTapped)
-            }
-        } label: {
-            if #available(iOS 26, *) {
+            Button {
+                Task {
+                    await store.send(.showToolbarButtonTapped)
+                }
+            } label: {
                 Label {
                     Text("showToolbar", bundle: .module)
                 } icon: {
                     Image(systemName: "chevron.up")
                         .imageScale(.large)
                         .frame(width: imageSize, height: imageSize)
+                        .background(Color(.floating), in: .circle)
                 }
                 .labelStyle(.iconOnly)
-                .padding(8)
-            } else {
-                Label {
-                    Text("showToolbar", bundle: .module)
-                } icon: {
-                    Image(systemName: "chevron.up")
-                        .imageScale(.large)
-                        .frame(width: imageSize, height: imageSize)
-                }
-                .labelStyle(.iconOnly)
-                .padding(8)
-                .background(Color(.floating))
             }
+            .buttonStyle(.borderless)
+            .shadow(radius: 8)
+            .accessibilityIdentifier("showToolbarButton")
         }
-        .buttonStyle(.borderless)
-        .buttonBorderShape(.circle)
-        .accessibilityIdentifier("showToolbarButton")
     }
 }
 
