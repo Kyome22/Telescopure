@@ -1,9 +1,11 @@
+import DataSource
 import Model
 import SwiftUI
 
 struct SearchBar: View {
+    @ScaledMetric private var height: CGFloat = 36
+    @FocusState.Binding var focusedField: FocusedField?
     @State var store: Browser
-    @ScaledMetric var height: CGFloat = 36
 
     var body: some View {
         HStack(spacing: 4) {
@@ -16,6 +18,7 @@ struct SearchBar: View {
             .accessibilityIdentifier("searchTextField")
             .disableAutocorrection(true)
             .textInputAutocapitalization(.never)
+            .focused($focusedField, equals: .search)
             .foregroundStyle(Color(.systemGray))
             .onSubmit {
                 Task {
@@ -45,5 +48,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(store: .init(.testDependencies()))
+    SearchBar(focusedField: FocusState<FocusedField?>().projectedValue, store: .init(.testDependencies()))
 }

@@ -209,12 +209,12 @@
         }
       }
     },
-    "hideToolBar" : {
+    "hideToolbar" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hide Tool Bar"
+            "value" : "Hide Toolbar"
           }
         },
         "ja" : {
@@ -465,12 +465,12 @@
         }
       }
     },
-    "showToolBar" : {
+    "showToolbar" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show Tool Bar"
+            "value" : "Show Toolbar"
           }
         },
         "ja" : {

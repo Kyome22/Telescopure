@@ -1,10 +1,11 @@
 import Model
 import SwiftUI
 
-struct ToolBar: View {
+struct Toolbar: View {
     @Environment(\.appDependencies) private var appDependencies
     @Environment(\.canGoBack) private var canGoBack
     @Environment(\.canGoForward) private var canGoForward
+    @ScaledMetric private var imageSize = 40
     var store: Browser
 
     var body: some View {
@@ -22,7 +23,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "chevron.backward")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -39,7 +40,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "chevron.forward")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -57,7 +58,7 @@ struct ToolBar: View {
                     } icon: {
                         Image(systemName: "book")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
@@ -65,20 +66,20 @@ struct ToolBar: View {
                 .accessibilityIdentifier("openBookmarksButton")
                 Button {
                     Task {
-                        await store.send(.hideToolBarButtonTapped)
+                        await store.send(.hideToolbarButtonTapped)
                     }
                 } label: {
                     Label {
-                        Text("hideToolBar", bundle: .module)
+                        Text("hideToolbar", bundle: .module)
                     } icon: {
                         Image(systemName: "chevron.down")
                             .imageScale(.large)
-                            .frame(width: 40, height: 40)
+                            .frame(width: imageSize, height: imageSize)
                     }
                     .labelStyle(.iconOnly)
                 }
                 .buttonStyle(.borderless)
-                .accessibilityIdentifier("hideToolBarButton")
+                .accessibilityIdentifier("hideToolbarButton")
             }
             .padding(.vertical, 8)
             .padding(.horizontal, 16)
@@ -88,5 +89,5 @@ struct ToolBar: View {
 }
 
 #Preview {
-    ToolBar(store: .init(.testDependencies()))
+    Toolbar(store: .init(.testDependencies()))
 }
