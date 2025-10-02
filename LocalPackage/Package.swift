@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.2
 
 import PackageDescription
 
@@ -27,8 +27,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.2"),
-        .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.1.0"),
+        .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.4"),
+        .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.2.0"),
         .package(url: "https://github.com/cybozu/WebUI.git", exact: "4.0.0"),
     ],
     targets: [
