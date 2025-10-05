@@ -1,6 +1,6 @@
 import Foundation
 
-public enum SharedType {
+public enum SharedType: Equatable {
     case undefined
     case link(URL)
     case plainText(String)
@@ -26,6 +26,17 @@ public enum SharedType {
             URL(string: "telescopure://?link=\(url.absoluteString)")
         case let .plainText(text):
             URLComponents(string: "telescopure://?plaintext=\(text)")?.url
+        }
+    }
+
+    public var symbolName: String {
+        switch self {
+        case .undefined:
+            "questionmark.square.dashed"
+        case .link:
+            "globe"
+        case .plainText:
+            "text.magnifyingglass"
         }
     }
 }

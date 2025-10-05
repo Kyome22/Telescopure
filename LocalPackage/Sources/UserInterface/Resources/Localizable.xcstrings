@@ -321,6 +321,22 @@
         }
       }
     },
+    "open" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開く"
+          }
+        }
+      }
+    },
     "openBookmarks" : {
       "localizations" : {
         "en" : {
@@ -402,6 +418,22 @@
       }
     },
     "search" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        }
+      }
+    },
+    "search…" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -497,22 +529,6 @@
         }
       }
     },
-    "undefined" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Undefined"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未定義"
-          }
-        }
-      }
-    },
     "version" : {
       "localizations" : {
         "en" : {
@@ -530,5 +546,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.1"
 }

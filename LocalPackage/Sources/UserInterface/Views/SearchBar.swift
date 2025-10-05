@@ -12,7 +12,7 @@ struct SearchBar: View {
             Image(systemName: "magnifyingglass")
                 .foregroundStyle(Color(.systemGray))
             TextField(text: $store.inputText) {
-                Text("search", bundle: .module)
+                Text("search…", bundle: .module)
             }
             .keyboardType(.webSearch)
             .accessibilityIdentifier("searchTextField")

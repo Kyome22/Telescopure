@@ -7,9 +7,9 @@ final class ShareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let shareView = ShareView(store: .init(
-            viewController: self,
-            uiApplicationClient: .liveValue,
-            uiViewControllerClient: .liveValue
+            nsExtensionContextClient: .liveValue,
+            extensionContext: { [weak self] in self?.extensionContext },
+            openURL: { [weak self] in self?.open(url: $0) }
         ))
         let vc = UIHostingController(rootView: shareView)
         self.addChild(vc)
@@ -24,5 +24,16 @@ final class ShareViewController: UIViewController {
         vc.view.leftAnchor.constraint(equalTo: hostingView.leftAnchor).isActive = true
         vc.view.rightAnchor.constraint(equalTo: hostingView.rightAnchor).isActive = true
         vc.view.bottomAnchor.constraint(equalTo: hostingView.bottomAnchor).isActive = true
+    }
+
+    private func open(url: URL) {
+        var responder: UIResponder? = self
+        while responder != nil {
+            if let application = responder as? UIApplication {
+                application.open(url)
+                break
+            }
+            responder = responder?.next
+        }
     }
 }

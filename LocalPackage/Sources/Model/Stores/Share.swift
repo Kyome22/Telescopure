@@ -4,23 +4,23 @@ import UIKit
 import UniformTypeIdentifiers
 
 @MainActor @Observable public final class Share: Composable {
-    private weak var viewController: UIViewController?
-    private let uiApplicationClient: UIApplicationClient
-    private let uiViewControllerClient: UIViewControllerClient
+    private let nsExtensionContextClient: NSExtensionContextClient
+    private let extensionContext: () -> NSExtensionContext?
+    private let openURL: (URL) -> Void
 
     public var sharedType: SharedType
     public let action: (Action) async -> Void
 
     public init(
-        viewController: UIViewController,
-        uiApplicationClient: UIApplicationClient,
-        uiViewControllerClient: UIViewControllerClient,
+        nsExtensionContextClient: NSExtensionContextClient,
+        extensionContext: @escaping () -> NSExtensionContext?,
+        openURL: @escaping (URL) -> Void,
         sharedType: SharedType = .undefined,
         action: @escaping (Action) async -> Void = { _ in }
     ) {
-        self.viewController = viewController
-        self.uiApplicationClient = uiApplicationClient
-        self.uiViewControllerClient = uiViewControllerClient
+        self.nsExtensionContextClient = nsExtensionContextClient
+        self.extensionContext = extensionContext
+        self.openURL = openURL
         self.sharedType = sharedType
         self.action = action
     }
@@ -28,51 +28,46 @@ import UniformTypeIdentifiers
     public func reduce(_ action: Action) async {
         switch action {
         case .task:
-            let result = await extractSharedItem(from: viewController?.extensionContext)
+            let result = await extractSharedItem(from: extensionContext())
             switch result {
             case let .success(sharedType):
                 self.sharedType = sharedType
             case let .failure(error):
-                guard let viewController else { return }
                 try? await Task.sleep(for: .seconds(0.5))
-                uiViewControllerClient.cancelRequest(viewController, error)
+                nsExtensionContextClient.cancelRequest(extensionContext(), error)
             }
 
         case .cancelButtonTapped:
-            guard let viewController else { return }
-            uiViewControllerClient.cancelRequest(viewController, ShareError.canceled)
+            nsExtensionContextClient.cancelRequest(extensionContext(), ShareError.canceled)
 
-        case .openButtonTapped:
-            guard let viewController else { return }
+        case .confirmButtonTapped:
             defer {
-                uiViewControllerClient.completeRequest(viewController)
+                nsExtensionContextClient.completeRequest(extensionContext())
             }
             guard let shareURL = sharedType.shareURL else { return }
-            uiApplicationClient.perform(viewController, shareURL)
+            openURL(shareURL)
         }
     }
 
     private func extractSharedItem(from context: NSExtensionContext?) async -> Result<SharedType, ShareError> {
-        guard let item = context?.inputItems.first as? NSExtensionItem,
+        guard let item = nsExtensionContextClient.inputItems(context).first as? NSExtensionItem,
               let attachment = item.attachments?.first else {
             return .failure(ShareError.nonAttachmentsItem)
         }
-        let urlID = UTType.url.identifier
-        let plainTextID = UTType.plainText.identifier
-        if attachment.hasItemConformingToTypeIdentifier(urlID) {
+        if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
             return await withCheckedContinuation { continuation in
-                attachment.loadItem(forTypeIdentifier: urlID) { loadedItem, _ in
-                    if let value = loadedItem as? URL {
+                _ = attachment.loadObject(ofClass: URL.self) { reading, _ in
+                    if let value = reading {
                         continuation.resume(returning: .success(.link(value)))
                     } else {
                         continuation.resume(returning: .failure(.nonURLItem))
                     }
                 }
             }
-        } else  if attachment.hasItemConformingToTypeIdentifier(plainTextID) {
+        } else if attachment.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
             return await withCheckedContinuation { continuation in
-                attachment.loadItem(forTypeIdentifier: plainTextID) { loadedItem, _ in
-                    if let text = loadedItem as? String {
+                _ = attachment.loadObject(ofClass: String.self) { reading, _ in
+                    if let text = reading {
                         let value = text.trimmingCharacters(in: .whitespacesAndNewlines)
                         continuation.resume(returning: .success(.plainText(value)))
                     } else {
@@ -88,6 +83,6 @@ import UniformTypeIdentifiers
     public enum Action: Sendable {
         case task
         case cancelButtonTapped
-        case openButtonTapped
+        case confirmButtonTapped
     }
 }
