@@ -56,7 +56,10 @@ struct ShareTests {
                 $0.inputItems = { _ in
                     let item = NSExtensionItem()
                     item.attachments = [
-                        NSItemProvider(object: NSURL(string: "https://example.com")!)
+                        NSItemProvider(
+                            item: NSURL(string: "https://example.com"),
+                            typeIdentifier: UTType.url.identifier
+                        )
                     ]
                     return [item]
                 }
@@ -76,7 +79,10 @@ struct ShareTests {
                 $0.inputItems = { _ in
                     let item = NSExtensionItem()
                     item.attachments = [
-                        NSItemProvider(object: NSString(string: "dummy"))
+                        NSItemProvider(
+                            item: NSString(string: "dummy"),
+                            typeIdentifier: UTType.plainText.identifier
+                        )
                     ]
                     return [item]
                 }

@@ -310,7 +310,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TelescopureShare/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TelescopureShare;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Takuto Nakamura";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023-2025 Takuto Nakamura";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,7 +337,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TelescopureShare/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = TelescopureShare;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023 Takuto Nakamura";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "© 2023-2025 Takuto Nakamura";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

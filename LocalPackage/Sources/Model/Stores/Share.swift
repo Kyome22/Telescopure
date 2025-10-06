@@ -54,20 +54,22 @@ import UniformTypeIdentifiers
               let attachment = item.attachments?.first else {
             return .failure(ShareError.nonAttachmentsItem)
         }
-        if attachment.hasItemConformingToTypeIdentifier(UTType.url.identifier) {
+        let urlID = UTType.url.identifier
+        let plainTextID = UTType.plainText.identifier
+        if attachment.hasItemConformingToTypeIdentifier(urlID) {
             return await withCheckedContinuation { continuation in
-                _ = attachment.loadObject(ofClass: URL.self) { reading, _ in
-                    if let value = reading {
+                attachment.loadItem(forTypeIdentifier: urlID) { loadedItem, _ in
+                    if let value = loadedItem as? URL {
                         continuation.resume(returning: .success(.link(value)))
                     } else {
                         continuation.resume(returning: .failure(.nonURLItem))
                     }
                 }
             }
-        } else if attachment.hasItemConformingToTypeIdentifier(UTType.plainText.identifier) {
+        } else if attachment.hasItemConformingToTypeIdentifier(plainTextID) {
             return await withCheckedContinuation { continuation in
-                _ = attachment.loadObject(ofClass: String.self) { reading, _ in
-                    if let text = reading {
+                attachment.loadItem(forTypeIdentifier: plainTextID) { loadedItem, _ in
+                    if let text = loadedItem as? String {
                         let value = text.trimmingCharacters(in: .whitespacesAndNewlines)
                         continuation.resume(returning: .success(.plainText(value)))
                     } else {

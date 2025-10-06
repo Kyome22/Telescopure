@@ -98,8 +98,14 @@ extension Share: ObservableObject {}
             $0.inputItems = { _ in
                 let item = NSExtensionItem()
                 item.attachments = [
-                    NSItemProvider(object: NSURL(string: "https://example.com/programming/swift/telescopure")!),
-                    NSItemProvider(object: NSString(string: "Hello Swift!")),
+                    NSItemProvider(
+                        item: NSURL(string: "https://example.com/programming/swift/telescopure"),
+                        typeIdentifier: "public.url"
+                    ),
+                    NSItemProvider(
+                        item: NSString(string: "Hello Swift!"),
+                        typeIdentifier: "public.plain-text"
+                    ),
                 ]
                 return [item]
             }
