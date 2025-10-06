@@ -37,7 +37,7 @@ final class TelescopureUITests: XCTestCase {
     }
 
     @MainActor
-    func testHideToolbar() throws {
+    func testHideToolbar() {
         let app = XCUIApplication()
         app.launch()
 
@@ -52,7 +52,7 @@ final class TelescopureUITests: XCTestCase {
     }
 
     @MainActor
-    func testOpenBookmark() throws {
+    func testOpenBookmark() {
         let app = XCUIApplication()
         app.launch()
 
