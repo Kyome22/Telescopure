@@ -1,16 +1,18 @@
+import DataSource
 import Model
 import SwiftUI
 import WebUI
 
 struct BrowserView: View {
     @Environment(\.appDependencies) private var appDependencies
+    @FocusState private var focusedField: FocusedField?
     @StateObject var store: Browser
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             WebViewReader { proxy in
                 VStack(spacing: 0) {
-                    if store.isPresentedToolBar {
+                    if store.isPresentedToolbar {
                         VStack(spacing: 0) {
                             HStack(spacing: 8) {
                                 Button {
@@ -28,11 +30,25 @@ struct BrowserView: View {
                                 }
                                 .buttonStyle(.borderless)
                                 .tint(Color(.systemGray))
-                                SearchBar(store: store)
+                                SearchBar(focusedField: $focusedField, store: store)
+                                if store.isInputingSearchBar {
+                                    Button {
+                                        focusedField = nil
+                                    } label: {
+                                        Text("cancel", bundle: .module)
+                                    }
+                                    .buttonStyle(.borderless)
+                                    .transition(.asymmetric(insertion: .push(from: .trailing), removal: .slide))
+                                }
                             }
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
                             .background(Color(.header))
+                            .onChange(of: focusedField) { _, newValue in
+                                Task {
+                                    await store.send(.onChangeFocusedField(newValue))
+                                }
+                            }
                             ProgressView(value: proxy.estimatedProgress)
                                 .opacity(proxy.isLoading ? 1.0 : 0.0)
                         }
@@ -50,8 +66,8 @@ struct BrowserView: View {
                                 LogoView()
                             }
                         }
-                    if store.isPresentedToolBar {
-                        ToolBar(store: store)
+                    if store.isPresentedToolbar {
+                        Toolbar(store: store)
                             .transition(.move(edge: .bottom))
                             .environment(\.canGoBack, proxy.canGoBack)
                             .environment(\.canGoForward, proxy.canGoForward)
@@ -75,14 +91,15 @@ struct BrowserView: View {
                         await store.send(.onChangeTitle(newValue))
                     }
                 }
-                if !store.isPresentedToolBar {
-                    ShowToolBarButton(store: store)
+                if !store.isPresentedToolbar {
+                    ShowToolbarButton(store: store)
                         .padding(20)
                         .transition(.move(edge: .bottom))
                 }
             }
         }
-        .ignoresSafeArea(edges: store.isPresentedToolBar ? [] : .all)
+        .ignoresSafeArea(.container, edges: store.isPresentedToolbar ? [] : .all)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(item: $store.settings) { store in
             SettingsView(store: store)
         }
@@ -112,6 +129,8 @@ struct BrowserView: View {
                 await store.send(.onOpenURL(url))
             }
         }
+        .animation(.easeIn(duration: 0.2), value: store.isPresentedToolbar)
+        .animation(.easeInOut, value: store.isInputingSearchBar)
     }
 }
 

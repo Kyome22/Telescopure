@@ -1,31 +1,53 @@
 import Model
 import SwiftUI
 
-struct ShowToolBarButton: View {
+struct ShowToolbarButton: View {
+    @ScaledMetric private var imageSize = 40
     var store: Browser
 
     var body: some View {
-        Button {
-            Task {
-                await store.send(.showToolBarButtonTapped)
+        if #available(iOS 26, *) {
+            Button {
+                Task {
+                    await store.send(.showToolbarButtonTapped)
+                }
+            } label: {
+                Label {
+                    Text("showToolbar", bundle: .module)
+                } icon: {
+                    Image(systemName: "chevron.up")
+                        .imageScale(.large)
+                        .frame(width: imageSize, height: imageSize)
+                }
+                .labelStyle(.iconOnly)
             }
-        } label: {
-            Label {
-                Text("showToolBar", bundle: .module)
-            } icon: {
-                Image(systemName: "chevron.up")
-                    .imageScale(.large)
-                    .frame(width: 40, height: 40)
+            .buttonStyle(.borderless)
+            .buttonBorderShape(.circle)
+            .glassEffect()
+            .accessibilityIdentifier("showToolbarButton")
+        } else {
+            Button {
+                Task {
+                    await store.send(.showToolbarButtonTapped)
+                }
+            } label: {
+                Label {
+                    Text("showToolbar", bundle: .module)
+                } icon: {
+                    Image(systemName: "chevron.up")
+                        .imageScale(.large)
+                        .frame(width: imageSize, height: imageSize)
+                        .background(Color(.floating), in: .circle)
+                }
+                .labelStyle(.iconOnly)
             }
-            .labelStyle(.iconOnly)
+            .buttonStyle(.borderless)
+            .shadow(radius: 8)
+            .accessibilityIdentifier("showToolbarButton")
         }
-        .buttonStyle(.borderless)
-        .background(Color(.floating), in: Circle())
-        .accessibilityIdentifier("showToolBarButton")
-        .shadow(radius: 8)
     }
 }
 
 #Preview {
-    ShowToolBarButton(store: .init(.testDependencies()))
+    ShowToolbarButton(store: .init(.testDependencies()))
 }

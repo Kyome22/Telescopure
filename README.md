@@ -22,7 +22,7 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 
 - Written in Swift 6.1
 - Compatible with iOS 18.0+
-- Development with Xcode 16.4+
+- Development with Xcode 26.0.1+
 
 ## Screenshots
 

@@ -209,12 +209,12 @@
         }
       }
     },
-    "hideToolBar" : {
+    "hideToolbar" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Hide Tool Bar"
+            "value" : "Hide Toolbar"
           }
         },
         "ja" : {
@@ -321,6 +321,22 @@
         }
       }
     },
+    "open" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開く"
+          }
+        }
+      }
+    },
     "openBookmarks" : {
       "localizations" : {
         "en" : {
@@ -406,6 +422,22 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "Search"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "検索"
+          }
+        }
+      }
+    },
+    "search…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
             "value" : "Search…"
           }
         },
@@ -465,12 +497,12 @@
         }
       }
     },
-    "showToolBar" : {
+    "showToolbar" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Show Tool Bar"
+            "value" : "Show Toolbar"
           }
         },
         "ja" : {
@@ -497,22 +529,6 @@
         }
       }
     },
-    "undefined" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Undefined"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未定義"
-          }
-        }
-      }
-    },
     "version" : {
       "localizations" : {
         "en" : {
@@ -530,5 +546,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.1"
 }

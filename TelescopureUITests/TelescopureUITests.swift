@@ -37,22 +37,22 @@ final class TelescopureUITests: XCTestCase {
     }
 
     @MainActor
-    func testHideToolBar() throws {
+    func testHideToolbar() {
         let app = XCUIApplication()
         app.launch()
 
-        let hideToolBarButton = app.buttons["hideToolBarButton"]
-        hideToolBarButton.tap()
+        let hideToolbarButton = app.buttons["hideToolbarButton"]
+        hideToolbarButton.tap()
 
-        let showToolBarButton = app.buttons["showToolBarButton"]
-        XCTAssertTrue(showToolBarButton.exists)
+        let showToolbarButton = app.buttons["showToolbarButton"]
+        XCTAssertTrue(showToolbarButton.exists)
 
-        showToolBarButton.tap()
-        XCTAssertTrue(hideToolBarButton.exists)
+        showToolbarButton.tap()
+        XCTAssertTrue(hideToolbarButton.exists)
     }
 
     @MainActor
-    func testOpenBookmark() throws {
+    func testOpenBookmark() {
         let app = XCUIApplication()
         app.launch()
 
