@@ -245,6 +245,7 @@
 				en,
 				Base,
 				ja,
+				ko,
 			);
 			mainGroup = 1C67D11B2AE02C8F009F4A60;
 			preferredProjectObjectVersion = 90;

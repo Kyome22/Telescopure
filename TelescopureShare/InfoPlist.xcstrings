@@ -16,6 +16,12 @@
             "state" : "translated",
             "value" : "TelescopureShare"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TelescopureShare"
+          }
         }
       }
     },
@@ -34,6 +40,12 @@
             "state" : "translated",
             "value" : "TelescopureShare"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TelescopureShare"
+          }
         }
       }
     },
@@ -48,6 +60,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "© 2023-2025 Takuto Nakamura"
+          }
+        },
+        "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "© 2023-2025 Takuto Nakamura"

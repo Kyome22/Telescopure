@@ -14,6 +14,12 @@
             "state" : "translated",
             "value" : "閲覧中のページを追加する"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "현재 페이지 추가"
+          }
         }
       }
     },
@@ -29,6 +35,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ブックマーク"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "북마크"
           }
         }
       }
@@ -46,6 +58,12 @@
             "state" : "translated",
             "value" : "キャッシュ"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "캐시"
+          }
         }
       }
     },
@@ -61,6 +79,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "キャンセル"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "취소"
           }
         }
       }
@@ -78,6 +102,12 @@
             "state" : "translated",
             "value" : "クリア"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
+          }
         }
       }
     },
@@ -93,6 +123,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "削除"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "삭제"
           }
         }
       }
@@ -110,6 +146,12 @@
             "state" : "translated",
             "value" : "開発者"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "개발자"
+          }
         }
       }
     },
@@ -125,6 +167,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "完了"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "완료"
           }
         }
       }
@@ -142,6 +190,12 @@
             "state" : "translated",
             "value" : "編集"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "편집"
+          }
         }
       }
     },
@@ -157,6 +211,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ブックマークを編集"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "북마크 편집"
           }
         }
       }
@@ -174,6 +234,12 @@
             "state" : "translated",
             "value" : "外部アプリでリンクを開けませんでした。"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "외부 앱에서 링크를 열지 못했습니다."
+          }
         }
       }
     },
@@ -189,6 +255,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "戻る"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "뒤로 가기"
           }
         }
       }
@@ -206,6 +278,12 @@
             "state" : "translated",
             "value" : "進む"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "앞으로 가기"
+          }
         }
       }
     },
@@ -221,6 +299,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ツールバーを隠す"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "툴바 숨기기"
           }
         }
       }
@@ -238,6 +322,12 @@
             "state" : "translated",
             "value" : "情報"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "정보"
+          }
         }
       }
     },
@@ -253,6 +343,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "タイトルを入力"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "제목 입력"
           }
         }
       }
@@ -270,6 +366,12 @@
             "state" : "translated",
             "value" : "URLを入力"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL 입력"
+          }
         }
       }
     },
@@ -285,6 +387,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ライセンス"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "라이센스"
           }
         }
       }
@@ -302,6 +410,12 @@
             "state" : "translated",
             "value" : "ブックマークなし"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "북마크 없음"
+          }
         }
       }
     },
@@ -317,6 +431,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "확인"
           }
         }
       }
@@ -334,6 +454,12 @@
             "state" : "translated",
             "value" : "開く"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "열기"
+          }
         }
       }
     },
@@ -349,6 +475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ブックマークを開く"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "북마크 열기"
           }
         }
       }
@@ -366,6 +498,12 @@
             "state" : "translated",
             "value" : "リンクを外部アプリで開きますか？"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "외부 앱에서 링크를 열겠습니까?"
+          }
         }
       }
     },
@@ -381,6 +519,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Telescopureで開く"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telescopure에서 열기"
           }
         }
       }
@@ -398,6 +542,12 @@
             "state" : "translated",
             "value" : "設定を開く"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정 열기"
+          }
         }
       }
     },
@@ -413,6 +563,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "リポジトリ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "리포지토리"
           }
         }
       }
@@ -430,6 +586,12 @@
             "state" : "translated",
             "value" : "検索"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색"
+          }
         }
       }
     },
@@ -445,6 +607,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "検索…"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색..."
           }
         }
       }
@@ -462,6 +630,12 @@
             "state" : "translated",
             "value" : "検索エンジン"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "검색 엔진"
+          }
         }
       }
     },
@@ -477,6 +651,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Telescopureで検索"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telescopure에서 검색"
           }
         }
       }
@@ -494,6 +674,12 @@
             "state" : "translated",
             "value" : "設定"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설정"
+          }
         }
       }
     },
@@ -510,6 +696,12 @@
             "state" : "translated",
             "value" : "ツールバーを表示"
           }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "툴바 보이기"
+          }
         }
       }
     },
@@ -522,6 +714,12 @@
           }
         },
         "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Telescopure"
+          }
+        },
+        "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Telescopure"
@@ -541,6 +739,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "バージョン"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "버전"
           }
         }
       }
