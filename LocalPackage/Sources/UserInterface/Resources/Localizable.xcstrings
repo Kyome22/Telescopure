@@ -111,6 +111,28 @@
         }
       }
     },
+    "defaultBrowserApp" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default Browser App"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルトのブラウザアプリ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "기본 브라우저 앱"
+          }
+        }
+      }
+    },
     "delete" : {
       "localizations" : {
         "en" : {

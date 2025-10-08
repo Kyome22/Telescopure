@@ -12,6 +12,23 @@ struct SettingsView: View {
                 Section {
                     Button {
                         Task {
+                            await store.send(.defaultBrowserAppButtonTapped)
+                        }
+                    } label: {
+                        LabeledContent {
+                            Image(systemName: "chevron.right")
+                        } label: {
+                            Label {
+                                Text("defaultBrowserApp", bundle: .module)
+                                    .foregroundStyle(Color.primary)
+                            } icon: {
+                                Image(systemName: "app.badge.checkmark")
+                            }
+                        }
+                    }
+                    .buttonStyle(.borderless)
+                    Button {
+                        Task {
                             await store.send(.searchEngineSettingButtonTapped(appDependencies))
                         }
                     } label: {
@@ -21,8 +38,12 @@ struct SettingsView: View {
                                 Image(systemName: "chevron.right")
                             }
                         } label: {
-                            Text("searchEngine", bundle: .module)
-                                .foregroundStyle(Color.primary)
+                            Label {
+                                Text("searchEngine", bundle: .module)
+                                    .foregroundStyle(Color.primary)
+                            } icon: {
+                                Image(systemName: "magnifyingglass")
+                            }
                         }
                     }
                     .buttonStyle(.borderless)
@@ -36,7 +57,11 @@ struct SettingsView: View {
                         }
                         .buttonStyle(.borderless)
                     } label: {
-                        Text("cache", bundle: .module)
+                        Label {
+                            Text("cache", bundle: .module)
+                        } icon: {
+                            Image(systemName: "trash")
+                        }
                     }
                 } header: {
                     Text("settings", bundle: .module)

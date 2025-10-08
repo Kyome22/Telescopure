@@ -1,6 +1,7 @@
 import Foundation
 import DataSource
 import Observation
+import UIKit
 
 @MainActor @Observable public final class Settings: Identifiable, Composable {
     private let uiApplicationClient: UIApplicationClient
@@ -45,6 +46,10 @@ import Observation
         case let .task(screenName):
             logService.notice(.screenView(name: screenName))
 
+        case .defaultBrowserAppButtonTapped:
+            guard let settingsURL = uiApplicationClient.settingsURL() else { return }
+            _ = await uiApplicationClient.open(settingsURL)
+
         case let .searchEngineSettingButtonTapped(appDependencies):
             path.append(.searchEngineSetting(.init(
                 appDependencies,
@@ -80,6 +85,7 @@ import Observation
 
     public enum Action: Sendable {
         case task(String)
+        case defaultBrowserAppButtonTapped
         case searchEngineSettingButtonTapped(AppDependencies)
         case crearCacheButtonTapped
         case openRepositoryButtonTapped
