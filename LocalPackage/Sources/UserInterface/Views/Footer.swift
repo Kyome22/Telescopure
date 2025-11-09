@@ -6,7 +6,7 @@ struct Footer: View {
     @Environment(\.canGoBack) private var canGoBack
     @Environment(\.canGoForward) private var canGoForward
     @ScaledMetric private var imageSize = 40
-    var store: Browser
+    @Bindable var store: Browser
 
     var body: some View {
         VStack(spacing: 0) {
@@ -48,6 +48,28 @@ struct Footer: View {
                 .disabled(!canGoForward)
                 .accessibilityIdentifier("goForwardButton")
                 Spacer()
+                Button {
+                    Task {
+                        await store.send(.showZoomPopoverButtonTapped)
+                    }
+                } label: {
+                    Label {
+                        Text("pageZoom", bundle: .module)
+                    } icon: {
+                        Image(systemName: "textformat.size")
+                            .imageScale(.large)
+                            .frame(width: imageSize, height: imageSize)
+                    }
+                    .labelStyle(.iconOnly)
+                }
+                .buttonStyle(.borderless)
+                .accessibilityIdentifier("pageZoomButton")
+                .popover(isPresented: $store.isPresentedZoomPopover) {
+                    PageZoomControlPanel(pageScale: store.pageScale) {
+                        await store.send(.zoomButtonTapped($0))
+                    }
+                    .presentationCompactAdaptation(.popover)
+                }
                 Button {
                     Task {
                         await store.send(.bookmarkButtonTapped(appDependencies))

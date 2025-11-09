@@ -17,6 +17,8 @@ import WebUI
 
     public var inputText: String
     public var isPresentedToolbar: Bool
+    public var isPresentedZoomPopover: Bool
+    public var pageScale: PageScale
     public var isInputingSearchBar: Bool
     public var textSelection: TextSelection?
     public var currentURL: URL?
@@ -39,6 +41,8 @@ import WebUI
         eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
         isPresentedToolbar: Bool = true,
+        isPresentedZoomPopover: Bool = false,
+        pageScale: PageScale = .scale100,
         isInputingSearchBar: Bool = false,
         textSelection: TextSelection? = nil,
         currentURL: URL? = nil,
@@ -64,6 +68,8 @@ import WebUI
         self.eventBridge = eventBridge
         self.inputText = inputText
         self.isPresentedToolbar = isPresentedToolbar
+        self.isPresentedZoomPopover = isPresentedZoomPopover
+        self.pageScale = pageScale
         self.isInputingSearchBar = isInputingSearchBar
         self.textSelection = textSelection
         self.currentURL = currentURL
@@ -148,6 +154,15 @@ import WebUI
             isInputingSearchBar = focusedField == .search
             if isInputingSearchBar, let range = inputText.range(of: inputText) {
                 textSelection = .init(range: range)
+            }
+        case .showZoomPopoverButtonTapped:
+            isPresentedZoomPopover = true
+
+        case let .zoomButtonTapped(command):
+            pageScale = switch command {
+            case .reset: .scale100
+            case .zoomIn: pageScale.scaleUpped()
+            case .zoomOut: pageScale.scaleDowned()
             }
 
         case .goBackButtonTapped:
@@ -308,6 +323,8 @@ import WebUI
         case clearSearchButtonTapped
         case cancelSearchButtonTapped
         case onChangeFocusedField(FocusedField?)
+        case showZoomPopoverButtonTapped
+        case zoomButtonTapped(PageZoomCommand)
         case goBackButtonTapped
         case goForwardButtonTapped
         case bookmarkButtonTapped(AppDependencies)

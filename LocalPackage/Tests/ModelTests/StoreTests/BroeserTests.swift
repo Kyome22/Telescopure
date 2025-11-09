@@ -121,6 +121,26 @@ struct BrowserTests {
     }
 
     @MainActor @Test
+    func send_showZoomPopoverButtonTapped() async {
+        let sut = Browser(.testDependencies())
+        await sut.send(.showZoomPopoverButtonTapped)
+        #expect(sut.isPresentedZoomPopover)
+    }
+
+    @MainActor @Test(arguments: [
+        .init(pageScale: .scale100, pageZoomCommand: .zoomIn, expectPageScale: .scale110),
+        .init(pageScale: .scale300, pageZoomCommand: .zoomIn, expectPageScale: .scale300),
+        .init(pageScale: .scale100, pageZoomCommand: .zoomOut, expectPageScale: .scale90),
+        .init(pageScale: .scale50, pageZoomCommand: .zoomOut, expectPageScale: .scale50),
+        .init(pageScale: .scale50, pageZoomCommand: .reset, expectPageScale: .scale100),
+    ] as [ZoomButtonProperty])
+    func send_zoomButtonTapped(_ property: ZoomButtonProperty) async {
+        let sut = Browser(.testDependencies(), pageScale: property.pageScale)
+        await sut.send(.zoomButtonTapped(property.pageZoomCommand))
+        #expect(sut.pageScale == property.expectPageScale)
+    }
+
+    @MainActor @Test
     func send_goBackButtonTapped() async {
         let goBackCount = OSAllocatedUnfairLock(initialState: 0)
         let sut = Browser(.testDependencies(
@@ -389,6 +409,12 @@ struct BrowserTests {
         await sut.send(.bookmarkManagement(.doneButtonTapped))
         #expect(sut.bookmarkManagement == nil)
     }
+}
+
+struct ZoomButtonProperty: Sendable {
+    var pageScale: PageScale
+    var pageZoomCommand: PageZoomCommand
+    var expectPageScale: PageScale
 }
 
 struct DialogProperty: Sendable {

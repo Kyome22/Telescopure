@@ -22,6 +22,7 @@ struct BrowserView: View {
                         .allowsBackForwardNavigationGestures(true)
                         .allowsOpaqueDrawing(proxy.url != nil)
                         .allowsInspectable(true)
+                        .pageScaleFactor(store.pageScale.value)
                         .overlay {
                             if proxy.url == nil {
                                 LogoView()

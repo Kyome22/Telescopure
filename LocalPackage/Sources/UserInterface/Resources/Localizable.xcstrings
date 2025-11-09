@@ -573,6 +573,28 @@
         }
       }
     },
+    "pageZoom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Page Zoom"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ページズーム"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "페이지 확대/축소"
+          }
+        }
+      }
+    },
     "repository" : {
       "localizations" : {
         "en" : {
