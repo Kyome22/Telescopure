@@ -26,9 +26,14 @@ import WebKit
         await action(.didFailProvisionalNavigation(error))
     }
 
+    func didFail(error: any Error) async {
+        await action(.didFail(error))
+    }
+
     public enum Action: Sendable {
         case decidePolicyFor(URLRequest)
         case didFailProvisionalNavigation(any Error)
+        case didFail(any Error)
     }
 }
 
@@ -56,6 +61,16 @@ public final class BrowserNavigationDelegate: NSObject, WKNavigationDelegate, Ob
     ) {
         Task {
             await store.didFailProvisionalNavigation(error: error)
+        }
+    }
+
+    public func webView(
+        _ webView: WKWebView,
+        didFail navigation: WKNavigation!,
+        withError error: any Error
+    ) {
+        Task {
+            await store.didFail(error: error)
         }
     }
 }

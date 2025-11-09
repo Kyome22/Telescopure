@@ -226,18 +226,9 @@ import WebUI
             }
             appStateClient.send(\.actionPolicySubject, input: .allow)
 
-        case let .browserNavigation(.didFailProvisionalNavigation(error)):
-            guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
-                  var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
-                fatalError("Could not load error.html")
-            }
-            if let urlError = error as? URLError {
-                htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: urlError.localizedDescription)
-                await webViewProxyClient.loadHTMLString(htmlString, urlError.failingURL)
-            } else {
-                htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: error.localizedDescription)
-                await webViewProxyClient.loadHTMLString(htmlString, URL(string: inputText))
-            }
+        case let .browserNavigation(.didFailProvisionalNavigation(error)),
+            let .browserNavigation(.didFail(error)):
+            await loadErrorPage(with: error)
 
         case let .browserUI(.runJavaScriptAlertPanel(message)):
             await presentWebDialog(.alert(message))
@@ -282,6 +273,20 @@ import WebUI
         }
         if let url {
             await webViewProxyClient.load(URLRequest(url: url))
+        }
+    }
+
+    private func loadErrorPage(with error: any Error) async {
+        guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
+              var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
+            fatalError("Could not load error.html")
+        }
+        if let urlError = error as? URLError {
+            htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: urlError.localizedDescription)
+            await webViewProxyClient.loadHTMLString(htmlString, urlError.failingURL)
+        } else {
+            htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: error.localizedDescription)
+            await webViewProxyClient.loadHTMLString(htmlString, URL(string: inputText))
         }
     }
 
