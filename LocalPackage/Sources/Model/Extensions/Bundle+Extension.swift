@@ -8,6 +8,5 @@ extension Bundle {
         return string
     }
 
-    var bundleName: String { bundleString(key: "CFBundleName") }
     var bundleVersion: String { bundleString(key: "CFBundleVersion") }
 }
