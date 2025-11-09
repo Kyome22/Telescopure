@@ -13,6 +13,7 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 - Search by keywords.
 - Browse a page in the full screen.
 - Pull to refresh a page.
+- Page Zoom.
 - Bookmark user's favorite page.
 - Open a link of other app in Telescopure.
 - User can select a search engine (Google/Bing/DuckDuckGo).
