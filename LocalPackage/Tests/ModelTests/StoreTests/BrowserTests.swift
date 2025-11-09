@@ -128,11 +128,11 @@ struct BrowserTests {
     }
 
     @MainActor @Test(arguments: [
+        .init(pageScale: .scale150, pageZoomCommand: .zoomReset, expectPageScale: .scale100),
         .init(pageScale: .scale100, pageZoomCommand: .zoomIn, expectPageScale: .scale110),
         .init(pageScale: .scale300, pageZoomCommand: .zoomIn, expectPageScale: .scale300),
         .init(pageScale: .scale100, pageZoomCommand: .zoomOut, expectPageScale: .scale90),
         .init(pageScale: .scale50, pageZoomCommand: .zoomOut, expectPageScale: .scale50),
-        .init(pageScale: .scale50, pageZoomCommand: .reset, expectPageScale: .scale100),
     ] as [ZoomButtonProperty])
     func send_zoomButtonTapped(_ property: ZoomButtonProperty) async {
         let sut = Browser(.testDependencies(), pageScale: property.pageScale)
