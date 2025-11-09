@@ -20,8 +20,9 @@ struct BrowserView: View {
                         .uiDelegate(store.uiDelegate)
                         .refreshable()
                         .allowsBackForwardNavigationGestures(true)
-                        .allowsOpaqueDrawing(false)
+                        .allowsOpaqueDrawing(proxy.url != nil)
                         .allowsInspectable(true)
+                        .pageScaleFactor(store.pageScale.value)
                         .overlay {
                             if proxy.url == nil {
                                 LogoView()

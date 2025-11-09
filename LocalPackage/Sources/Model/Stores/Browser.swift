@@ -17,6 +17,8 @@ import WebUI
 
     public var inputText: String
     public var isPresentedToolbar: Bool
+    public var isPresentedZoomPopover: Bool
+    public var pageScale: PageScale
     public var isInputingSearchBar: Bool
     public var textSelection: TextSelection?
     public var currentURL: URL?
@@ -39,6 +41,8 @@ import WebUI
         eventBridge: Action.EventBridge? = nil,
         inputText: String = "",
         isPresentedToolbar: Bool = true,
+        isPresentedZoomPopover: Bool = false,
+        pageScale: PageScale = .scale100,
         isInputingSearchBar: Bool = false,
         textSelection: TextSelection? = nil,
         currentURL: URL? = nil,
@@ -64,6 +68,8 @@ import WebUI
         self.eventBridge = eventBridge
         self.inputText = inputText
         self.isPresentedToolbar = isPresentedToolbar
+        self.isPresentedZoomPopover = isPresentedZoomPopover
+        self.pageScale = pageScale
         self.isInputingSearchBar = isInputingSearchBar
         self.textSelection = textSelection
         self.currentURL = currentURL
@@ -149,6 +155,15 @@ import WebUI
             if isInputingSearchBar, let range = inputText.range(of: inputText) {
                 textSelection = .init(range: range)
             }
+        case .showZoomPopoverButtonTapped:
+            isPresentedZoomPopover = true
+
+        case let .zoomButtonTapped(command):
+            pageScale = switch command {
+            case .zoomReset: .scale100
+            case .zoomIn: pageScale.scaleUpped()
+            case .zoomOut: pageScale.scaleDowned()
+            }
 
         case .goBackButtonTapped:
             if await webViewProxyClient.canGoBack() {
@@ -226,18 +241,9 @@ import WebUI
             }
             appStateClient.send(\.actionPolicySubject, input: .allow)
 
-        case let .browserNavigation(.didFailProvisionalNavigation(error)):
-            guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
-                  var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
-                fatalError("Could not load error.html")
-            }
-            if let urlError = error as? URLError {
-                htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: urlError.localizedDescription)
-                await webViewProxyClient.loadHTMLString(htmlString, urlError.failingURL)
-            } else {
-                htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: error.localizedDescription)
-                await webViewProxyClient.loadHTMLString(htmlString, URL(string: inputText))
-            }
+        case let .browserNavigation(.didFailProvisionalNavigation(error)),
+            let .browserNavigation(.didFail(error)):
+            await loadErrorPage(with: error)
 
         case let .browserUI(.runJavaScriptAlertPanel(message)):
             await presentWebDialog(.alert(message))
@@ -285,6 +291,20 @@ import WebUI
         }
     }
 
+    private func loadErrorPage(with error: any Error) async {
+        guard let fileURL = eventBridge?.getResourceURL?("error", "html"),
+              var htmlString = try? String(contentsOf: fileURL, encoding: .utf8) else {
+            fatalError("Could not load error.html")
+        }
+        if let urlError = error as? URLError {
+            htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: urlError.localizedDescription)
+            await webViewProxyClient.loadHTMLString(htmlString, urlError.failingURL)
+        } else {
+            htmlString = htmlString.replacingOccurrences(of: String.errorMessage, with: error.localizedDescription)
+            await webViewProxyClient.loadHTMLString(htmlString, URL(string: inputText))
+        }
+    }
+
     private func presentWebDialog(_ webDialog: WebDialog) async {
         while lastDialogClosedDate.distance(to: .now) < 0.1 {
             try? await Task.sleep(for: .seconds(0.1))
@@ -303,6 +323,8 @@ import WebUI
         case clearSearchButtonTapped
         case cancelSearchButtonTapped
         case onChangeFocusedField(FocusedField?)
+        case showZoomPopoverButtonTapped
+        case zoomButtonTapped(PageZoomCommand)
         case goBackButtonTapped
         case goForwardButtonTapped
         case bookmarkButtonTapped(AppDependencies)
