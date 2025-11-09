@@ -160,7 +160,7 @@ import WebUI
 
         case let .zoomButtonTapped(command):
             pageScale = switch command {
-            case .reset: .scale100
+            case .zoomReset: .scale100
             case .zoomIn: pageScale.scaleUpped()
             case .zoomOut: pageScale.scaleDowned()
             }

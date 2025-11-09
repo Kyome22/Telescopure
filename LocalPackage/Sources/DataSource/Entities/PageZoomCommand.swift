@@ -1,5 +1,5 @@
 public enum PageZoomCommand: Sendable {
-    case reset
+    case zoomReset
     case zoomIn
     case zoomOut
 }

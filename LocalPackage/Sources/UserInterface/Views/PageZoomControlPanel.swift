@@ -19,7 +19,7 @@ struct PageZoomControlPanel: View {
             Divider()
             Button {
                 Task {
-                    await zoomButtonTapped(.reset)
+                    await zoomButtonTapped(.zoomReset)
                 }
             } label: {
                 Text(pageScale.value, format: .percent)
