@@ -1,7 +1,7 @@
 import Model
 import SwiftUI
 
-struct Toolbar: View {
+struct Footer: View {
     @Environment(\.appDependencies) private var appDependencies
     @Environment(\.canGoBack) private var canGoBack
     @Environment(\.canGoForward) private var canGoForward
@@ -89,5 +89,5 @@ struct Toolbar: View {
 }
 
 #Preview {
-    Toolbar(store: .init(.testDependencies()))
+    Footer(store: .init(.testDependencies()))
 }

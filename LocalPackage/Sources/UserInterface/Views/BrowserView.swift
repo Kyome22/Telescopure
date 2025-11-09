@@ -1,11 +1,8 @@
-import DataSource
 import Model
 import SwiftUI
 import WebUI
 
 struct BrowserView: View {
-    @Environment(\.appDependencies) private var appDependencies
-    @FocusState private var focusedField: FocusedField?
     @StateObject var store: Browser
 
     var body: some View {
@@ -13,46 +10,10 @@ struct BrowserView: View {
             WebViewReader { proxy in
                 VStack(spacing: 0) {
                     if store.isPresentedToolbar {
-                        VStack(spacing: 0) {
-                            HStack(spacing: 8) {
-                                Button {
-                                    Task {
-                                        await store.send(.settingsButtonTapped(appDependencies))
-                                    }
-                                } label: {
-                                    Label {
-                                        Text("openSettings", bundle: .module)
-                                    } icon: {
-                                        Image(systemName: "gearshape")
-                                            .imageScale(.large)
-                                    }
-                                    .labelStyle(.iconOnly)
-                                }
-                                .buttonStyle(.borderless)
-                                .tint(Color(.systemGray))
-                                SearchBar(focusedField: $focusedField, store: store)
-                                if store.isInputingSearchBar {
-                                    Button {
-                                        focusedField = nil
-                                    } label: {
-                                        Text("cancel", bundle: .module)
-                                    }
-                                    .buttonStyle(.borderless)
-                                    .transition(.asymmetric(insertion: .push(from: .trailing), removal: .slide))
-                                }
-                            }
-                            .padding(.vertical, 8)
-                            .padding(.horizontal, 16)
-                            .background(Color(.header))
-                            .onChange(of: focusedField) { _, newValue in
-                                Task {
-                                    await store.send(.onChangeFocusedField(newValue))
-                                }
-                            }
-                            ProgressView(value: proxy.estimatedProgress)
-                                .opacity(proxy.isLoading ? 1.0 : 0.0)
-                        }
-                        .transition(.move(edge: .top))
+                        Header(store: store)
+                            .transition(.move(edge: .top))
+                            .environment(\.isLoading, proxy.isLoading)
+                            .environment(\.estimatedProgress, proxy.estimatedProgress)
                     }
                     WebView(configuration: .forTelescopure)
                         .navigationDelegate(store.navigationDelegate)
@@ -67,7 +28,7 @@ struct BrowserView: View {
                             }
                         }
                     if store.isPresentedToolbar {
-                        Toolbar(store: store)
+                        Footer(store: store)
                             .transition(.move(edge: .bottom))
                             .environment(\.canGoBack, proxy.canGoBack)
                             .environment(\.canGoForward, proxy.canGoForward)
