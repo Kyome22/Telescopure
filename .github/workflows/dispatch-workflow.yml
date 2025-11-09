@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Show Xcode Version
         run: xcodebuild -version
@@ -35,7 +35,7 @@ jobs:
           xcodebuild clean build-for-testing \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -skipPackagePluginValidation \
             -skipMacroValidation | \
@@ -47,7 +47,7 @@ jobs:
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
             -only-testing:ModelTests \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/unit_test_result_bundle \
             -skipPackagePluginValidation \
@@ -61,7 +61,7 @@ jobs:
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
             -only-testing:TelescopureUITests \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/ui_test_result_bundle \
             -skipPackagePluginValidation \
