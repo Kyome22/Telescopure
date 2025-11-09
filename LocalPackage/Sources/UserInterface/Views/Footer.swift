@@ -5,7 +5,6 @@ struct Footer: View {
     @Environment(\.appDependencies) private var appDependencies
     @Environment(\.canGoBack) private var canGoBack
     @Environment(\.canGoForward) private var canGoForward
-    @ScaledMetric private var imageSize = 40
     @Bindable var store: Browser
 
     var body: some View {
@@ -22,12 +21,9 @@ struct Footer: View {
                         Text("goBack", bundle: .module)
                     } icon: {
                         Image(systemName: "chevron.backward")
-                            .imageScale(.large)
-                            .frame(width: imageSize, height: imageSize)
                     }
-                    .labelStyle(.iconOnly)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.toolbar)
                 .disabled(!canGoBack)
                 .accessibilityIdentifier("goBackButton")
                 Button {
@@ -39,12 +35,9 @@ struct Footer: View {
                         Text("goForward", bundle: .module)
                     } icon: {
                         Image(systemName: "chevron.forward")
-                            .imageScale(.large)
-                            .frame(width: imageSize, height: imageSize)
                     }
-                    .labelStyle(.iconOnly)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.toolbar)
                 .disabled(!canGoForward)
                 .accessibilityIdentifier("goForwardButton")
                 Spacer()
@@ -57,12 +50,9 @@ struct Footer: View {
                         Text("pageZoom", bundle: .module)
                     } icon: {
                         Image(systemName: "textformat.size")
-                            .imageScale(.large)
-                            .frame(width: imageSize, height: imageSize)
                     }
-                    .labelStyle(.iconOnly)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.toolbar)
                 .accessibilityIdentifier("pageZoomButton")
                 .popover(isPresented: $store.isPresentedZoomPopover) {
                     PageZoomControlPanel(pageScale: store.pageScale) {
@@ -79,12 +69,9 @@ struct Footer: View {
                         Text("openBookmarks", bundle: .module)
                     } icon: {
                         Image(systemName: "book")
-                            .imageScale(.large)
-                            .frame(width: imageSize, height: imageSize)
                     }
-                    .labelStyle(.iconOnly)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.toolbar)
                 .accessibilityIdentifier("openBookmarksButton")
                 Button {
                     Task {
@@ -95,12 +82,9 @@ struct Footer: View {
                         Text("hideToolbar", bundle: .module)
                     } icon: {
                         Image(systemName: "chevron.down")
-                            .imageScale(.large)
-                            .frame(width: imageSize, height: imageSize)
                     }
-                    .labelStyle(.iconOnly)
                 }
-                .buttonStyle(.borderless)
+                .buttonStyle(.toolbar)
                 .accessibilityIdentifier("hideToolbarButton")
             }
             .padding(.vertical, 8)

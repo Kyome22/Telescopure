@@ -2,7 +2,6 @@ import DataSource
 import SwiftUI
 
 struct PageZoomControlPanel: View {
-    @ScaledMetric private var imageSize = 40
     var pageScale: PageScale
     var zoomButtonTapped: (PageZoomCommand) async -> Void
 
@@ -14,10 +13,8 @@ struct PageZoomControlPanel: View {
                 }
             } label: {
                 Image(systemName: "minus.magnifyingglass")
-                    .imageScale(.large)
-                    .frame(width: imageSize, height: imageSize)
             }
-            .buttonStyle(.borderless)
+            .buttonStyle(.toolbar)
             .accessibilityIdentifier("zoomOutButton")
             Divider()
             Button {
@@ -29,7 +26,7 @@ struct PageZoomControlPanel: View {
                     .monospaced()
             }
             .buttonStyle(.borderless)
-            .accessibilityIdentifier("zoomInButton")
+            .accessibilityIdentifier("zoomResetButton")
             .disabled(pageScale == .scale100)
             Divider()
             Button {
@@ -38,9 +35,9 @@ struct PageZoomControlPanel: View {
                 }
             } label: {
                 Image(systemName: "plus.magnifyingglass")
-                    .imageScale(.large)
-                    .frame(width: imageSize, height: imageSize)
             }
+            .buttonStyle(.toolbar)
+            .accessibilityIdentifier("zoomInButton")
         }
         .padding()
     }
