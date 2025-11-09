@@ -4,6 +4,7 @@ import WebUI
 
 public struct WebViewProxyClient: DependencyClient {
     public var setProxy: @Sendable (WebViewProxy) -> Void
+    public var url: @Sendable () async -> URL?
     public var load: @Sendable (URLRequest) async -> Void
     public var loadHTMLString: @Sendable (String, URL?) async -> Void
     public var canGoBack: @Sendable () async -> Bool
@@ -26,6 +27,7 @@ public struct WebViewProxyClient: DependencyClient {
             setProxy: { proxy in
                 _proxy.withLock { $0 = proxy}
             },
+            url: { await proxy().url },
             load: { await proxy().load(request: $0) },
             loadHTMLString: { await proxy().loadHTMLString($0, baseURL: $1) },
             canGoBack: { await proxy().canGoBack },
@@ -37,6 +39,7 @@ public struct WebViewProxyClient: DependencyClient {
 
     public static let testValue = Self(
         setProxy: { _ in },
+        url: { nil },
         load: { _ in },
         loadHTMLString: { _, _ in },
         canGoBack: { false },

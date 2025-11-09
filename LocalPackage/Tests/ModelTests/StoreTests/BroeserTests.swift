@@ -110,6 +110,17 @@ struct BrowserTests {
     }
 
     @MainActor @Test
+    func send_cancelSearchButtonTapped() async {
+        let sut = Browser(.testDependencies(
+            webViewProxyClient: testDependency(of: WebViewProxyClient.self) {
+                $0.url = { URL(string: "https://www.bing.com/search?q=dummy") }
+            }
+        ))
+        await sut.send(.cancelSearchButtonTapped)
+        #expect(sut.inputText == "https://www.bing.com/search?q=dummy")
+    }
+
+    @MainActor @Test
     func send_goBackButtonTapped() async {
         let goBackCount = OSAllocatedUnfairLock(initialState: 0)
         let sut = Browser(.testDependencies(

@@ -91,7 +91,6 @@ struct BrowserView: View {
             }
         }
         .animation(.easeIn(duration: 0.2), value: store.isPresentedToolbar)
-        .animation(.easeInOut, value: store.isInputingSearchBar)
     }
 }
 

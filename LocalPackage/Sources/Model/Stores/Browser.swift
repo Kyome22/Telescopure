@@ -18,6 +18,7 @@ import WebUI
     public var inputText: String
     public var isPresentedToolbar: Bool
     public var isInputingSearchBar: Bool
+    public var textSelection: TextSelection?
     public var currentURL: URL?
     public var currentTitle: String?
     public var isPresentedWebDialog: Bool
@@ -39,6 +40,7 @@ import WebUI
         inputText: String = "",
         isPresentedToolbar: Bool = true,
         isInputingSearchBar: Bool = false,
+        textSelection: TextSelection? = nil,
         currentURL: URL? = nil,
         currentTitle: String? = nil,
         isPresentedWebDialog: Bool = false,
@@ -63,6 +65,7 @@ import WebUI
         self.inputText = inputText
         self.isPresentedToolbar = isPresentedToolbar
         self.isInputingSearchBar = isInputingSearchBar
+        self.textSelection = textSelection
         self.currentURL = currentURL
         self.currentTitle = currentTitle
         self.isPresentedWebDialog = isPresentedWebDialog
@@ -138,8 +141,14 @@ import WebUI
         case .clearSearchButtonTapped:
             inputText = ""
 
+        case .cancelSearchButtonTapped:
+            inputText = await webViewProxyClient.url()?.absoluteString ?? ""
+
         case let .onChangeFocusedField(focusedField):
             isInputingSearchBar = focusedField == .search
+            if isInputingSearchBar, let range = inputText.range(of: inputText) {
+                textSelection = .init(range: range)
+            }
 
         case .goBackButtonTapped:
             if await webViewProxyClient.canGoBack() {
@@ -292,6 +301,7 @@ import WebUI
         case onSubmit(String)
         case settingsButtonTapped(AppDependencies)
         case clearSearchButtonTapped
+        case cancelSearchButtonTapped
         case onChangeFocusedField(FocusedField?)
         case goBackButtonTapped
         case goForwardButtonTapped
