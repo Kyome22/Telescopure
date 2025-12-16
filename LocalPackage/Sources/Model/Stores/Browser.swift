@@ -243,6 +243,9 @@ import WebUI
 
         case let .browserNavigation(.didFailProvisionalNavigation(error)),
             let .browserNavigation(.didFail(error)):
+            guard (error as NSError).code != NSURLErrorCancelled else {
+                return
+            }
             await loadErrorPage(with: error)
 
         case let .browserUI(.runJavaScriptAlertPanel(message)):
