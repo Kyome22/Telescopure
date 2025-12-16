@@ -29,7 +29,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-log.git", exact: "1.6.4"),
         .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.2.0"),
-        .package(url: "https://github.com/cybozu/WebUI.git", exact: "4.2.0"),
+        .package(url: "https://github.com/cybozu/WebUI.git", exact: "4.2.1"),
     ],
     targets: [
         .target(
