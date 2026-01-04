@@ -146,6 +146,7 @@ import WebUI
 
         case .clearSearchButtonTapped:
             inputText = ""
+            textSelection = nil
 
         case .cancelSearchButtonTapped:
             inputText = await webViewProxyClient.url()?.absoluteString ?? ""
