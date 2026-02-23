@@ -13,7 +13,7 @@ public extension Composable {
     func reduce(_ action: Action) async {}
 
     func send(_ action: Action) async {
-        await self.action(action)
         await reduce(action)
+        await self.action(action)
     }
 }

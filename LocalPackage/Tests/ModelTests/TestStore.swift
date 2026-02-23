@@ -9,19 +9,13 @@ final class TestStore<Store: Composable>: Composable {
 
     private var wrappedStore: Store
     private(set) var actionHistory = [Action]()
-    private(set) var wasSentByTestStore = false
 
     let action: (Store.Action) async -> Void = { _ in }
 
     init(_ factory: (_ action: @escaping (Action) async -> Void) -> Store) {
-        weak var weakSelf: TestStore? = nil
-        wrappedStore = factory {
-            guard let weakSelf else { return }
-            if weakSelf.wasSentByTestStore {
-                weakSelf.wasSentByTestStore = false
-            } else {
-                weakSelf.actionHistory.append($0)
-            }
+        weak var weakSelf: TestStore?
+        wrappedStore = factory { action in
+            weakSelf?.actionHistory.append(action)
         }
         weakSelf = self
     }
@@ -40,21 +34,17 @@ final class TestStore<Store: Composable>: Composable {
             Issue.record("There are actions that are not being handled by receive().")
             return
         }
-        wasSentByTestStore = true
         await wrappedStore.send(action)
+        if !actionHistory.isEmpty {
+            actionHistory.removeLast()
+        }
     }
 
-    func receive(expect: @escaping (Action) -> Bool, timeout: TimeInterval = 1.0) async {
-        let startTime = Date()
-
-        while Date.now.timeIntervalSince(startTime) < timeout {
-            if let action = actionHistory.first, expect(action) {
-                actionHistory.removeFirst()
-                return
-            }
-            try? await Task.sleep(for: .milliseconds(10))
+    func receive(expect: (Action) -> Bool) {
+        guard let index = actionHistory.firstIndex(where: expect) else {
+            Issue.record("Expected action was not received.")
+            return
         }
-
-        Issue.record("Expected action doesn't receive.")
+        actionHistory.remove(at: index)
     }
 }

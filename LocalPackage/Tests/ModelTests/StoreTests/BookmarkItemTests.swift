@@ -46,7 +46,7 @@ struct BookmarkItemTests {
             )
         }
         await sut.send(.dialogOKButtonTapped)
-        await sut.receive {
+        sut.receive {
             if case .onUpdateBookmark = $0 { true } else { false }
         }
         #expect(sut.title == "Test")
