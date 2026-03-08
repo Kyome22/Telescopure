@@ -1,6 +1,6 @@
 :::header
 
-# ![Telescopure](../Resources/icon.png =30x30) Telescopure
+# ![Telescopure](images/icon.png =30x30) Telescopure
 
 A minimal iOS browser — perfect for debugging web applications
 
@@ -78,25 +78,25 @@ Save and manage your favorite pages for quick access.
 ~ | :-----: | :-----: | :-----: | :-----: |
 
 :::warp ss-a
-![Browsing](../Resources/1-browsing-1.png =180x)
+![Browsing](images/1-browsing-1.png =180x)
 
 **Browsing**
 :::
 
 :::warp ss-b
-![Full Screen](../Resources/2-browsing-2.png =180x)
+![Full Screen](images/2-browsing-2.png =180x)
 
 **Full Screen**
 :::
 
 :::warp ss-c
-![Bookmarks](../Resources/3-bookmark.png =180x)
+![Bookmarks](images/3-bookmark.png =180x)
 
 **Bookmarks**
 :::
 
 :::warp ss-d
-![Settings](../Resources/4-settings-1.png =180x)
+![Settings](images/4-settings-1.png =180x)
 
 **Settings**
 :::
@@ -105,25 +105,25 @@ Save and manage your favorite pages for quick access.
 ~ | :-----: | :-----: | :-----: | :-----: |
 
 :::warp ss-e
-![Default Browser](../Resources/5-settings-2.png =180x)
+![Default Browser](images/5-settings-2.png =180x)
 
 **Default Browser**
 :::
 
 :::warp ss-f
-![Search Engine](../Resources/6-settings-3.png =180x)
+![Search Engine](images/6-settings-3.png =180x)
 
 **Search Engine**
 :::
 
 :::warp ss-g
-![Share Extension](../Resources/7-share-link-1.png =180x)
+![Share Extension](images/7-share-link-1.png =180x)
 
 **Share Extension**
 :::
 
 :::warp ss-h
-![Share Extension 2](../Resources/8-share-link-2.png =180x)
+![Share Extension 2](images/8-share-link-2.png =180x)
 
 **Share Extension (2)**
 :::
