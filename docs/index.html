@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Telescopure</title>
+    <!-- Default theme: clean, minimal -->
+    <link rel="stylesheet" href="https://hacknock.github.io/lobsterjs/style.css" />
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="module">
+      import { loadMarkdown } from "https://hacknock.github.io/lobsterjs/lobster.js";
+      loadMarkdown("./content.md", document.getElementById("content"));
+    </script>
+  </body>
+</html>
