@@ -1,0 +1,382 @@
+/* ============================================================
+   Telescopure — Custom lobster.js theme
+   Light base, engineer-friendly, section-grouped
+   ============================================================ */
+
+:root {
+  --lbs-bg:           #f5f6f8;
+  --lbs-surface:      #ffffff;
+  --lbs-surface-alt:  #f0f2f5;
+  --lbs-border:       #dde1e8;
+  --lbs-accent:       #2563eb;
+  --lbs-accent-light: #eff4ff;
+  --lbs-accent-dark:  #1d4ed8;
+  --lbs-text:         #1a1d23;
+  --lbs-header-bg:    #111827;
+  --lbs-footer-bg:    #1f2937;
+  --lbs-code-bg:      #f3f4f6;
+  --lbs-code-text:    #dc2626;
+  --lbs-shadow:       0 1px 4px rgba(0,0,0,0.08);
+  --lbs-shadow-md:    0 4px 16px rgba(0,0,0,0.10);
+
+  --lbs-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --lbs-font-mono: "SF Mono", "Fira Code", "JetBrains Mono", Consolas, "Courier New", monospace;
+
+  --lbs-radius:    8px;
+  --lbs-radius-lg: 12px;
+  --lbs-section-gap: 3rem;
+}
+
+/* ── Reset / base ─────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--lbs-bg);
+  color: var(--lbs-text);
+  font-family: var(--lbs-font-body);
+  font-size: 16px;
+  line-height: 1.75;
+}
+
+/* ── Content wrapper ──────────────────────────────────────── */
+
+#content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Full-bleed: header and footer break out of max-width ─── */
+
+.lbs-header,
+.lbs-footer {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+
+.lbs-header {
+  background: var(--lbs-header-bg);
+  color: #ffffff;
+  text-align: center;
+  padding: 3.5rem 2rem 3rem;
+  margin-bottom: 3rem;
+  border-bottom: 3px solid var(--lbs-accent);
+}
+
+.lbs-header .lbs-heading-1 {
+  color: #ffffff;
+  font-size: 2.4rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.5px;
+  border: none;
+}
+
+.lbs-header .lbs-paragraph {
+  color: #9ca3af;
+  font-size: 1.05rem;
+  margin: 0 0 1.25rem;
+}
+
+.lbs-header a {
+  display: inline-block;
+  margin: 0.25rem 0.4rem;
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--lbs-radius);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+
+.lbs-header a:first-of-type {
+  background: var(--lbs-accent);
+  color: #fff;
+}
+
+.lbs-header a:not(:first-of-type) {
+  background: rgba(255,255,255,0.1);
+  color: #d1d5db;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.lbs-header a:hover { opacity: 0.85; }
+
+.lbs-header .lbs-image {
+  display: inline;
+  vertical-align: middle;
+  border-radius: 6px;
+}
+
+/* ── Footer ──────────────────────────────────────────────── */
+
+.lbs-footer {
+  background: var(--lbs-footer-bg);
+  color: #9ca3af;
+  text-align: center;
+  padding: 2rem 2rem 4rem;
+  margin-top: var(--lbs-section-gap);
+  border-top: 3px solid var(--lbs-accent);
+}
+
+.lbs-footer .lbs-paragraph {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  margin: 0 0 0.5rem;
+}
+
+.lbs-footer a { color: #60a5fa; text-decoration: none; font-weight: 500; }
+.lbs-footer a:hover { text-decoration: underline; }
+
+/* ── Headings ─────────────────────────────────────────────── */
+
+.lbs-heading-1,
+.lbs-heading-2,
+.lbs-heading-3,
+.lbs-heading-4 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2rem 0 0.75rem;
+  color: var(--lbs-text);
+}
+
+.lbs-heading-2 {
+  font-size: 1.55rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--lbs-border);
+  margin-top: var(--lbs-section-gap);
+}
+
+.lbs-heading-3 {
+  font-size: 1.15rem;
+  color: var(--lbs-accent-dark);
+}
+
+/* ── Horizontal rule ─────────────────────────────────────── */
+
+.lbs-hr {
+  border: none;
+  border-top: 1px dashed var(--lbs-border);
+  margin: 1.5rem 0;
+}
+
+/* ── Paragraph ───────────────────────────────────────────── */
+
+.lbs-paragraph { margin: 0 0 1rem; }
+
+/* ── Links ───────────────────────────────────────────────── */
+
+a { color: var(--lbs-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Inline code ─────────────────────────────────────────── */
+
+.lbs-code-span {
+  background: var(--lbs-code-bg);
+  color: var(--lbs-code-text);
+  font-family: var(--lbs-font-mono);
+  font-size: 0.85em;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--lbs-border);
+}
+
+/* ── Code block ──────────────────────────────────────────── */
+
+.lbs-code-block {
+  background: #1e2433;
+  border-radius: var(--lbs-radius);
+  overflow: hidden;
+  margin: 1.25rem 0;
+  box-shadow: var(--lbs-shadow-md);
+}
+
+.lbs-code-filename {
+  background: #161c2a;
+  color: #6b7280;
+  font-family: var(--lbs-font-mono);
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #2d3748;
+}
+
+.lbs-code-block pre { margin: 0; padding: 1.25rem 1.5rem; overflow-x: auto; }
+.lbs-code-block code {
+  font-family: var(--lbs-font-mono);
+  font-size: 0.88rem;
+  color: #e2e8f0;
+  line-height: 1.65;
+}
+
+/* ── Blockquote ──────────────────────────────────────────── */
+
+.lbs-blockquote {
+  border-left: 4px solid var(--lbs-accent);
+  background: var(--lbs-accent-light);
+  margin: 1.25rem 0;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 var(--lbs-radius) var(--lbs-radius) 0;
+}
+
+.lbs-blockquote .lbs-paragraph { margin: 0; color: #374151; }
+
+/* ── Lists ───────────────────────────────────────────────── */
+
+.lbs-ul, .lbs-ol { padding-left: 1.5rem; margin: 0 0 1rem; }
+.lbs-list-item { margin-bottom: 0.35rem; }
+
+/* ── Table (standard) ────────────────────────────────────── */
+
+.lbs-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.92rem;
+  box-shadow: var(--lbs-shadow);
+  border-radius: var(--lbs-radius);
+  overflow: hidden;
+}
+
+.lbs-table thead th {
+  background: var(--lbs-header-bg);
+  color: #d1d5db;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.lbs-table tbody tr { background: var(--lbs-surface); }
+.lbs-table tbody tr:nth-child(even) { background: var(--lbs-surface-alt); }
+.lbs-table td { padding: 0.6rem 1rem; border-top: 1px solid var(--lbs-border); }
+
+/* ── Table (silent — Warp layout grid) ──────────────────── */
+/* Content lives in <thead><tr><th> — warp_ref nodes render there */
+
+.lbs-table-silent {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  table-layout: fixed;
+  width: 100%;
+}
+
+/* th contains the actual warp content */
+.lbs-table-silent th {
+  border: none !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+  text-transform: none !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  padding: 0 0.5rem 0 0 !important; /* gap between columns via right padding */
+  vertical-align: top !important;
+}
+
+.lbs-table-silent th:last-child {
+  padding-right: 0 !important;
+}
+
+/* Warp blocks fill full cell height */
+.lbs-table-silent th > .lbs-warp {
+  height: 100%;
+}
+
+/* Screenshot cells: center image and caption */
+.lbs-table-silent th > .lbs-warp:has(.lbs-image) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1rem;
+}
+
+.lbs-table-silent .lbs-image {
+  margin: 0 auto;
+  display: block;
+}
+
+/* td (alignment row content) — invisible */
+.lbs-table-silent td {
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* ── Warp blocks ─────────────────────────────────────────── */
+
+.lbs-warp {
+  background: var(--lbs-surface);
+  border: 1px solid var(--lbs-border);
+  border-radius: var(--lbs-radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--lbs-shadow);
+}
+
+/* ── Details / summary ───────────────────────────────────── */
+
+.lbs-details {
+  background: var(--lbs-surface);
+  border: 1px solid var(--lbs-border);
+  border-radius: var(--lbs-radius);
+  padding: 0.75rem 1.25rem;
+  margin: 1.25rem 0;
+}
+
+.lbs-summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--lbs-accent-dark);
+  list-style: none;
+  padding: 0.25rem 0;
+  user-select: none;
+}
+
+.lbs-summary::before { content: "▶ "; font-size: 0.75em; }
+.lbs-details[open] .lbs-summary::before { content: "▼ "; }
+.lbs-details[open] { padding-bottom: 1rem; }
+
+/* ── Images ──────────────────────────────────────────────── */
+
+.lbs-image {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--lbs-radius);
+}
+
+/* ── Strong / emphasis ───────────────────────────────────── */
+
+.lbs-strong { font-weight: 700; }
+.lbs-emphasis { font-style: italic; }
+
+/* ── Responsive ──────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  #content { padding: 0 1rem; }
+  .lbs-header { padding: 2.5rem 1rem 2rem; }
+  .lbs-heading-1 { font-size: 1.8rem; }
+  .lbs-heading-2 { font-size: 1.3rem; }
+
+  /* Stack warp columns vertically on small screens */
+  .lbs-table-silent,
+  .lbs-table-silent tbody,
+  .lbs-table-silent tr,
+  .lbs-table-silent td {
+    display: block !important;
+    width: 100% !important;
+    border-spacing: 0 !important;
+    margin: 0 !important;
+  }
+  .lbs-table-silent td { margin-bottom: 0.75rem !important; }
+
+  .lbs-table { font-size: 0.82rem; }
+  .lbs-table thead th,
+  .lbs-table td { padding: 0.5rem 0.65rem; }
+}
