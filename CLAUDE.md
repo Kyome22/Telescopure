@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Telescopure is a minimal iOS browser app (available on the App Store) built with Swift 6.2 targeting iOS 18+, developed with Xcode 26.0.1+. It can be set as the default browser and is useful for debugging web applications.
+Telescopure is a minimal iOS browser app (available on the App Store) built with Swift 6.2 targeting iOS 18+, developed with Xcode 26.2+. It can be set as the default browser and is useful for debugging web applications.
 
 ## Build & Test
 

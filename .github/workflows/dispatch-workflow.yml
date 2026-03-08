@@ -16,7 +16,7 @@ jobs:
     name: Test
     runs-on: macos-15
     env:
-      DEVELOPER_DIR: "/Applications/Xcode_26.0.1.app/Contents/Developer"
+      DEVELOPER_DIR: "/Applications/Xcode_26.2.app/Contents/Developer"
       DERIVED_DATA: "DerivedData"
       CODE_SIGNING_ALLOWED: "NO"
 
@@ -35,7 +35,7 @@ jobs:
           xcodebuild clean build-for-testing \
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.2" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -skipPackagePluginValidation \
             -skipMacroValidation | \
@@ -47,7 +47,7 @@ jobs:
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
             -only-testing:ModelTests \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.2" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/unit_test_result_bundle \
             -skipPackagePluginValidation \
@@ -61,7 +61,7 @@ jobs:
             -project Telescopure.xcodeproj \
             -scheme Telescopure \
             -only-testing:TelescopureUITests \
-            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.0.1" \
+            -destination "platform=iOS Simulator,name=iPhone 17,OS=26.2" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/ui_test_result_bundle \
             -skipPackagePluginValidation \
