@@ -38,7 +38,7 @@ import UniformTypeIdentifiers
             }
 
         case .cancelButtonTapped:
-            nsExtensionContextClient.cancelRequest(extensionContext(), ShareError.canceled)
+            nsExtensionContextClient.cancelRequest(extensionContext(), SharedError.canceled)
 
         case .confirmButtonTapped:
             defer {
@@ -49,10 +49,10 @@ import UniformTypeIdentifiers
         }
     }
 
-    private func extractSharedItem(from context: NSExtensionContext?) async -> Result<SharedType, ShareError> {
+    private func extractSharedItem(from context: NSExtensionContext?) async -> Result<SharedType, SharedError> {
         guard let item = nsExtensionContextClient.inputItems(context).first as? NSExtensionItem,
               let attachment = item.attachments?.first else {
-            return .failure(ShareError.nonAttachmentsItem)
+            return .failure(SharedError.nonAttachmentsItem)
         }
         let urlID = UTType.url.identifier
         let plainTextID = UTType.plainText.identifier

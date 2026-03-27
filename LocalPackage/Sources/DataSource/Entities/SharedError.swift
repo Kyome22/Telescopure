@@ -1,6 +1,6 @@
 import Foundation
 
-public enum ShareError: Equatable, LocalizedError {
+public enum SharedError: Equatable, LocalizedError {
     case nonAttachmentsItem
     case nonURLItem
     case nonTextItem

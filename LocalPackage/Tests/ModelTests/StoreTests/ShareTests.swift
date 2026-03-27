@@ -22,7 +22,7 @@ struct ShareTests {
             sharedType: .undefined
         )
         await sut.send(.task)
-        #expect(errors.withLock(\.self).compactMap({ $0 as? ShareError }) == [ShareError.nonAttachmentsItem])
+        #expect(errors.withLock(\.self).compactMap({ $0 as? SharedError }) == [SharedError.nonAttachmentsItem])
     }
 
     @MainActor @Test
@@ -46,7 +46,7 @@ struct ShareTests {
             sharedType: .undefined
         )
         await sut.send(.task)
-        #expect(errors.withLock(\.self).compactMap({ $0 as? ShareError }) == [ShareError.nonSupportedItem])
+        #expect(errors.withLock(\.self).compactMap({ $0 as? SharedError }) == [SharedError.nonSupportedItem])
     }
 
     @MainActor @Test
@@ -109,7 +109,7 @@ struct ShareTests {
             sharedType: .undefined
         )
         await sut.send(.cancelButtonTapped)
-        #expect(errors.withLock(\.self).compactMap({ $0 as? ShareError }) == [ShareError.canceled])
+        #expect(errors.withLock(\.self).compactMap({ $0 as? SharedError }) == [SharedError.canceled])
     }
 
     @MainActor @Test
