@@ -1,5 +1,5 @@
 {
-  "originHash" : "60824714c0ca28373c9b3ee23328ba0a2eda277df9da65e90d46b8426c5da5b0",
+  "originHash" : "fcbbaca485ec7c0b1645fbae67b13d829be01ef3f2a287a467b17e3e2e0f080a",
   "pins" : [
     {
       "identity" : "licenselist",
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cybozu/WebUI.git",
       "state" : {
-        "revision" : "d1408d9ad8056f4619b71f06a0b0ba1ff553f3a3",
-        "version" : "4.2.1"
+        "revision" : "6a33019e41dc1843679f2c3f17b3956526e37b0a",
+        "version" : "4.5.0"
       }
     }
   ],
