@@ -27,7 +27,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-log.git", exact: "1.10.1"),
+        .package(url: "https://github.com/apple/swift-log.git", exact: "1.16.2"),
         .package(url: "https://github.com/cybozu/LicenseList.git", exact: "2.5.0"),
         .package(url: "https://github.com/cybozu/WebUI.git", exact: "4.5.0"),
     ],
