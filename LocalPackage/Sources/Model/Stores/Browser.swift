@@ -249,6 +249,14 @@ import WebUI
             }
             await loadErrorPage(with: error)
 
+        case let .browserUI(.createWebView(request)):
+            guard let requestURL = request.url,
+                  !requestURL.absoluteString.isEmpty,
+                  requestURL.absoluteString != "about:blank" else {
+                return
+            }
+            await webViewProxyClient.load(request)
+
         case let .browserUI(.runJavaScriptAlertPanel(message)):
             await presentWebDialog(.alert(message))
 

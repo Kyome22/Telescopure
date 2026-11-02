@@ -14,6 +14,10 @@ import WebKit
         self.action = action
     }
 
+    func createWebView(with request: URLRequest) async {
+        await action(.createWebView(request))
+    }
+
     func runJavaScriptAlertPanel(with message: String) async {
         await action(.runJavaScriptAlertPanel(message))
         for await _ in appStateClient.withLock(\.alertResponseSubject.values) {
@@ -38,6 +42,7 @@ import WebKit
     }
 
     public enum Action: Sendable {
+        case createWebView(URLRequest)
         case runJavaScriptAlertPanel(String)
         case runJavaScriptConfirmPanel(String)
         case runJavaScriptTextInputPanel(String, String?)
@@ -49,6 +54,19 @@ public final class BrowserUIDelegate: NSObject, WKUIDelegate, ObservableObject {
 
     init(store: BrowserUI) {
         self.store = store
+    }
+
+    public func webView(
+        _ webView: WKWebView,
+        createWebViewWith configuration: WKWebViewConfiguration,
+        for navigationAction: WKNavigationAction,
+        windowFeatures: WKWindowFeatures
+    ) -> WKWebView? {
+        let request = navigationAction.request
+        Task {
+            await store.createWebView(with: request)
+        }
+        return nil
     }
 
     // Alert

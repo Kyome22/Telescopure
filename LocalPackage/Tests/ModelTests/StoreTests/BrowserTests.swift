@@ -355,6 +355,37 @@ struct BrowserTests {
     }
 
     @MainActor @Test
+    func send_browserUI_createWebView_loads_request() async {
+        let loadedRequest = OSAllocatedUnfairLock<URLRequest?>(initialState: nil)
+        let sut = Browser(.testDependencies(
+            webViewProxyClient: testDependency(of: WebViewProxyClient.self) {
+                $0.load = { request in
+                    loadedRequest.withLock { $0 = request }
+                }
+            }
+        ))
+        let request = URLRequest(url: URL(string: "https://test.com")!)
+        await sut.send(.browserUI(.createWebView(request)))
+        #expect(loadedRequest.withLock(\.self) == request)
+    }
+
+    @MainActor @Test(arguments: ["about:blank", nil] as [String?])
+    func send_browserUI_createWebView_ignores_blank_request(_ urlString: String?) async {
+        let loadCount = OSAllocatedUnfairLock(initialState: 0)
+        let sut = Browser(.testDependencies(
+            webViewProxyClient: testDependency(of: WebViewProxyClient.self) {
+                $0.load = { _ in
+                    loadCount.withLock { $0 += 1 }
+                }
+            }
+        ))
+        var request = URLRequest(url: URL(string: "https://test.com")!)
+        request.url = urlString.flatMap { URL(string: $0) }
+        await sut.send(.browserUI(.createWebView(request)))
+        #expect(loadCount.withLock(\.self) == 0)
+    }
+
+    @MainActor @Test
     func send_browserUI_runJavaScriptAlertPanel() async {
         let appState = OSAllocatedUnfairLock<AppState>(initialState: .init())
         let sut = Browser(.testDependencies(
