@@ -1,41 +1,6 @@
 import Model
 import SwiftUI
 
-struct BrowserNavigationButtons: View {
-    @Environment(\.canGoBack) private var canGoBack
-    @Environment(\.canGoForward) private var canGoForward
-    var store: Browser
-
-    var body: some View {
-        Button {
-            Task {
-                await store.send(.goBackButtonTapped)
-            }
-        } label: {
-            Label {
-                Text("goBack", bundle: .module)
-            } icon: {
-                Image(systemName: "chevron.backward")
-            }
-        }
-        .disabled(!canGoBack)
-        .accessibilityIdentifier("goBackButton")
-        Button {
-            Task {
-                await store.send(.goForwardButtonTapped)
-            }
-        } label: {
-            Label {
-                Text("goForward", bundle: .module)
-            } icon: {
-                Image(systemName: "chevron.forward")
-            }
-        }
-        .disabled(!canGoForward)
-        .accessibilityIdentifier("goForwardButton")
-    }
-}
-
 struct BrowserActionButtons: View {
     @Environment(\.appDependencies) private var appDependencies
     @Bindable var store: Browser
@@ -83,24 +48,5 @@ struct BrowserActionButtons: View {
             }
         }
         .accessibilityIdentifier("hideToolbarButton")
-    }
-}
-
-struct ShowToolbarButton: View {
-    var store: Browser
-
-    var body: some View {
-        Button {
-            Task {
-                await store.send(.showToolbarButtonTapped)
-            }
-        } label: {
-            Label {
-                Text("showToolbar", bundle: .module)
-            } icon: {
-                Image(systemName: "arrow.down.right.and.arrow.up.left")
-            }
-        }
-        .accessibilityIdentifier("showToolbarButton")
     }
 }
