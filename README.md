@@ -92,7 +92,7 @@ Telescopure can be set as default browser app.
 
 The following page can be used for debugging Telescopure.
 
-https://kyome.io/debug/index.html
+https://cybozu.github.io/webview-debugger/index.html
 
 ### JS Dialogs
 

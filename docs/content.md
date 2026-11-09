@@ -171,7 +171,7 @@ Receives `AppDependencies` via SwiftUI's `@Environment` and interacts with Model
 
 ## Debug Functions
 
-Telescopure is built for debugging. Use the test page at https://kyome.io/debug/index.html to verify the following features.
+Telescopure is built for debugging. Use the test page at https://cybozu.github.io/webview-debugger/index.html to verify the following features.
 
 ### JavaScript Dialogs
 
