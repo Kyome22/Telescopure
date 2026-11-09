@@ -3,14 +3,13 @@ import SwiftUI
 import WebUI
 
 struct BrowserView: View {
-    @Environment(\.usesSystemToolbar) private var usesSystemToolbar
-    @Environment(\.usesVerticalToolbar) private var usesVerticalToolbar
+    @Environment(\.browserToolbarLayout) private var browserToolbarLayout
     @StateObject var store: Browser
 
     private var ignoredContainerSafeAreaEdges: Edge.Set {
         if !store.isPresentedToolbar {
             .all
-        } else if usesVerticalToolbar {
+        } else if browserToolbarLayout == .verticalBar {
             .bottom
         } else {
             []
@@ -41,7 +40,7 @@ struct BrowserView: View {
                                     LogoView()
                                 }
                             }
-                        if store.isPresentedToolbar, !usesSystemToolbar {
+                        if store.isPresentedToolbar, !browserToolbarLayout.usesSystemToolbar {
                             Footer(store: store)
                                 .transition(.move(edge: .bottom))
                         }
@@ -51,7 +50,7 @@ struct BrowserView: View {
                     .ignoresSafeArea(.keyboard, edges: .bottom)
                     .toolbarVisibility(.hidden, for: .navigationBar)
                     .toolbar {
-                        if usesSystemToolbar {
+                        if browserToolbarLayout.usesSystemToolbar {
                             ToolbarItemGroup(placement: .bottomBar) {
                                 if store.isPresentedToolbar {
                                     BrowserNavigationButtons(store: store)
@@ -85,13 +84,13 @@ struct BrowserView: View {
                     }
                 }
             }
-            if !store.isPresentedToolbar, !usesSystemToolbar {
+            if !store.isPresentedToolbar, !browserToolbarLayout.usesSystemToolbar {
                 FloatingShowToolbarButton(store: store)
                     .padding(20)
                     .transition(.move(edge: .bottom))
             }
         }
-        .ignoresSafeArea(.container, edges: store.isPresentedToolbar || usesSystemToolbar ? [] : .all)
+        .ignoresSafeArea(.container, edges: store.isPresentedToolbar || browserToolbarLayout.usesSystemToolbar ? [] : .all)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(item: $store.settings) { store in
             SettingsView(store: store)
@@ -131,10 +130,19 @@ private struct FoldableLayoutResolver: ViewModifier {
     @Environment(\.toolbarVerticalEdge) private var toolbarVerticalEdge
     @State private var hinge: DeviceHinge?
 
+    private var browserToolbarLayout: BrowserToolbarLayout {
+        if toolbarVerticalEdge != nil {
+            .verticalBar
+        } else if hinge != nil {
+            .floatingBar
+        } else {
+            .footer
+        }
+    }
+
     func body(content: Content) -> some View {
         content
-            .environment(\.usesSystemToolbar, hinge != nil || toolbarVerticalEdge != nil)
-            .environment(\.usesVerticalToolbar, toolbarVerticalEdge != nil)
+            .environment(\.browserToolbarLayout, browserToolbarLayout)
             .statusBarHidden(hinge.map { $0.status != .closed } ?? false)
             .onHingeChange { _, newContext in
                 hinge = newContext.hinge

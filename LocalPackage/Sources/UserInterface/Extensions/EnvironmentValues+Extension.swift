@@ -5,6 +5,5 @@ extension EnvironmentValues {
     @Entry var canGoForward = false
     @Entry var isLoading = false
     @Entry var estimatedProgress = Double.zero
-    @Entry var usesSystemToolbar = false
-    @Entry var usesVerticalToolbar = false
+    @Entry var browserToolbarLayout = BrowserToolbarLayout.footer
 }
