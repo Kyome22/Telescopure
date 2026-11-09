@@ -1,7 +1,7 @@
 import Model
 import SwiftUI
 
-struct ShowToolbarButton: View {
+struct FloatingShowToolbarButton: View {
     @ScaledMetric private var imageSize = 40
     var store: Browser
 
@@ -15,7 +15,7 @@ struct ShowToolbarButton: View {
                 Label {
                     Text("showToolbar", bundle: .module)
                 } icon: {
-                    Image(systemName: "chevron.up")
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
                         .imageScale(.large)
                         .frame(width: imageSize, height: imageSize)
                 }
@@ -34,7 +34,7 @@ struct ShowToolbarButton: View {
                 Label {
                     Text("showToolbar", bundle: .module)
                 } icon: {
-                    Image(systemName: "chevron.up")
+                    Image(systemName: "arrow.down.right.and.arrow.up.left")
                         .imageScale(.large)
                         .frame(width: imageSize, height: imageSize)
                         .background(Color(.floating), in: .circle)
@@ -49,5 +49,5 @@ struct ShowToolbarButton: View {
 }
 
 #Preview {
-    ShowToolbarButton(store: .init(.testDependencies()))
+    FloatingShowToolbarButton(store: .init(.testDependencies()))
 }

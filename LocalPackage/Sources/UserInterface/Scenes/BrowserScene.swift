@@ -9,6 +9,7 @@ public struct BrowserScene: Scene {
     public var body: some Scene {
         WindowGroup {
             BrowserView(store: .init(appDependencies))
+                .resolvesFoldableLayout()
         }
     }
 }

@@ -3,39 +3,70 @@ import SwiftUI
 import WebUI
 
 struct BrowserView: View {
+    @Environment(\.usesSystemToolbar) private var usesSystemToolbar
+    @Environment(\.usesVerticalToolbar) private var usesVerticalToolbar
     @StateObject var store: Browser
+
+    private var ignoredContainerSafeAreaEdges: Edge.Set {
+        if !store.isPresentedToolbar {
+            .all
+        } else if usesVerticalToolbar {
+            .bottom
+        } else {
+            []
+        }
+    }
 
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             WebViewReader { proxy in
-                VStack(spacing: 0) {
-                    if store.isPresentedToolbar {
-                        Header(store: store)
-                            .transition(.move(edge: .top))
-                            .environment(\.isLoading, proxy.isLoading)
-                            .environment(\.estimatedProgress, proxy.estimatedProgress)
+                NavigationStack {
+                    VStack(spacing: 0) {
+                        if store.isPresentedToolbar {
+                            Header(store: store)
+                                .transition(.move(edge: .top))
+                                .environment(\.isLoading, proxy.isLoading)
+                                .environment(\.estimatedProgress, proxy.estimatedProgress)
+                        }
+                        WebView(configuration: .forTelescopure)
+                            .navigationDelegate(store.navigationDelegate)
+                            .uiDelegate(store.uiDelegate)
+                            .refreshable()
+                            .allowsBackForwardNavigationGestures(true)
+                            .allowsOpaqueDrawing(proxy.url != nil)
+                            .allowsInspectable(true)
+                            .pageScaleFactor(store.pageScale.value)
+                            .overlay {
+                                if proxy.url == nil {
+                                    LogoView()
+                                }
+                            }
+                        if store.isPresentedToolbar, !usesSystemToolbar {
+                            Footer(store: store)
+                                .transition(.move(edge: .bottom))
+                        }
                     }
-                    WebView(configuration: .forTelescopure)
-                        .navigationDelegate(store.navigationDelegate)
-                        .uiDelegate(store.uiDelegate)
-                        .refreshable()
-                        .allowsBackForwardNavigationGestures(true)
-                        .allowsOpaqueDrawing(proxy.url != nil)
-                        .allowsInspectable(true)
-                        .pageScaleFactor(store.pageScale.value)
-                        .overlay {
-                            if proxy.url == nil {
-                                LogoView()
+                    .background(Color(.secondarySystemBackground))
+                    .ignoresSafeArea(.container, edges: ignoredContainerSafeAreaEdges)
+                    .ignoresSafeArea(.keyboard, edges: .bottom)
+                    .toolbarVisibility(.hidden, for: .navigationBar)
+                    .toolbar {
+                        if usesSystemToolbar {
+                            ToolbarItemGroup(placement: .bottomBar) {
+                                if store.isPresentedToolbar {
+                                    BrowserNavigationButtons(store: store)
+                                    Spacer()
+                                    BrowserActionButtons(store: store)
+                                } else {
+                                    Spacer()
+                                    ShowToolbarButton(store: store)
+                                }
                             }
                         }
-                    if store.isPresentedToolbar {
-                        Footer(store: store)
-                            .transition(.move(edge: .bottom))
-                            .environment(\.canGoBack, proxy.canGoBack)
-                            .environment(\.canGoForward, proxy.canGoForward)
                     }
+                    .environment(\.canGoBack, proxy.canGoBack)
+                    .environment(\.canGoForward, proxy.canGoForward)
                 }
-                .background(Color(.secondarySystemBackground))
                 .task {
                     await store.send(.task(
                         String(describing: Self.self),
@@ -53,14 +84,14 @@ struct BrowserView: View {
                         await store.send(.onChangeTitle(newValue))
                     }
                 }
-                if !store.isPresentedToolbar {
-                    ShowToolbarButton(store: store)
-                        .padding(20)
-                        .transition(.move(edge: .bottom))
-                }
+            }
+            if !store.isPresentedToolbar, !usesSystemToolbar {
+                FloatingShowToolbarButton(store: store)
+                    .padding(20)
+                    .transition(.move(edge: .bottom))
             }
         }
-        .ignoresSafeArea(.container, edges: store.isPresentedToolbar ? [] : .all)
+        .ignoresSafeArea(.container, edges: store.isPresentedToolbar || usesSystemToolbar ? [] : .all)
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .sheet(item: $store.settings) { store in
             SettingsView(store: store)
@@ -92,6 +123,33 @@ struct BrowserView: View {
             }
         }
         .animation(.easeIn(duration: 0.2), value: store.isPresentedToolbar)
+    }
+}
+
+@available(iOS 27.1, *)
+private struct FoldableLayoutResolver: ViewModifier {
+    @Environment(\.toolbarVerticalEdge) private var toolbarVerticalEdge
+    @State private var hinge: DeviceHinge?
+
+    func body(content: Content) -> some View {
+        content
+            .environment(\.usesSystemToolbar, hinge != nil || toolbarVerticalEdge != nil)
+            .environment(\.usesVerticalToolbar, toolbarVerticalEdge != nil)
+            .statusBarHidden(hinge.map { $0.status != .closed } ?? false)
+            .onHingeChange { _, newContext in
+                hinge = newContext.hinge
+            }
+    }
+}
+
+extension View {
+    @ViewBuilder
+    func resolvesFoldableLayout() -> some View {
+        if #available(iOS 27.1, *) {
+            modifier(FoldableLayoutResolver())
+        } else {
+            self
+        }
     }
 }
 
