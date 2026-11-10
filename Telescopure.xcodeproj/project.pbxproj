@@ -314,7 +314,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.0;
+				CURRENT_PROJECT_VERSION = 2.6.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TelescopureShare/Info.plist;
@@ -341,7 +341,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.0;
+				CURRENT_PROJECT_VERSION = 2.6.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TelescopureShare/Info.plist;
@@ -501,7 +501,7 @@
 				CODE_SIGN_ENTITLEMENTS = Telescopure/Telescopure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.0;
+				CURRENT_PROJECT_VERSION = 2.6.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -541,7 +541,7 @@
 				CODE_SIGN_ENTITLEMENTS = Telescopure/Telescopure.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2.6.0;
+				CURRENT_PROJECT_VERSION = 2.6.1;
 				DEVELOPMENT_TEAM = VJ5N2X84K8;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
