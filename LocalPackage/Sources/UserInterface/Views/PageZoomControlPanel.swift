@@ -12,7 +12,11 @@ struct PageZoomControlPanel: View {
                     await zoomButtonTapped(.zoomOut)
                 }
             } label: {
-                Image(systemName: "minus.magnifyingglass")
+                Label {
+                    Text("zoomOut", bundle: .module)
+                } icon: {
+                    Image(systemName: "minus.magnifyingglass")
+                }
             }
             .buttonStyle(.toolbar)
             .accessibilityIdentifier("zoomOutButton")
@@ -26,6 +30,8 @@ struct PageZoomControlPanel: View {
                     .monospaced()
             }
             .buttonStyle(.borderless)
+            .accessibilityLabel(Text("resetZoom", bundle: .module))
+            .accessibilityValue(Text(pageScale.value, format: .percent))
             .accessibilityIdentifier("zoomResetButton")
             .disabled(pageScale == .scale100)
             Divider()
@@ -34,7 +40,11 @@ struct PageZoomControlPanel: View {
                     await zoomButtonTapped(.zoomIn)
                 }
             } label: {
-                Image(systemName: "plus.magnifyingglass")
+                Label {
+                    Text("zoomIn", bundle: .module)
+                } icon: {
+                    Image(systemName: "plus.magnifyingglass")
+                }
             }
             .buttonStyle(.toolbar)
             .accessibilityIdentifier("zoomInButton")

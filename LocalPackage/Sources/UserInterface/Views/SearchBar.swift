@@ -23,7 +23,7 @@ struct SearchBar: View {
                 .textInputAutocapitalization(.never)
                 .textSelectionAffinity(.upstream)
                 .focused($focusedField, equals: .search)
-                .foregroundStyle(Color(.systemGray))
+                .foregroundStyle(Color.primary)
                 .onSubmit {
                     Task {
                         await store.send(.onSubmit(store.inputText))
