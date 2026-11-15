@@ -1,15 +1,17 @@
-name: Dispatch Workflow
+name: Test
 
 on:
   workflow_dispatch:
     inputs:
       ui-test-flag:
-        type: choice
+        type: boolean
         description: Run UI tests?
         required: true
-        options:
-          - "Yes"
-          - "No"
+        default: false
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   test:
@@ -38,8 +40,8 @@ jobs:
             -destination "platform=iOS Simulator,name=iPhone 17,OS=27.0" \
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -skipPackagePluginValidation \
-            -skipMacroValidation | \
-            xcbeautify && exit ${PIPESTATUS[0]}
+            -skipMacroValidation |
+            xcbeautify
 
       - name: Unit Test
         run: |
@@ -51,11 +53,11 @@ jobs:
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/unit_test_result_bundle \
             -skipPackagePluginValidation \
-            -skipMacroValidation | \
-            xcbeautify && exit ${PIPESTATUS[0]}
+            -skipMacroValidation |
+            xcbeautify
 
       - name: UI Test
-        if: github.event.inputs.ui-test-flag == 'YES'
+        if: inputs.ui-test-flag
         run: |
           xcodebuild test-without-building \
             -project Telescopure.xcodeproj \
@@ -65,5 +67,5 @@ jobs:
             -derivedDataPath ${{ env.DERIVED_DATA }} \
             -resultBundlePath TestResults/ui_test_result_bundle \
             -skipPackagePluginValidation \
-            -skipMacroValidation | \
-            xcbeautify && exit ${PIPESTATUS[0]}
+            -skipMacroValidation |
+            xcbeautify
