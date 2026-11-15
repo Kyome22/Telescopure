@@ -28,8 +28,15 @@ https://apps.apple.com/us/app/telescopure/id1643406104
 ## Supported languages
 
 - English (primary)
+- Chinese (Simplified)
+- Chinese (Traditional)
+- French
+- German
 - Japanese
 - Korean
+- Russian
+- Spanish
+- Vietnamese
 
 ## Screenshots
 

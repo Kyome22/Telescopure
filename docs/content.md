@@ -14,7 +14,7 @@ A minimal iOS browser — perfect for debugging web applications
 
 - Built with **Swift 6.2** and **SwiftUI**
 - Requires **iOS 18.0+**
-- Supports **English, Japanese, and Korean**
+- Supports **English, Chinese (Simplified and Traditional), French, German, Japanese, Korean, Russian, Spanish, and Vietnamese**
 - Open source under the **MIT License**
 
 ---

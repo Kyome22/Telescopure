@@ -244,8 +244,15 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				fr,
 				ja,
 				ko,
+				ru,
+				vi,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 1C67D11B2AE02C8F009F4A60;
 			preferredProjectObjectVersion = 90;
