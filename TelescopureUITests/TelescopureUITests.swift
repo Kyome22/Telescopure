@@ -6,17 +6,18 @@ final class TelescopureUITests: XCTestCase {
     }
 
     @MainActor
-    func testSearchKeyword() throws {
+    func testSearchKeyword() {
         let app = XCUIApplication()
+        app.launchArguments = ["ResetUserDefaults", "UseUITestSearchResult"]
         app.launch()
 
         let searchTextField = app.textFields["searchTextField"]
         searchTextField.tap()
         searchTextField.typeText("apple\n")
 
-        let actual = try XCTUnwrap(searchTextField.value as? String)
-        let expect = "https://www.google.com/search?q=apple"
-        XCTAssertTrue(actual.hasPrefix(expect))
+        let searchedURLPredicate = NSPredicate(format: "value BEGINSWITH 'file://' AND value ENDSWITH 'uitest-search-result.html?q=apple'")
+        let searchedURLExpectation = expectation(for: searchedURLPredicate, evaluatedWith: searchTextField)
+        wait(for: [searchedURLExpectation], timeout: 10)
     }
 
     @MainActor
