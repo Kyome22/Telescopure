@@ -296,11 +296,20 @@ import WebUI
                 url
             }
         } else {
-            URLComponents(string: searchEngine.urlWithQuery(keywords: text))?.url
+            searchURL(with: text, searchEngine: searchEngine)
         }
         if let url {
             await webViewProxyClient.load(URLRequest(url: url))
         }
+    }
+
+    private func searchURL(with keywords: String, searchEngine: SearchEngine) -> URL? {
+#if DEBUG
+        if ProcessInfo.usesUITestSearchResult, let fileURL = eventBridge?.getResourceURL?("uitest-search-result", "html") {
+            return fileURL.appending(queryItems: [URLQueryItem(name: "q", value: keywords)])
+        }
+#endif
+        return URLComponents(string: searchEngine.urlWithQuery(keywords: keywords))?.url
     }
 
     private func loadErrorPage(with error: any Error) async {
